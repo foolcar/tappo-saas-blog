@@ -52,12 +52,7 @@ function readingTime(text: string): string {
   type="website"
 >
   <!-- ═══════════ Compact Header — 精簡索引頭 ═══════════ -->
-  <section class="border-b bg-white" style={`border-color: ${tint(cat.color, 0.15)}`}>
-    <div
-      class="absolute top-0 left-0 right-0 h-0.5"
-      style={`background: linear-gradient(90deg, ${cat.color}, ${tint(cat.color, 0.2)})`}
-    ></div>
-
+  <section class="relative border-b bg-white" style={`border-color: ${tint(cat.color, 0.15)}`}>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Breadcrumb + Category badge -->
       <div class="flex items-center gap-3 mb-4 flex-wrap">
@@ -108,13 +103,11 @@ function readingTime(text: string): string {
               month: 'short', day: 'numeric',
             });
             return (
-              <article class="group relative bg-white rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all duration-200 overflow-hidden">
-                <div
-                  class="absolute left-0 top-2.5 bottom-2.5 w-[3px] rounded-r-full opacity-50 group-hover:opacity-100 transition-opacity"
-                  style={`background: ${cat.color}`}
-                ></div>
-
-                <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block pl-6 pr-5 py-4 sm:pl-8 sm:pr-6 sm:py-5">
+              <article
+                class="group relative bg-white rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all duration-200"
+                style={`border-left: 3px solid ${tint(cat.color, 0.25)}`}
+              >
+                <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block pl-5 pr-5 py-4 sm:pl-6 sm:pr-6 sm:py-5">
                   <div class="flex items-start justify-between gap-3">
                     <div class="flex-1 min-w-0">
                       <h2 class="text-base sm:text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug line-clamp-1">
