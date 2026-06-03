@@ -1,0 +1,83 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag: tag.replace(/\//g, '-') },
+  }));
+};
+
+const { tag } = Astro.params;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags))];
+const slugToTag = new Map(allTags.map((t) => [t.replace(/\//g, '-'), t]));
+
+const originalTag = slugToTag.get(tag);
+if (!originalTag) {
+  return Astro.redirect(`${import.meta.env.BASE_URL}tags`);
+}
+
+const posts = allPosts
+  .filter((p) => p.data.tags.includes(originalTag))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const pageTitle = `「${originalTag}」相關文章`;
+const pageDesc = `瀏覽標籤為「${originalTag}」的所有文章 — 餐飲SaaS出海實戰經驗分享。`;
+---
+
+<BlogLayout
+  title={pageTitle}
+  description={pageDesc}
+  type="website"
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <a
+      href={`${import.meta.env.BASE_URL}tags`}
+      class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors mb-6"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      所有標籤
+    </a>
+
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+      標籤：<span class="text-blue-600">{originalTag}</span>
+    </h1>
+    <p class="text-gray-500 mb-10">{posts.length} 篇文章</p>
+
+    {
+      posts.length === 0 ? (
+        <div class="text-center py-24 text-gray-500">
+          <p class="text-xl font-medium text-gray-700 mb-2">暫無文章</p>
+        </div>
+      ) : (
+        <div class="grid gap-6">
+          {posts.map((post) => (
+            <article class="group bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-300 overflow-hidden">
+              <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block p-6">
+                <h2 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                  {post.data.title}
+                </h2>
+                <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                  {post.data.description}
+                </p>
+                <div class="flex items-center gap-3 text-xs text-gray-400">
+                  <time datetime={post.data.date.toISOString().split('T')[0]}>
+                    {post.data.date.toLocaleDateString('zh-Hant', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </time>
+                  <span class="text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">{post.data.category}</span>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</BlogLayout>
