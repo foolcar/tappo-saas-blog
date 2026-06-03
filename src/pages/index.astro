@@ -60,7 +60,7 @@ const categoryMap: Record<string, string> = {
                   <h3 class="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug">
                     {post.data.title}
                   </h3>
-                  <a href={`${import.meta.env.BASE_URL}/category/${encodeURIComponent(category)}`}
+                  <a href={`${import.meta.env.BASE_URL}category/${encodeURIComponent(category)}`}
                      class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shrink-0 cursor-pointer
                             hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                      style={`background-color: ${catColor}15; color: ${catColor}`}
@@ -105,7 +105,7 @@ const categoryMap: Record<string, string> = {
       <h2 class="text-xl font-bold text-gray-900 mb-6">依主題瀏覽</h2>
       <div class="flex flex-wrap gap-3">
         {Object.entries(categoryMap).map(([cat, color]) => (
-          <a href={`${import.meta.env.BASE_URL}/category/${encodeURIComponent(cat)}`}
+          <a href={`${import.meta.env.BASE_URL}category/${encodeURIComponent(cat)}`}
              class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border cursor-pointer
                     hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
              style={`background-color: ${color}08; border-color: ${color}30; color: ${color}`}>

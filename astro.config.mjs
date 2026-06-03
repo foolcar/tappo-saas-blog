@@ -35,7 +35,7 @@ export default defineConfig({
     }),
   ],
   site: 'https://foolcar.github.io',
-  base: '/tappo-saas-blog',
+  base: '/tappo-saas-blog/',
   output: 'static',
   markdown: {
     shikiConfig: {
