@@ -1,0 +1,119 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const categories = [...new Set(posts.map((p) => p.data.category))];
+  return categories.map((cat) => ({
+    params: { category: cat },
+  }));
+};
+
+const { category } = Astro.params;
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts
+  .filter((p) => p.data.category === category)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categoryMap: Record<string, string> = {
+  'POS選購': '#3B82F6',
+  '全球市場': '#10B981',
+  '國際化': '#8B5CF6',
+  '支付整合': '#F59E0B',
+  '合規挑戰': '#EF4444',
+  '產品設計': '#EC4899',
+  '團隊管理': '#6366F1',
+};
+
+const catColor = categoryMap[category] || '#6B7280';
+const pageTitle = `「${category}」文章列表`;
+const pageDesc = `瀏覽所有「${category}」相關文章 — 餐飲SaaS出海實戰經驗，從中國香港走向全球市場。`;
+---
+
+<BlogLayout
+  title={`${pageTitle} — 餐飲SaaS出海指南`}
+  description={pageDesc}
+  type="website"
+>
+  <!-- Category Header -->
+  <section class="bg-gradient-to-br from-blue-50 via-white to-emerald-50 border-b border-gray-100">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <a
+        href={`${import.meta.env.BASE_URL}/`}
+        class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors mb-4"
+      >
+        ← 返回首頁
+      </a>
+      <div class="flex items-center gap-3">
+        <span
+          class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold"
+          style={`background-color: ${catColor}15; color: ${catColor}`}
+        >
+          {category}
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
+          {posts.length} 篇文章
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- Post List -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    {
+      posts.length === 0 ? (
+        <div class="text-center py-20 text-gray-500">
+          <p class="text-lg">此分類暫無文章</p>
+          <a
+            href={`${import.meta.env.BASE_URL}/`}
+            class="text-blue-600 hover:underline mt-2 inline-block"
+          >
+            返回首頁查看更多
+          </a>
+        </div>
+      ) : (
+        <div class="grid gap-8">
+          {posts.map((post) => (
+            <article class="group bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <a
+                href={`${import.meta.env.BASE_URL}blog/${post.slug}`}
+                class="block p-6 sm:p-8"
+              >
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-3">
+                  <h2 class="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug">
+                    {post.data.title}
+                  </h2>
+                </div>
+
+                <p class="text-gray-600 leading-relaxed mb-4">
+                  {post.data.description}
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                  <time datetime={post.data.date.toISOString().split('T')[0]}>
+                    {post.data.date.toLocaleDateString('zh-Hant', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  {post.data.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2">
+                      {post.data.tags.map((tag) => (
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BlogLayout>
