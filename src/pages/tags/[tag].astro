@@ -26,58 +26,158 @@ const posts = allPosts
   .filter((p) => p.data.tags.includes(originalTag))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const pageTitle = `「${originalTag}」相關文章`;
-const pageDesc = `瀏覽標籤為「${originalTag}」的所有文章 — 餐飲SaaS出海實戰經驗分享。`;
+// Build tag → count map
+const tagCounts = new Map<string, number>();
+allPosts.forEach((p) => {
+  p.data.tags.forEach((t) => {
+    tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
+  });
+});
+
+const otherTags = allTags
+  .filter((t) => t !== originalTag)
+  .sort((a, b) => (tagCounts.get(b) || 0) - (tagCounts.get(a) || 0))
+  .slice(0, 8);
+
+// Tag accent color — use a warm blue as default
+const tagAccent = '#3B82F6';
+
+// Compute reading stats
+function estimateReadTime(body: string): number {
+  const words = body.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
+  return Math.max(1, Math.ceil(words / 400));
+}
 ---
 
 <BlogLayout
-  title={pageTitle}
-  description={pageDesc}
+  title={`「${originalTag}」相關文章 — 餐飲SaaS出海指南`}
+  description={`瀏覽標籤為「${originalTag}」的所有文章 — 餐飲SaaS出海實戰經驗分享。`}
   type="website"
 >
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <a
-      href={`${import.meta.env.BASE_URL}tags`}
-      class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors mb-6"
-    >
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-      </svg>
-      所有標籤
-    </a>
+  <!-- Tag Hero -->
+  <div class="relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04]" style={`background-color: ${tagAccent}`}></div>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 relative">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+        <a href={`${import.meta.env.BASE_URL}`} class="hover:text-blue-600 transition-colors">首頁</a>
+        <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <a href={`${import.meta.env.BASE_URL}tags`} class="hover:text-blue-600 transition-colors">標籤</a>
+        <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span class="font-medium" style={`color: ${tagAccent}`}>#{originalTag}</span>
+      </nav>
 
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-      標籤：<span class="text-blue-600">{originalTag}</span>
-    </h1>
-    <p class="text-gray-500 mb-10">{posts.length} 篇文章</p>
+      <!-- Header -->
+      <div class="flex items-start gap-4 mb-4">
+        <span class="text-4xl sm:text-5xl leading-none">#️⃣</span>
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">#{originalTag}</h1>
+          <p class="text-gray-400 mt-1">共 {posts.length} 篇文章</p>
+        </div>
+      </div>
+      <p class="text-gray-600 mt-4 max-w-xl leading-relaxed">
+        瀏覽標籤為「{originalTag}」的所有文章 — 餐飲SaaS出海實戰經驗分享。
+      </p>
 
+      <!-- Accent line -->
+      <div class="mt-6 w-16 h-1 rounded-full" style={`background-color: ${tagAccent}`}></div>
+    </div>
+  </div>
+
+  <!-- Article List -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     {
       posts.length === 0 ? (
-        <div class="text-center py-24 text-gray-500">
-          <p class="text-xl font-medium text-gray-700 mb-2">暫無文章</p>
+        <div class="text-center py-20 bg-white rounded-xl border border-dashed border-gray-200">
+          <p class="text-4xl mb-4">📭</p>
+          <p class="text-gray-500 mb-4">此標籤暫無文章，敬請期待。</p>
+          <a href={`${import.meta.env.BASE_URL}`} class="text-sm font-medium text-blue-600 hover:underline">← 返回首頁</a>
         </div>
       ) : (
-        <div class="grid gap-6">
-          {posts.map((post) => (
-            <article class="group bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-300 overflow-hidden">
-              <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block p-6">
-                <h2 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
-                  {post.data.title}
-                </h2>
-                <p class="text-gray-600 text-sm leading-relaxed mb-3">
-                  {post.data.description}
-                </p>
-                <div class="flex items-center gap-3 text-xs text-gray-400">
-                  <time datetime={post.data.date.toISOString().split('T')[0]}>
-                    {post.data.date.toLocaleDateString('zh-Hant', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </time>
-                  <span class="text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">{post.data.category}</span>
-                </div>
-              </a>
-            </article>
-          ))}
+        <div class="space-y-5">
+          {posts.map((post, i) => {
+            const postDate = post.data.date.toLocaleDateString('zh-Hant', {
+              year: 'numeric', month: 'long', day: 'numeric',
+            });
+            const readMin = post.body ? estimateReadTime(post.body) : 1;
+
+            return (
+              // Article card
+              <article class="group bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-250 overflow-hidden"
+                       style={i === 0 ? `border-left: 4px solid ${tagAccent};` : ''}>
+                <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block p-5 sm:p-6">
+                  {/* Title + meta row */}
+                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                    <h2 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug">
+                      {post.data.title}
+                    </h2>
+                    <time class="shrink-0 text-xs text-gray-400 whitespace-nowrap pt-1"
+                          datetime={post.data.date.toISOString().split('T')[0]}>
+                      {postDate}
+                    </time>
+                  </div>
+
+                  {/* Description */}
+                  <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-3 line-clamp-2">
+                    {post.data.description}
+                  </p>
+
+                  {/* Footer row */}
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2 text-xs text-gray-400">
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        {readMin} 分鐘閱讀
+                      </span>
+                      <span class="text-gray-200">|</span>
+                      <span>{post.data.category}</span>
+                    </div>
+
+                    <span class="inline-flex items-center gap-1 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          style={`color: ${tagAccent}`}>
+                      閱讀全文
+                      <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </span>
+                  </div>
+
+                  {/* Tags pill strip */}
+                  {post.data.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-gray-50">
+                      {post.data.tags.slice(0, 4).map((t) => (
+                        <a href={`${import.meta.env.BASE_URL}tags/${t.replace(/\//g, '-')}/`}
+                           onclick="event.stopPropagation()"
+                           class={`text-xs px-2 py-0.5 rounded-full bg-gray-50 text-gray-500 hover:bg-gray-100 transition-colors ${t === originalTag ? 'font-semibold' : ''}`}
+                           style={t === originalTag ? `background-color: ${tagAccent}10; color: ${tagAccent}` : ''}>
+                          #{t}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </a>
+              </article>
+            );
+          })}
         </div>
       )
     }
+
+    <!-- Other Tags -->
+    {otherTags.length > 0 && (
+      <div class="mt-16 pt-10 border-t border-gray-200">
+        <div class="flex items-center gap-3 mb-5">
+          <h3 class="text-sm font-semibold text-gray-700">瀏覽其他標籤</h3>
+          <div class="flex-1 h-px bg-gray-100"></div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {otherTags.map((t) => (
+            <a href={`${import.meta.env.BASE_URL}tags/${t.replace(/\//g, '-')}/`}
+               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-xs text-gray-600 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50 transition-all duration-200">
+              <span class="text-gray-400 text-[10px] font-mono">{tagCounts.get(t)}</span>
+              #{t}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </BlogLayout>
