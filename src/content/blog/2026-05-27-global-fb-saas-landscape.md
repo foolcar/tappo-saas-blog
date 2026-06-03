@@ -2,9 +2,10 @@
 title: "餐飲SaaS出海的全球市場圖景"
 description: "從市場規模、競爭格局、文化差異三個維度，全景式分析餐飲SaaS出海的核心市場機會與挑戰，為出海策略提供決策框架。"
 date: 2026-05-27
+updated: 2026-06-03
 category: "全球市場"
 tags: ["出海策略", "全球市場", "SaaS", "市場分析", "餐飲科技"]
-image: "/images/global-market.jpg"
+image: "/og-default.svg"
 ---
 
 ## 為什麼餐飲SaaS需要出海？

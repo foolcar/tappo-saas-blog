@@ -2,9 +2,10 @@
 title: "餐飲SaaS出海合規挑戰與解決方案"
 description: "餐飲SaaS出海不可迴避的合規問題：數據隱私（GDPR/PDPA）、餐飲牌照、稅務合規、食品標籤法規等，並提供面向中小SaaS公司的實用合規框架。"
 date: 2026-03-20
+updated: 2026-06-03
 category: "合規挑戰"
 tags: ["合規", "GDPR", "PDPA", "數據隱私", "餐飲法規", "稅務"]
-image: "/images/compliance-challenges.jpg"
+image: "/og-default.svg"
 ---
 
 ## 合規：出海最容易被忽略的隱形成本

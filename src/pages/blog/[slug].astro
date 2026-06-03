@@ -13,6 +13,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+// Compute word count for Schema
+const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
 ---
 
 <BlogLayout
@@ -20,10 +23,12 @@ const { Content } = await post.render();
   description={post.data.description}
   type="article"
   date={post.data.date}
+  updated={post.data.updated}
   category={post.data.category}
   tags={post.data.tags}
   slug={post.slug}
-  image={post.data.image || '/images/og-default.png'}
+  image={post.data.image || '/og-default.svg'}
+  wordCount={wordCount}
 >
   <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- 文章頭部 -->

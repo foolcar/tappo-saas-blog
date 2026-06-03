@@ -2,9 +2,10 @@
 title: "香港餐廳POS系統選購指南：月費 vs 按單收費"
 description: "全面比較香港市場主流POS系統的收費模式，分析月費制與按單收費制的成本差異、適用場景，幫助餐飲老闆做出最合適的選擇。"
 date: 2026-06-03
+updated: 2026-06-03
 category: "POS選購"
 tags: ["POS系統", "收費模式", "成本分析", "餐飲科技", "香港"]
-image: "/images/pos-comparison.jpg"
+image: "/og-default.svg"
 ---
 
 ## 引言：香港餐飲業的數字化拐點

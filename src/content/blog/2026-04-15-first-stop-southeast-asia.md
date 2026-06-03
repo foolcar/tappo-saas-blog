@@ -2,9 +2,10 @@
 title: "出海第一站：為什麼選擇東南亞"
 description: "深度分析東南亞作為餐飲SaaS出海首選市場的原因，包括市場數據、文化相似性、外賣生態、以及具體落地策略。"
 date: 2026-04-15
+updated: 2026-06-03
 category: "全球市場"
 tags: ["東南亞", "出海策略", "新加坡", "泰國", "印尼", "新興市場"]
-image: "/images/southeast-asia.jpg"
+image: "/og-default.svg"
 ---
 
 ## 為什麼是東南亞？

@@ -4,7 +4,7 @@ description: "對比香港與海外餐飲場景的差異，深入分析POS系統
 date: 2026-03-12
 category: "產品設計"
 tags: ["POS系統", "產品設計", "UI/UX", "茶餐廳", "全球化", "產品架構"]
-image: "/images/pos-product-design.jpg"
+image: "/og-default.svg"
 ---
 
 ## 香港茶餐廳：全世界最複雜的點餐場景
