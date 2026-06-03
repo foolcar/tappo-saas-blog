@@ -1,0 +1,8 @@
+# https://www.gotappo.com
+# 餐飲SaaS出海指南 - GitHub Pages 部署配置
+
+# 禁用 Jekyll 處理（GitHub Pages 默認）
+# Astro 輸出純靜態文件，不需要 Jekyll
+
+# 自定義域名（如有）
+# 將 yourdomain.com 替換為實際域名

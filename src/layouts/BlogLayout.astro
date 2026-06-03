@@ -1,0 +1,165 @@
+---
+// BlogLayout.astro - 博客布局组件，带 SEO meta、导航、页脚
+import type { PropsWithChildren } from 'react';
+
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  date?: Date;
+  category?: string;
+  tags?: string[];
+  slug?: string;
+}
+
+const {
+  title,
+  description,
+  image = '/images/og-default.png',
+  type = 'website',
+  date,
+  category,
+  tags = [],
+  slug,
+} = Astro.props;
+
+const siteTitle = '餐饮SaaS出海指南';
+const fullTitle = `${title} | ${siteTitle}`;
+const siteUrl = Astro.site?.origin ?? '';
+const pageUrl = slug ? `${siteUrl}/tappo-saas-blog/blog/${slug}` : `${siteUrl}/tappo-saas-blog`;
+const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog${image}`;
+---
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta -->
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="阿公 (Ravic Li)" />
+  <link rel="canonical" href={pageUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:image" content={imageUrl} />
+  <meta property="og:site_name" content={siteTitle} />
+  <meta property="og:locale" content="zh_Hant" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageUrl} />
+
+  <!-- Structured Data -->
+  {
+    type === 'article' ? (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: title,
+        description: description,
+        image: imageUrl,
+        datePublished: date?.toISOString(),
+        author: {
+          '@type': 'Person',
+          name: '阿公 (Ravic Li)',
+          url: 'https://foolcar.github.io',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: '餐饮SaaS出海指南',
+        },
+        url: pageUrl,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': pageUrl,
+        },
+        ...(category ? { articleSection: category } : {}),
+        ...(tags.length > 0 ? { keywords: tags.join(', ') } : {}),
+      })} />
+    ) : (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: siteTitle,
+        url: pageUrl,
+        description: description,
+        author: {
+          '@type': 'Person',
+          name: '阿公 (Ravic Li)',
+          url: 'https://foolcar.github.io',
+        },
+      })} />
+    )
+  }
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- 导航栏 -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
+    <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href={`${Astro.site?.base ?? ''}/`} class="flex items-center gap-2 group" aria-label="首页">
+          <span class="text-2xl" role="img" aria-hidden="true">🍜</span>
+          <span class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+            餐饮SaaS出海指南
+          </span>
+        </a>
+        <div class="flex items-center gap-6">
+          <a href={`${Astro.site?.base ?? ''}/`} class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+            文章
+          </a>
+          <a href={`${Astro.site?.base ?? ''}/about`} class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+            關於
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="flex-1">
+    <slot />
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-50 border-t border-gray-200 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 text-gray-500 text-sm">
+          <span class="text-lg" role="img" aria-hidden="true">🍜</span>
+          <span>餐饮SaaS出海指南 © {new Date().getFullYear()}</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href={`${Astro.site?.base ?? ''}/`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">文章</a>
+          <a href={`${Astro.site?.base ?? ''}/about`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">關於</a>
+          <a href={`${siteUrl}/tappo-saas-blog/sitemap-index.xml`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">Sitemap</a>
+        </div>
+      </div>
+      <p class="text-center text-xs text-gray-400 mt-6">
+        由 <a href="https://foolcar.github.io" class="text-gray-500 hover:text-blue-600 transition-colors">阿公 (Ravic Li)</a> 撰寫 —
+        分享餐飲SaaS從香港走向全球的實戰經驗
+      </p>
+    </div>
+  </footer>
+
+  <!-- Google Fonts -->
+  <style is:global>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  </style>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="zh-Hant"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Primary Meta --><title>餐飲SaaS海外支付整合方案：從八達通到Stripe | 餐饮SaaS出海指南</title><meta name="description" content="全面解析餐飲SaaS出海過程中支付整合的核心挑戰，涵蓋多幣種、多網關、離線支付、退款對賬等實戰經驗，以及各市場支付生態的差異化策略。"><meta name="author" content="阿公 (Ravic Li)"><link rel="canonical" href="https://foolcar.github.io/tappo-saas-blog/blog/2026-03-28-overseas-payment-integration"><!-- Open Graph --><meta property="og:title" content="餐飲SaaS海外支付整合方案：從八達通到Stripe | 餐饮SaaS出海指南"><meta property="og:description" content="全面解析餐飲SaaS出海過程中支付整合的核心挑戰，涵蓋多幣種、多網關、離線支付、退款對賬等實戰經驗，以及各市場支付生態的差異化策略。"><meta property="og:type" content="article"><meta property="og:url" content="https://foolcar.github.io/tappo-saas-blog/blog/2026-03-28-overseas-payment-integration"><meta property="og:image" content="https://foolcar.github.io/tappo-saas-blog/images/payment-integration.jpg"><meta property="og:site_name" content="餐饮SaaS出海指南"><meta property="og:locale" content="zh_Hant"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="餐飲SaaS海外支付整合方案：從八達通到Stripe | 餐饮SaaS出海指南"><meta name="twitter:description" content="全面解析餐飲SaaS出海過程中支付整合的核心挑戰，涵蓋多幣種、多網關、離線支付、退款對賬等實戰經驗，以及各市場支付生態的差異化策略。"><meta name="twitter:image" content="https://foolcar.github.io/tappo-saas-blog/images/payment-integration.jpg"><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"餐飲SaaS海外支付整合方案：從八達通到Stripe","description":"全面解析餐飲SaaS出海過程中支付整合的核心挑戰，涵蓋多幣種、多網關、離線支付、退款對賬等實戰經驗，以及各市場支付生態的差異化策略。","image":"https://foolcar.github.io/tappo-saas-blog/images/payment-integration.jpg","datePublished":"2026-03-28T00:00:00.000Z","author":{"@type":"Person","name":"阿公 (Ravic Li)","url":"https://foolcar.github.io"},"publisher":{"@type":"Organization","name":"餐饮SaaS出海指南"},"url":"https://foolcar.github.io/tappo-saas-blog/blog/2026-03-28-overseas-payment-integration","mainEntityOfPage":{"@type":"WebPage","@id":"https://foolcar.github.io/tappo-saas-blog/blog/2026-03-28-overseas-payment-integration"},"articleSection":"支付整合","keywords":"支付整合, Stripe, 八達通, 跨境支付, 離線支付, 多幣種"}</script><!-- Preconnect to Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/tappo-saas-blog/_astro/about.CUcSYxCO.css"></head> <body class="min-h-screen flex flex-col"> <!-- 导航栏 --> <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100"> <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="flex items-center justify-between h-16"> <a href="/" class="flex items-center gap-2 group" aria-label="首页"> <span class="text-2xl" role="img" aria-hidden="true">🍜</span> <span class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+餐饮SaaS出海指南
+</span> </a> <div class="flex items-center gap-6"> <a href="/" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+文章
+</a> <a href="/about" class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+關於
+</a> </div> </div> </nav> </header> <!-- 主内容区 --> <main class="flex-1">  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <!-- 文章頭部 --> <header class="mb-10"> <div class="flex flex-wrap items-center gap-3 mb-4"> <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full"> 支付整合 </span> <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">支付整合</span><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Stripe</span><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">八達通</span><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">跨境支付</span><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">離線支付</span><span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">多幣種</span> </div> <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4"> 餐飲SaaS海外支付整合方案：從八達通到Stripe </h1> <p class="text-lg text-gray-600 leading-relaxed mb-6"> 全面解析餐飲SaaS出海過程中支付整合的核心挑戰，涵蓋多幣種、多網關、離線支付、退款對賬等實戰經驗，以及各市場支付生態的差異化策略。 </p> <div class="flex items-center gap-4 text-sm text-gray-500 border-b border-gray-200 pb-6"> <time datetime="2026-03-28">
+發佈於 2026年3月28日 </time>  </div> </header> <!-- 文章內容 --> <div class="prose prose-lg max-w-none"> <h2 id="支付餐飲saas最難的模塊">支付：餐飲SaaS最難的模塊</h2>
+<p>如果有人問我餐飲SaaS出海最難做的模塊是什麼，我不會說是點餐界面，也不會說是廚房顯示系統——<strong>我會說是支付</strong>。</p>
+<p>原因是：每個市場的支付生態完全不同，而且支付直接關係到錢，容錯率為零。</p>
+<h2 id="香港支付生態-vs-海外支付生態">香港支付生態 vs 海外支付生態</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>特性</th><th>香港</th><th>東南亞</th><th>中東</th><th>歐美</th></tr></thead><tbody><tr><td>主導方式</td><td>八達通、AlipayHK</td><td>GrabPay、GoPay、PromptPay</td><td>Mada、Apple Pay</td><td>Visa/Mastercard</td></tr><tr><td>二維碼支付</td><td>普及</td><td>非常普及</td><td>增長中</td><td>少用</td></tr><tr><td>現金比例</td><td>&#x3C;20%</td><td>30-60%</td><td>20-40%</td><td>&#x3C;10%</td></tr><tr><td>離線支付</td><td>八達通支持</td><td>部分支持</td><td>少見</td><td>極少</td></tr></tbody></table>
+<h2 id="支付整合的三層架構">支付整合的三層架構</h2>
+<p>我們設計了一套分層的支付架構，來應對不同市場的差異：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>┌────────────────────────────────────┐</span></span>
+<span class="line"><span>│         應用層 (POS UI)            │</span></span>
+<span class="line"><span>│   點餐 → 結帳 → 選擇支付方式        │</span></span>
+<span class="line"><span>└────────────────────────────────────┘</span></span>
+<span class="line"><span>                  │</span></span>
+<span class="line"><span>┌────────────────────────────────────┐</span></span>
+<span class="line"><span>│         抽象層 (Payment Adapter)    │</span></span>
+<span class="line"><span>│   normalize() → processPayment()   │</span></span>
+<span class="line"><span>│   → handleRefund() → reconcile()   │</span></span>
+<span class="line"><span>└────────────────────────────────────┘</span></span>
+<span class="line"><span>                  │</span></span>
+<span class="line"><span>┌────────────────────────────────────┐</span></span>
+<span class="line"><span>│         網關層 (Gateways)           │</span></span>
+<span class="line"><span>│ Stripe │ Adyen │ 2C2P │ Omise      │</span></span>
+<span class="line"><span>│ 八達通 │ Alipay │ GrabPay │ ...   │</span></span>
+<span class="line"><span>└────────────────────────────────────┘</span></span></code></pre>
+<h3 id="抽象層的設計">抽象層的設計</h3>
+<p>關鍵是定義一個統一的 <code>PaymentAdapter</code> 接口：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> PaymentAdapter</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  // 標準化支付請求</span></span>
+<span class="line"><span style="color:#B392F0">  processPayment</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">order</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Order</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">method</span><span style="color:#F97583">:</span><span style="color:#B392F0"> PaymentMethod</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">PaymentResult</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // 退款</span></span>
+<span class="line"><span style="color:#B392F0">  refund</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">transactionId</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">amount</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">RefundResult</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // 查詢狀態</span></span>
+<span class="line"><span style="color:#B392F0">  queryStatus</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">transactionId</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">PaymentStatus</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // 對賬</span></span>
+<span class="line"><span style="color:#B392F0">  reconcile</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">startDate</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Date</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">endDate</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Date</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">ReconciliationReport</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 每個市場實現自己的Adapter</span></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> StripeAdapter</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> PaymentAdapter</span><span style="color:#E1E4E8"> { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> OctopusAdapter</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> PaymentAdapter</span><span style="color:#E1E4E8"> { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> GrabPayAdapter</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> PaymentAdapter</span><span style="color:#E1E4E8"> { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span></code></pre>
+<p>這樣做的好處：</p>
+<ul>
+<li>上層代碼不知道也不關心底層用的是哪個網關</li>
+<li>新增一個市場只需實現一個新的Adapter</li>
+<li>每個Adapter可以獨立測試</li>
+</ul>
+<h2 id="各市場支付策略">各市場支付策略</h2>
+<h3 id="香港必須支持的支付方式">香港：必須支持的支付方式</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>支付方式</th><th>優先級</th><th>理由</th></tr></thead><tbody><tr><td>八達通</td><td><strong>P0</strong></td><td>香港滲透率98%，餐廳必須支持</td></tr><tr><td>AlipayHK</td><td><strong>P0</strong></td><td>內地遊客+本地用戶</td></tr><tr><td>WeChat Pay HK</td><td>P1</td><td>內地遊客主要支付方式</td></tr><tr><td>Visa/Mastercard</td><td>P1</td><td>國際客戶和高單價消費</td></tr><tr><td>轉數快 (FPS)</td><td>P2</td><td>政府推動，但餐廳使用率仍低</td></tr></tbody></table>
+<h3 id="東南亞碎片化的支付萬花筒">東南亞：碎片化的支付萬花筒</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>國家</th><th>必接支付</th><th>備註</th></tr></thead><tbody><tr><td>泰國</td><td>PromptPay、TrueMoney</td><td>QR支付佔主導</td></tr><tr><td>印尼</td><td>GoPay、OVO、DANA</td><td>三大錢包覆蓋90%用戶</td></tr><tr><td>新加坡</td><td>PayNow、GrabPay</td><td>與香港生態相似</td></tr><tr><td>馬來西亞</td><td>Touch’n Go、Boost</td><td>錢包大戰仍在進行</td></tr><tr><td>越南</td><td>Momo、ZaloPay</td><td>現金仍佔40%</td></tr></tbody></table>
+<p><strong>實戰建議：</strong> 在東南亞，不要嘗試自己對接每個錢包。使用聚合支付平台（如2C2P、Omise、Stripe SEA），它們已經預先整合了大部分本地支付方式。</p>
+<h3 id="中東高arpu但支付基建特殊">中東：高ARPU但支付基建特殊</h3>
+<ul>
+<li><strong>Mada</strong>（沙特）：類似八達通的國家級支付網絡</li>
+<li><strong>Apple Pay / Samsung Pay</strong>：滲透率高於QR支付</li>
+<li>現金交易比例仍較高，需要保留現金結帳功能</li>
+</ul>
+<h2 id="離線支付餐廳的必備功能">離線支付：餐廳的必備功能</h2>
+<p>餐廳和電商最大的不同：<strong>餐廳必須支持離線支付</strong>。當網絡不穩定時，POS不能停止工作。</p>
+<p>我們的實現方案：</p>
+<ol>
+<li>離線時，終端本地緩存支付記錄</li>
+<li>網絡恢復後自動同步到雲端</li>
+<li>使用樂觀鎖（Optimistic Locking）處理衝突</li>
+<li>八達通等離線支付方式本身就支持離線交易</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// 離線支付隊列</span></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> OfflinePaymentQueue</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#FFAB70"> queue</span><span style="color:#F97583">:</span><span style="color:#B392F0"> OfflineTransaction</span><span style="color:#E1E4E8">[] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> process</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">payment</span><span style="color:#F97583">:</span><span style="color:#B392F0"> PaymentRequest</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">PaymentResult</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">await</span><span style="color:#B392F0"> isOnline</span><span style="color:#E1E4E8">()) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.gateway.</span><span style="color:#B392F0">process</span><span style="color:#E1E4E8">(payment);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#6A737D">    // 離線模式：緩存並返回臨時確認</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> offlineTx</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.cache.</span><span style="color:#B392F0">store</span><span style="color:#E1E4E8">(payment);</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.queue.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(offlineTx);</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> { status: </span><span style="color:#9ECBFF">'pending_sync'</span><span style="color:#E1E4E8">, offlineId: offlineTx.id };</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> syncWhenOnline</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">void</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#79B8FF"> tx</span><span style="color:#F97583"> of</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.queue) {</span></span>
+<span class="line"><span style="color:#F97583">      await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.gateway.</span><span style="color:#B392F0">process</span><span style="color:#E1E4E8">(tx);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.queue </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="退款與對賬">退款與對賬</h2>
+<h3 id="退款流程">退款流程</h3>
+<p>餐廳退款比電商複雜得多——可能是整單退、部分退、甚至是換菜不退款。我們的設計：</p>
+<ol>
+<li>退款必須經管理員授權（防止員工濫用）</li>
+<li>部分退款要明細到菜品級別</li>
+<li>退款原因分類（客戶投訴/出錯菜/等待太久/其他）</li>
+</ol>
+<h3 id="對賬reconciliation">對賬（Reconciliation）</h3>
+<p>每日對賬是財務的剛需。POS需要自動匹配：</p>
+<ul>
+<li>訂單金額 vs 實際收款</li>
+<li>手續費差異（不同支付方式手續費不同）</li>
+<li>退款記錄 vs 銀行流水</li>
+</ul>
+<p><strong>經驗：</strong> 對賬功能不要等到財務投訴才做。我們在香港經歷了三個月的每日手動對賬後，才下定決心做了自動化對賬系統。三個月的手工對賬，財務同事幾乎崩潰。</p>
+<h2 id="安全合規">安全合規</h2>
+<ul>
+<li><strong>PCI DSS</strong>：如果用Stripe/Adyen等平台，合規負擔大大降低</li>
+<li><strong>PSD2 / SCA</strong>（歐洲）：需要支持3D Secure等強客戶認證</li>
+<li><strong>數據本地化</strong>：部分國家要求支付數據存儲在本地服務器</li>
+</ul>
+<h2 id="結論">結論</h2>
+<p>支付是餐飲SaaS出海最大的技術障礙，也是最大的護城河。一旦你的系統支持了10個市場的支付方式，後來者要追上需要同樣的投入。<strong>我們的策略是：用2C2P做東南亞、Stripe做歐美、自研Adapter做香港和特殊市場。</strong></p>
+<blockquote>
+<p>阿公寄語：錢銀嘅嘢，唔可以出錯。支付模塊嘅第一條規矩係：永遠唔好自己實現加密算法。用成熟平台，專注做好適配層。</p>
+</blockquote> </div> <!-- 文章頁尾 --> <footer class="mt-16 pt-8 border-t border-gray-200"> <div class="bg-blue-50 rounded-xl p-6"> <div class="flex items-center gap-4"> <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg font-bold">
+公
+</div> <div> <p class="font-semibold text-gray-900">阿公 (Ravic Li)</p> <p class="text-sm text-gray-600">
+餐道 & Tappo CEO，10+年餐飲SaaS行業經驗。<br>
+熱衷分享餐飲科技出海的實戰見解。
+</p> </div> </div> </div> <nav class="mt-8"> <a href="/" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+返回文章列表
+</a> </nav> </footer> </article>  </main> <!-- 页脚 --> <footer class="bg-gray-50 border-t border-gray-200 mt-16"> <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10"> <div class="flex flex-col sm:flex-row items-center justify-between gap-4"> <div class="flex items-center gap-2 text-gray-500 text-sm"> <span class="text-lg" role="img" aria-hidden="true">🍜</span> <span>餐饮SaaS出海指南 © 2026</span> </div> <div class="flex items-center gap-6"> <a href="/" class="text-sm text-gray-500 hover:text-gray-700 transition-colors">文章</a> <a href="/about" class="text-sm text-gray-500 hover:text-gray-700 transition-colors">關於</a> <a href="https://foolcar.github.io/tappo-saas-blog/sitemap-index.xml" class="text-sm text-gray-500 hover:text-gray-700 transition-colors">Sitemap</a> </div> </div> <p class="text-center text-xs text-gray-400 mt-6">
+由 <a href="https://foolcar.github.io" class="text-gray-500 hover:text-blue-600 transition-colors">阿公 (Ravic Li)</a> 撰寫 —
+        分享餐飲SaaS從香港走向全球的實戰經驗
+</p> </div> </footer> <!-- Google Fonts -->  </body> </html>

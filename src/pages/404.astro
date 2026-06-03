@@ -1,0 +1,26 @@
+---
+import BlogLayout from '../layouts/BlogLayout.astro';
+import '../styles/global.css';
+---
+
+<BlogLayout
+  title="404 - 頁面未找到"
+  description="抱歉，您要找的頁面不存在。"
+  type="website"
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+    <p class="text-6xl mb-4">🍜</p>
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">404</h1>
+    <p class="text-lg text-gray-600 mb-8">
+      抱歉，這碗麵還沒煮好。<br/>
+      您要找的頁面可能已被移動或不存在。
+    </p>
+    <a
+      href={`${Astro.site?.base ?? ''}/`}
+      class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      返回首頁
+    </a>
+  </div>
+</BlogLayout>

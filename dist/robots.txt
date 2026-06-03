@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://foolcar.github.io/tappo-saas-blog/sitemap-index.xml

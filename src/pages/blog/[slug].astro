@@ -1,0 +1,101 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  date={post.data.date}
+  category={post.data.category}
+  tags={post.data.tags}
+  slug={post.slug}
+  image={post.data.image || '/images/og-default.png'}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- 文章頭部 -->
+    <header class="mb-10">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+          {post.data.category}
+        </span>
+        {post.data.tags.map((tag) => (
+          <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">{tag}</span>
+        ))}
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
+        {post.data.title}
+      </h1>
+
+      <p class="text-lg text-gray-600 leading-relaxed mb-6">
+        {post.data.description}
+      </p>
+
+      <div class="flex items-center gap-4 text-sm text-gray-500 border-b border-gray-200 pb-6">
+        <time datetime={post.data.date.toISOString().split('T')[0]}>
+          發佈於 {post.data.date.toLocaleDateString('zh-Hant', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+        {post.data.updated && (
+          <time datetime={post.data.updated.toISOString().split('T')[0]}>
+            · 更新於 {post.data.updated.toLocaleDateString('zh-Hant', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+        )}
+      </div>
+    </header>
+
+    <!-- 文章內容 -->
+    <div class="prose prose-lg max-w-none">
+      <Content />
+    </div>
+
+    <!-- 文章頁尾 -->
+    <footer class="mt-16 pt-8 border-t border-gray-200">
+      <div class="bg-blue-50 rounded-xl p-6">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg font-bold">
+            公
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900">阿公 (Ravic Li)</p>
+            <p class="text-sm text-gray-600">
+              餐道 & Tappo CEO，10+年餐飲SaaS行業經驗。<br/>
+              熱衷分享餐飲科技出海的實戰見解。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="mt-8">
+        <a
+          href={`${Astro.site?.base ?? ''}/`}
+          class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          返回文章列表
+        </a>
+      </nav>
+    </footer>
+  </article>
+</BlogLayout>

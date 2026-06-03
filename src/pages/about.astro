@@ -1,0 +1,91 @@
+---
+import BlogLayout from '../layouts/BlogLayout.astro';
+import '../styles/global.css';
+---
+
+<BlogLayout
+  title="關於"
+  description="關於「餐飲SaaS出海指南」以及作者阿公 (Ravic Li) 的背景與聯繫方式。"
+  type="website"
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">關於</h1>
+
+    <!-- 作者信息 -->
+    <div class="bg-white rounded-xl border border-gray-200 p-8 mb-10">
+      <div class="flex flex-col sm:flex-row items-start gap-6">
+        <div class="w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold shrink-0">
+          公
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-gray-900 mb-2">阿公 (Ravic Li)</h2>
+          <p class="text-gray-600 leading-relaxed mb-3">
+            餐道（can-dao.com）及 Tappo（gotappo.com）CEO。<br/>
+            10+年餐飲SaaS行業經驗，專注於港澳餐飲業的數字化轉型。
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            常駐廣州，周末回香港。日常工作涵蓋產品管理、技術架構、市場策略，
+            以及帶領團隊將餐飲SaaS產品從香港推向全球市場。
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="mailto:ravicli@can-dao.com" class="text-sm text-blue-600 hover:text-blue-800 underline transition-colors">
+              ravicli@can-dao.com
+            </a>
+            <span class="text-gray-300">|</span>
+            <a href="https://github.com/foolcar" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-800 underline transition-colors">
+              GitHub
+            </a>
+            <span class="text-gray-300">|</span>
+            <a href="https://www.gotappo.com" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-800 underline transition-colors">
+              Tappo
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 關於這個博客 -->
+    <div class="prose prose-lg max-w-none">
+      <h2>為什麼寫這個博客？</h2>
+      <p>
+        在香港做餐飲SaaS十年，我發現網上關於這個領域的中文內容極少。
+        大部分餐飲科技的文章都是英文的，而且偏重美國市場。
+      </p>
+      <p>
+        但香港和亞洲的餐飲場景跟美國完全不同——茶餐廳的複雜點餐、
+        外賣平台的生態、QR點餐的普及——這些在歐美文章裡幾乎不會提到。
+      </p>
+      <p>
+        所以我在2026年開始寫這個博客，目標很簡單：
+      </p>
+      <ul>
+        <li>記錄我們團隊在餐飲SaaS出海過程中的實戰經驗</li>
+        <li>分享技術選型、產品設計、市場策略的思考</li>
+        <li>填補中文餐飲科技內容的空白</li>
+        <li>結識志同道合的行業夥伴</li>
+      </ul>
+
+      <h2>這個博客的內容方向</h2>
+      <p>
+        目前規劃了七個主題方向，都是我們團隊在實際工作中遇到的核心問題：
+      </p>
+      <ul>
+        <li><strong>POS系統選購</strong> — 月費 vs 按單收費，香港市場比較</li>
+        <li><strong>全球市場策略</strong> — 東南亞、中東、歐美市場分析</li>
+        <li><strong>國際化改造</strong> — i18n架構、多語言UI、RTL佈局</li>
+        <li><strong>支付整合</strong> — 多網關、多幣種、離線支付</li>
+        <li><strong>合規挑戰</strong> — GDPR、PDPA、餐飲監管</li>
+        <li><strong>產品設計</strong> — 全球化POS架構、QR點餐</li>
+        <li><strong>團隊管理</strong> — 遠程團隊、跨國協作</li>
+      </ul>
+
+      <h2>關於這個網站的技術</h2>
+      <p>
+        這個博客使用 <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a> 靜態網站生成器構建，
+        部署在 <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>。
+        所有文章使用 Markdown 編寫，通過 Astro Content Collections 管理。
+        開源在 <a href="https://github.com/foolcar/tappo-saas-blog" target="_blank" rel="noopener noreferrer">GitHub</a>。
+      </p>
+    </div>
+  </div>
+</BlogLayout>
