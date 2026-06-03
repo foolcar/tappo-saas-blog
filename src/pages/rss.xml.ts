@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: '餐饮SaaS出海指南',
-    description: '從香港出發，分享將餐飲SaaS產品推向全球市場的實戰經驗',
+    description: '從中國香港出發，分享將餐飲SaaS產品推向全球市場的實戰經驗',
     site: context.site ?? 'https://foolcar.github.io',
     items: sortedPosts.map((post) => ({
       title: post.data.title,
