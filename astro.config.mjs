@@ -29,11 +29,6 @@ export default defineConfig({
           return { ...item, changefreq: 'monthly', priority: 0.7 };
         }
 
-        // --- Tag pages --- supporting content
-        if (url.includes('/tappo-saas-blog/tags/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.4 };
-        }
-
         // --- Fallback for any unexpected pages
         return { ...item, changefreq: 'weekly', priority: 0.5 };
       },

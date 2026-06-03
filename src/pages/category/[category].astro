@@ -17,37 +17,31 @@ const posts = allPosts
   .filter((p) => p.data.category === category)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-function estimateReadingTime(text: string): number {
-  const cjkChars = (text.match(/[\u4e00-\u9fff\u3400-\u4dbf]/g) || []).length;
-  const words = text.split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.ceil((cjkChars + words) / 400));
-}
-
 const categoryMap: Record<string, string> = {
-  'POS選購': '#b85c3a',
-  '全球市場': '#5a8a6a',
-  '國際化': '#7c5aa8',
-  '支付整合': '#c4893a',
-  '合規挑戰': '#c44a4a',
-  '產品設計': '#b84a7a',
-  '團隊管理': '#4a6ab8',
+  'POS選購': '#3B82F6',
+  '全球市場': '#10B981',
+  '國際化': '#8B5CF6',
+  '支付整合': '#F59E0B',
+  '合規挑戰': '#EF4444',
+  '產品設計': '#EC4899',
+  '團隊管理': '#6366F1',
 };
 
-const catDesc: Record<string, string> = {
-  'POS選購': '如何在港澳市場選擇合適的餐飲 POS 系統？功能對比、價格分析、實施經驗 — 幫助餐飲老闆做出正確選擇。',
-  '全球市場': '餐飲 SaaS 出海策略與市場分析：東南亞、歐美、中東等目標市場的機遇、挑戰與進入路徑。',
-  '國際化': '多語言、多幣種、多時區 — 餐飲 SaaS 產品的國際化改造實戰筆記，從架構到測試全覆蓋。',
-  '支付整合': '跨國支付通道對接實戰：Stripe、AlipayHK、PayMe、FPS 等，支付流程設計與合規考量。',
-  '合規挑戰': 'GDPR、PDPO、數據跨境傳輸 — 餐飲 SaaS 出海路上的法規合規實戰與避坑指南。',
-  '產品設計': '從用戶研究到產品迭代，餐飲 SaaS 的產品設計思維、方法論與實戰案例。',
-  '團隊管理': '跨境遠端團隊協作、招聘策略、文化建設、績效管理 — 餐飲科技團隊的實戰經驗。',
+const categoryDesc: Record<string, string> = {
+  'POS選購': '如何在港澳市場選擇合適的餐飲 POS 系統？功能對比、價格分析、實施經驗。',
+  '全球市場': '餐飲 SaaS 出海策略：東南亞、歐美、中東等市場機遇與挑戰。',
+  '國際化': '多語言、多幣種、多時區 — 餐飲 SaaS 產品的國際化改造實戰。',
+  '支付整合': '跨國支付通道對接：Stripe、AlipayHK、PayMe 等實戰筆記。',
+  '合規挑戰': 'GDPR、PDPO、數據跨境傳輸 — 出海路上的法規合規實戰。',
+  '產品設計': '從用戶研究到產品迭代，餐飲 SaaS 的產品設計思維與方法。',
+  '團隊管理': '跨境遠端團隊協作、招聘、文化建設的實戰經驗。',
 };
 
-const catColor = categoryMap[category] || '#6b6560';
-const pageTitle = `「${category}」文章列表`;
-const pageDesc = catDesc[category] || `瀏覽所有「${category}」相關文章 — 餐飲SaaS出海實戰經驗分享。`;
+const catColor = categoryMap[category] || '#6B7280';
+const catDesc = categoryDesc[category] || `瀏覽所有「${category}」相關文章 — 餐飲SaaS出海實戰經驗分享。`;
 const otherCategories = Object.entries(categoryMap).filter(([cat]) => cat !== category);
-const [featuredPost, ...restCategoryPosts] = posts;
+const pageTitle = `「${category}」文章列表`;
+const pageDesc = `瀏覽所有「${category}」相關文章 — 餐飲SaaS出海實戰經驗，從中國香港走向全球市場。`;
 ---
 
 <BlogLayout
@@ -55,18 +49,13 @@ const [featuredPost, ...restCategoryPosts] = posts;
   description={pageDesc}
   type="website"
 >
-
-  <!-- Category Hero ────────────────────────────── -->
-  <section class="relative border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-    <!-- Accent bar at top -->
-    <div class="h-1" style={`background-color: ${catColor}`}></div>
-
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+  <!-- Category Hero -->
+  <section class="bg-gradient-to-br from-blue-50 via-white to-emerald-50 border-b border-gray-100">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       <!-- Breadcrumb -->
       <a
-        href={import.meta.env.BASE_URL}
-        class="inline-flex items-center gap-1.5 text-sm text-[var(--color-text-muted)]
-               hover:text-[var(--color-accent)] transition-colors mb-6"
+        href={`${import.meta.env.BASE_URL}`}
+        class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 transition-colors mb-6"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -74,219 +63,135 @@ const [featuredPost, ...restCategoryPosts] = posts;
         返回首頁
       </a>
 
-      <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-3 mb-3">
-            <span
-              class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold"
-              style={`background-color: ${catColor}12; color: ${catColor}`}
-            >
-              <span class="w-1.5 h-1.5 rounded-full" style={`background-color: ${catColor}`}></span>
-              {category}
-            </span>
-            <span class="text-sm text-[var(--color-text-muted)]">
-              {posts.length} 篇文章
-            </span>
-          </div>
-
-          <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-text)]">
+      <!-- Category Badge + Title -->
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+          <span
+            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold shadow-sm"
+            style={`background-color: ${catColor}18; color: ${catColor}; box-shadow: 0 0 0 1px ${catColor}30`}
+          >
+            <span class="w-2 h-2 rounded-full" style={`background-color: ${catColor}`}></span>
             {category}
-          </h1>
+          </span>
+          <span class="text-sm text-gray-400 font-medium">
+            {posts.length} 篇文章
+          </span>
         </div>
-      </div>
 
-      <p class="mt-3 text-base sm:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
-        {pageDesc}
-      </p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+          {category}
+        </h1>
+
+        <p class="text-lg text-gray-600 leading-relaxed max-w-2xl">
+          {catDesc}
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Content ──────────────────────────────────── -->
-  {
-    posts.length === 0 ? (
-      <!-- Empty state -->
-      <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-        <div class="text-5xl mb-4 opacity-30" aria-hidden="true">—</div>
-        <p class="text-xl font-semibold text-[var(--color-text)] mb-2">此分類暫無文章</p>
-        <p class="text-sm text-[var(--color-text-muted)] mb-8">
-          我們正在準備更多「{category}」相關內容，敬請期待！
-        </p>
-        <a
-          href={import.meta.env.BASE_URL}
-          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium
-                 bg-[var(--color-accent)] text-white
-                 hover:opacity-90 transition-opacity"
-        >
-          ← 返回首頁
-        </a>
-      </section>
-    ) : (
-      <>
-        <!-- Featured post (larger card) -->
-        {featuredPost && (
-          <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14">
-            <article
-              class="group bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)]
-                     hover:border-[var(--color-accent-dim)] hover:shadow-md
-                     transition-all duration-300 overflow-hidden"
-            >
-              <a href={`${import.meta.env.BASE_URL}blog/${featuredPost.slug}`} class="block p-6 sm:p-10">
-                <div class="flex flex-wrap items-center gap-3 mb-4">
-                  <span
-                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold"
-                    style={`background-color: ${catColor}15; color: ${catColor}`}
-                  >
-                    {category}
-                  </span>
-                  <span class="text-sm text-[var(--color-text-muted)]">
-                    {estimateReadingTime(featuredPost.body)} 分鐘閱讀
-                  </span>
+  <!-- Post List -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    {
+      posts.length === 0 ? (
+        <div class="text-center py-24 text-gray-500">
+          <div class="text-6xl mb-4">📭</div>
+          <p class="text-xl font-medium text-gray-700 mb-2">此分類暫無文章</p>
+          <p class="text-gray-400 mb-6">我們正在準備更多「{category}」相關內容，敬請期待！</p>
+          <a
+            href={`${import.meta.env.BASE_URL}`}
+            class="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          >
+            ← 返回首頁
+          </a>
+        </div>
+      ) : (
+        <div class="grid gap-8">
+          {posts.map((post) => (
+            <article class="group bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <a
+                href={`${import.meta.env.BASE_URL}blog/${post.slug}`}
+                class="block p-6 sm:p-8"
+              >
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-3">
+                  <h2 class="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-snug">
+                    {post.data.title}
+                  </h2>
                 </div>
 
-                <h2 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)]
-                           group-hover:text-[var(--color-accent)] transition-colors duration-200
-                           leading-tight mb-4 tracking-tight">
-                  {featuredPost.data.title}
-                </h2>
-
-                <p class="text-base text-[var(--color-text-muted)] leading-relaxed mb-6 max-w-2xl">
-                  {featuredPost.data.description}
+                <p class="text-gray-600 leading-relaxed mb-4">
+                  {post.data.description}
                 </p>
 
-                <div class="flex flex-wrap items-center gap-4 text-sm">
-                  <time datetime={featuredPost.data.date.toISOString().split('T')[0]} class="text-[var(--color-text-muted)]">
-                    {featuredPost.data.date.toLocaleDateString('zh-Hant', {
-                      year: 'numeric', month: 'long', day: 'numeric',
+                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                  <time datetime={post.data.date.toISOString().split('T')[0]}>
+                    {post.data.date.toLocaleDateString('zh-Hant', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
                     })}
                   </time>
-                  <span class="text-[var(--color-accent)] font-medium group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center gap-1">
-                    閱讀全文
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                  </span>
-                </div>
-              </a>
-            </article>
-          </section>
-        )}
-
-        {/* Rest of posts — grid */}
-        {restCategoryPosts.length > 0 && (
-          <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)] mb-6">
-              更多「{category}」文章
-            </p>
-
-            <div class="grid sm:grid-cols-2 gap-6">
-              {restCategoryPosts.map((post) => (
-                <article
-                  class="group bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)]
-                         hover:border-[var(--color-accent-dim)] hover:shadow-md
-                         transition-all duration-300"
-                >
-                  <a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="block p-5 sm:p-6 h-full flex flex-col">
-                    <div class="flex items-center gap-3 mb-3">
-                      <span
-                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold shrink-0"
-                        style={`background-color: ${catColor}15; color: ${catColor}`}
-                      >
-                        {category}
-                      </span>
-                      <span class="text-xs text-[var(--color-text-muted)]">
-                        {estimateReadingTime(post.body)} 分鐘
-                      </span>
-                    </div>
-
-                    <h3 class="text-lg font-bold text-[var(--color-text)]
-                               group-hover:text-[var(--color-accent)] transition-colors duration-200
-                               leading-snug mb-2 flex-1">
-                      {post.data.title}
-                    </h3>
-
-                    <p class="text-sm text-[var(--color-text-muted)] leading-relaxed mb-3 line-clamp-2">
-                      {post.data.description}
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-3">
-                      {post.data.tags.slice(0, 3).map(tag => (
-                        <span class="text-xs px-2 py-0.5 rounded bg-[var(--color-bg)] text-[var(--color-text-muted)]">
+                  {post.data.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2">
+                      {post.data.tags.map((tag) => (
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
                           {tag}
                         </span>
                       ))}
                     </div>
-
-                    <time datetime={post.data.date.toISOString().split('T')[0]} class="text-xs text-[var(--color-text-muted)]">
-                      {post.data.date.toLocaleDateString('zh-Hant', {
-                        year: 'numeric', month: 'long', day: 'numeric',
-                      })}
-                    </time>
-                  </a>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
-      </>
-    )
-  }
-
-  <!-- 瀏覽其他主題 ─────────────────────────────── -->
-  {otherCategories.length > 0 && (
-    <section class="bg-[var(--color-surface)] border-t border-[var(--color-border)] mt-16">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)] mb-6">
-          瀏覽其他主題
-        </p>
-
-        <div class="flex flex-wrap gap-3">
-          {otherCategories.map(([cat, color]) => (
-            <a
-              href={`${import.meta.env.BASE_URL}category/${encodeURIComponent(cat)}`}
-              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium
-                     border transition-all duration-200
-                     hover:-translate-y-0.5"
-              style={`
-                background-color: ${color}08;
-                border-color: ${color}25;
-                color: ${color};
-              `}
-            >
-              <span class="w-2 h-2 rounded-full shrink-0" style={`background-color: ${color}`}></span>
-              {cat}
-            </a>
+                  )}
+                </div>
+              </a>
+            </article>
           ))}
         </div>
-      </div>
-    </section>
-  )}
+      )
+    }
+  </section>
 
-  <!-- CTA ─────────────────────────────────────── -->
-  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-    <h2 class="text-xl sm:text-2xl font-bold text-[var(--color-text)] mb-3">
-      查看更多餐飲SaaS文章
-    </h2>
-    <p class="text-sm text-[var(--color-text-muted)] mb-8 max-w-md mx-auto leading-relaxed">
-      探索七個主題分類，從技術架構到市場策略，全面覆蓋餐飲SaaS出海實戰。
-    </p>
-    <div class="flex flex-wrap justify-center gap-3">
-      <a
-        href={import.meta.env.BASE_URL}
-        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium
-               bg-[var(--color-text)] text-white
-               hover:bg-[var(--color-accent)] transition-colors duration-200"
-      >
-        瀏覽全部文章
-      </a>
-      <a
-        href={`${import.meta.env.BASE_URL}about`}
-        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium
-               border border-[var(--color-border)] text-[var(--color-text-muted)]
-               hover:border-[var(--color-accent-dim)] hover:text-[var(--color-accent)] transition-all duration-200"
-      >
-        關於阿公
-      </a>
+  <!-- 瀏覽其他主題 -->
+  <section class="bg-gray-50 border-t border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h2 class="text-xl font-bold text-gray-900 mb-6">瀏覽其他主題</h2>
+      <div class="flex flex-wrap gap-3">
+        {otherCategories.map(([cat, color]) => (
+          <a
+            href={`${import.meta.env.BASE_URL}category/${encodeURIComponent(cat)}`}
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border cursor-pointer
+                   hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+            style={`background-color: ${color}08; border-color: ${color}30; color: ${color}`}
+          >
+            <span class="w-2 h-2 rounded-full" style={`background-color: ${color}`}></span>
+            {cat}
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
+  <!-- CTA -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+      有餐飲SaaS出海的經驗想分享？
+    </h2>
+    <p class="text-gray-600 mb-8 max-w-xl mx-auto">
+      這是一個開放的知識庫。如果你也在餐飲科技行業打拼，歡迎交流討論。
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a
+        href="https://github.com/foolcar/tappo-saas-blog"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a
+        href={`${import.meta.env.BASE_URL}`}
+        class="inline-flex items-center gap-2 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+      >
+        瀏覽全部文章
+      </a>
+    </div>
+  </section>
 </BlogLayout>

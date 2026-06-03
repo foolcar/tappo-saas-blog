@@ -1,7 +1,6 @@
 ---
 import BlogLayout from '../layouts/BlogLayout.astro';
-
-const accentColor = '#b85c3a';
+import '../styles/global.css';
 ---
 
 <BlogLayout
@@ -9,49 +8,31 @@ const accentColor = '#b85c3a';
   description="阿公有20多年中港兩地工作經驗及30多年互聯網產品探索經驗，專注港澳餐飲數字化轉型。這個博客記錄餐飲SaaS從中國香港走向全球的實戰經驗。"
   type="website"
 >
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-    <!-- 返回鏈接 -->
-    <a
-      href={import.meta.env.BASE_URL}
-      class="inline-flex items-center gap-1.5 text-sm text-[var(--color-text-muted)]
-             hover:text-[var(--color-accent)] transition-colors mb-8"
-    >
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-      </svg>
-      返回首頁
-    </a>
-
-    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--color-text)] mb-8">
-      關於
-    </h1>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">關於</h1>
 
     <!-- 作者信息 -->
-    <div class="bg-[var(--color-surface)] rounded-xl border border-[var(--color-border)] p-6 sm:p-8 mb-10">
-      <div class="flex flex-col sm:flex-row items-start gap-5">
-        <div class="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold
-                    text-white shrink-0"
-             style={`background-color: ${accentColor}`}>
+    <div class="bg-white rounded-xl border border-gray-200 p-8 mb-10">
+      <div class="flex flex-col sm:flex-row items-start gap-6">
+        <div class="w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold shrink-0">
           公
         </div>
         <div>
-          <h2 class="text-xl font-bold text-[var(--color-text)] mb-2">阿公</h2>
-          <p class="text-[var(--color-text-muted)] leading-relaxed mb-3">
+          <h2 class="text-xl font-bold text-gray-900 mb-2">阿公</h2>
+          <p class="text-gray-600 leading-relaxed mb-3">
             20 多年中港兩地工作，30 多年互聯網產品探索經驗。<br/>
             專注港澳餐飲業的數字化轉型。
           </p>
-          <p class="text-[var(--color-text-muted)] leading-relaxed mb-4">
+          <p class="text-gray-600 leading-relaxed mb-4">
             常駐廣州，週末回中國香港。日常工作涵蓋產品管理、技術架構、市場策略，
             以及帶領團隊將餐飲SaaS產品從中國香港推向全球市場。
           </p>
-          <div class="flex flex-wrap gap-3 text-sm">
-            <a href="https://www.gotappo.com" target="_blank" rel="noopener noreferrer"
-               class="text-[var(--color-accent)] hover:underline transition-colors">
+          <div class="flex flex-wrap gap-3">
+            <a href="https://www.gotappo.com" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-800 underline transition-colors">
               Tappo
             </a>
-            <span class="text-[var(--color-border)]">|</span>
-            <a href="https://github.com/foolcar" target="_blank" rel="noopener noreferrer"
-               class="text-[var(--color-accent)] hover:underline transition-colors">
+            <span class="text-gray-300">|</span>
+            <a href="https://github.com/foolcar" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-800 underline transition-colors">
               GitHub
             </a>
           </div>
@@ -59,8 +40,8 @@ const accentColor = '#b85c3a';
       </div>
     </div>
 
-    <!-- 內容 -->
-    <div class="prose">
+    <!-- 為什麼寫這個博客 -->
+    <div class="prose prose-lg max-w-none">
       <h2>為什麼寫這個博客？</h2>
       <p>
         在中國香港做餐飲SaaS十年，有一件事一直讓我耿耿於懷——
@@ -72,7 +53,9 @@ const accentColor = '#b85c3a';
         這些跟我們的現實——茶餐廳的複雜點餐流程、中國香港四大外賣平台的生態割裂、
         QR點餐從小眾到大眾的轉變——幾乎毫不相關。
       </p>
-      <p>所以我從 2026 年開始寫這個博客，想做的其實只有三件事：</p>
+      <p>
+        所以我從 2026 年開始寫這個博客，想做的其實只有三件事：
+      </p>
       <ul>
         <li>
           <strong>記錄真實的出海歷程。</strong>
@@ -92,7 +75,9 @@ const accentColor = '#b85c3a';
       </ul>
 
       <h2>這個博客在寫什麼？</h2>
-      <p>目前圍繞七個核心主題，全是我們團隊在實際工作中遇到的真問題：</p>
+      <p>
+        目前圍繞七個核心主題，全是我們團隊在實際工作中遇到的真問題：
+      </p>
       <ul>
         <li><strong>POS系統選購</strong> — 月費 vs 按單收費，中國香港市場真實比較</li>
         <li><strong>全球市場策略</strong> — 為什麼第一站選東南亞？中東和歐美市場分析</li>
@@ -116,7 +101,9 @@ const accentColor = '#b85c3a';
       </p>
 
       <h2>聯絡方式</h2>
-      <p>如果你對餐飲SaaS出海有想法，或者想交流經驗——</p>
+      <p>
+        如果你對餐飲SaaS出海有想法，或者想交流經驗——
+      </p>
       <ul>
         <li>在 <a href="https://github.com/foolcar" target="_blank" rel="noopener noreferrer">GitHub</a> 上找我</li>
         <li>直接在這篇文章的 GitHub Issue 區討論</li>

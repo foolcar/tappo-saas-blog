@@ -1,5 +1,6 @@
 ---
 import BlogLayout from '../layouts/BlogLayout.astro';
+import '../styles/global.css';
 ---
 
 <BlogLayout
@@ -7,23 +8,18 @@ import BlogLayout from '../layouts/BlogLayout.astro';
   description="抱歉，您要找的頁面不存在。"
   type="website"
 >
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 text-center">
-    <div class="text-6xl sm:text-7xl font-bold text-[var(--color-accent)] mb-4 opacity-50">404</div>
-    <h1 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)] mb-3">
-      這碗麵還沒煮好
-    </h1>
-    <p class="text-sm text-[var(--color-text-muted)] mb-10 leading-relaxed max-w-sm mx-auto">
-      您要找的頁面可能已被移動或不存在。<br/>不如回到首頁，看看最新文章？
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+    <p class="text-6xl mb-4">🍜</p>
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">404</h1>
+    <p class="text-lg text-gray-600 mb-8">
+      抱歉，這碗麵還沒煮好。<br/>
+      您要找的頁面可能已被移動或不存在。
     </p>
     <a
-      href={import.meta.env.BASE_URL}
-      class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium
-             bg-[var(--color-text)] text-white
-             hover:bg-[var(--color-accent)] transition-colors duration-200"
+      href={`${Astro.site?.base ?? ''}/`}
+      class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
     >
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-      </svg>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
       返回首頁
     </a>
   </div>
