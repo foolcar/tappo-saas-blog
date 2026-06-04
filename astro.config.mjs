@@ -16,26 +16,26 @@ export default defineConfig({
 
         // --- Homepage --- highest priority, crawlers check most often
         if (url === 'https://foolcar.github.io/tappo-saas-blog') {
-          return { ...item, changefreq: 'daily', priority: 1.0 };
+          return { ...item, changefreq: 'daily', priority: 1.0, lastmod: item.lastmod || new Date().toISOString() };
         }
 
         // --- About page --- informational, rarely updates
         if (url === 'https://foolcar.github.io/tappo-saas-blog/about') {
-          return { ...item, changefreq: 'monthly', priority: 0.5 };
+          return { ...item, changefreq: 'monthly', priority: 0.5, lastmod: item.lastmod || new Date().toISOString() };
         }
 
         // --- Blog posts --- content pages, stable after publish
         if (url.includes('/tappo-saas-blog/blog/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.7 };
+          return { ...item, changefreq: 'monthly', priority: 0.7, lastmod: item.lastmod || new Date().toISOString() };
         }
 
         // --- Tag pages --- supporting content
         if (url.includes('/tappo-saas-blog/tags/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.4 };
+          return { ...item, changefreq: 'monthly', priority: 0.4, lastmod: item.lastmod || new Date().toISOString() };
         }
 
         // --- Fallback for any unexpected pages
-        return { ...item, changefreq: 'weekly', priority: 0.5 };
+        return { ...item, changefreq: 'weekly', priority: 0.5, lastmod: item.lastmod || new Date().toISOString() };
       },
     }),
   ],

@@ -14,6 +14,7 @@ export interface Props {
   tags?: string[];
   slug?: string;
   wordCount?: number;
+  breadcrumbs?: { name: string; url?: string }[];
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   tags = [],
   slug,
   wordCount,
+  breadcrumbs,
 } = Astro.props;
 
 const siteTitle = '餐饮SaaS出海指南';
@@ -78,6 +80,22 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={imageUrl} />
+
+  <!-- BreadcrumbList Structured Data -->
+  {
+    breadcrumbs && breadcrumbs.length > 0 ? (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((b, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: b.name,
+          ...(b.url ? { item: b.url } : {}),
+        })),
+      })} />
+    ) : null
+  }
 
   <!-- Structured Data -->
   {

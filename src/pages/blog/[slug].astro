@@ -28,6 +28,11 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
   slug={post.slug}
   image={post.data.image || '/og-default.svg'}
   wordCount={wordCount}
+  breadcrumbs={[
+    { name: '首頁', url: 'https://foolcar.github.io/tappo-saas-blog/' },
+    { name: post.data.category, url: `https://foolcar.github.io/tappo-saas-blog/category/${encodeURIComponent(post.data.category)}/` },
+    { name: post.data.title },
+  ]}
 >
   <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- 文章頭部 -->
