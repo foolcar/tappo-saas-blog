@@ -41,6 +41,10 @@ function estimateReadTime(body: string): number {
   title={`「${category}」文章列表 — 餐飲SaaS出海指南`}
   description={cat.desc}
   type="website"
+  breadcrumbs={[
+    { name: '首頁', url: 'https://foolcar.github.io/tappo-saas-blog/' },
+    { name: category },
+  ]}
 >
   <!-- Category Hero -->
   <div class="relative overflow-hidden">

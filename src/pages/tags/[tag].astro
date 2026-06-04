@@ -53,6 +53,11 @@ function estimateReadTime(body: string): number {
   title={`「${originalTag}」相關文章 — 餐飲SaaS出海指南`}
   description={`瀏覽標籤為「${originalTag}」的所有文章 — 餐飲SaaS出海實戰經驗分享。`}
   type="website"
+  breadcrumbs={[
+    { name: '首頁', url: 'https://foolcar.github.io/tappo-saas-blog/' },
+    { name: '標籤', url: 'https://foolcar.github.io/tappo-saas-blog/tags/' },
+    { name: `#${originalTag}` },
+  ]}
 >
   <!-- Tag Hero -->
   <div class="relative overflow-hidden">
