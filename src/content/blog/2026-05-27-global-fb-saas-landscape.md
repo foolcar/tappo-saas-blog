@@ -5,7 +5,7 @@ date: 2026-05-27
 updated: 2026-06-03
 category: "全球市場"
 tags: ["出海策略", "全球市場", "SaaS", "市場分析", "餐飲科技"]
-image: "/og-default.svg"
+image: "/og-default.png"
 ---
 
 ## 為什麼餐飲SaaS需要出海？

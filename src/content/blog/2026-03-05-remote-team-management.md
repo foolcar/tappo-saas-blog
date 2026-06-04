@@ -4,7 +4,7 @@ description: "從中國香港管理跨國團隊的完整實戰經驗，包括招
 date: 2026-03-05
 category: "團隊管理"
 tags: ["遠程團隊", "團隊管理", "跨國協作", "招聘", "文化差異"]
-image: "/og-default.svg"
+image: "/og-default.png"
 ---
 
 ## 背景：為什麼需要遠程團隊？

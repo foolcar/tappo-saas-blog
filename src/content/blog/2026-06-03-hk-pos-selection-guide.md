@@ -5,7 +5,7 @@ date: 2026-06-03
 updated: 2026-06-03
 category: "POS選購"
 tags: ["POS系統", "收費模式", "成本分析", "餐飲科技", "中國香港"]
-image: "/og-default.svg"
+image: "/og-default.png"
 ---
 
 ## 引言：中國香港餐飲業的數字化拐點

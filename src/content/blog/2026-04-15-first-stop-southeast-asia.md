@@ -5,7 +5,7 @@ date: 2026-04-15
 updated: 2026-06-03
 category: "全球市場"
 tags: ["東南亞", "出海策略", "新加坡", "泰國", "印尼", "新興市場"]
-image: "/og-default.svg"
+image: "/og-default.png"
 ---
 
 ## 為什麼是東南亞？
