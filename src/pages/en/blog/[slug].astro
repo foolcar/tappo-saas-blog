@@ -1,9 +1,9 @@
 ---
-import BlogLayout from '../../layouts/BlogLayout.astro';
+import BlogLayout from '../../../layouts/BlogLayout.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const posts = await getCollection('blogEn', ({ data }) => !data.draft);
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
@@ -13,13 +13,8 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-// Look up English version for hreflang cross-links
-const enPosts = await getCollection('blogEn', ({ data }) => !data.draft);
-const enMatch = enPosts.find(p => p.data.originalSlug === post.slug);
-const enSlug = enMatch?.slug;
-
-// Compute word count for Schema
-const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
+// Compute word count
+const wordCount = post.body?.match(/[a-zA-Z]+/g)?.length ?? 0;
 ---
 
 <BlogLayout
@@ -33,25 +28,25 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
   slug={post.slug}
   image={post.data.image || '/og-default.png'}
   wordCount={wordCount}
-  enSlug={enSlug}
+  locale="en"
+  zhSlug={post.data.originalSlug}
   breadcrumbs={[
-    { name: '首頁', url: 'https://foolcar.github.io/tappo-saas-blog/' },
-    { name: post.data.category, url: `https://foolcar.github.io/tappo-saas-blog/category/${encodeURIComponent(post.data.category)}/` },
+    { name: 'Home', url: 'https://foolcar.github.io/tappo-saas-blog/en/' },
+    { name: post.data.category, url: `https://foolcar.github.io/tappo-saas-blog/en/blog/${encodeURIComponent(post.slug)}/` },
     { name: post.data.title },
   ]}
 >
   <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- 文章頭部 -->
+    <!-- Article Header -->
     <header class="mb-10">
       <div class="flex flex-wrap items-center gap-3 mb-4">
         <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
           {post.data.category}
         </span>
         {post.data.tags.map((tag) => (
-          <a href={`${import.meta.env.BASE_URL}tags/${tag.replace(/\//g, '-')}/`}
-             class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded hover:bg-blue-100 hover:text-blue-600 transition-colors cursor-pointer">
+          <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
             {tag}
-          </a>
+          </span>
         ))}
       </div>
 
@@ -65,7 +60,7 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
 
       <div class="flex items-center gap-4 text-sm text-gray-500 border-b border-gray-200 pb-6">
         <time datetime={post.data.date.toISOString().split('T')[0]}>
-          發佈於 {post.data.date.toLocaleDateString('zh-Hant', {
+          {post.data.date.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -73,7 +68,7 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
         </time>
         {post.data.updated && (
           <time datetime={post.data.updated.toISOString().split('T')[0]}>
-            · 更新於 {post.data.updated.toLocaleDateString('zh-Hant', {
+            · Updated {post.data.updated.toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
@@ -83,12 +78,12 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
       </div>
     </header>
 
-    <!-- 文章內容 -->
+    <!-- Article Content -->
     <div class="prose prose-lg max-w-none">
       <Content />
     </div>
 
-    <!-- 文章頁尾 -->
+    <!-- Article Footer -->
     <footer class="mt-16 pt-8 border-t border-gray-200">
       <div class="bg-blue-50 rounded-xl p-6">
         <div class="flex items-center gap-4">
@@ -96,10 +91,10 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
             公
           </div>
           <div>
-            <p class="font-semibold text-gray-900">阿公</p>
+            <p class="font-semibold text-gray-900">Ah Gung</p>
             <p class="text-sm text-gray-600">
-              20 多年中港兩地工作，30 多年互聯網產品探索經驗。<br/>
-              熱衷分享餐飲科技出海的實戰見解。
+              20+ years across Hong Kong and China, 30+ years in product design.<br/>
+              Sharing real frontline insights from the F&B tech going-global journey.
             </p>
           </div>
         </div>
@@ -107,11 +102,11 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
 
       <nav class="mt-8">
         <a
-          href={`${import.meta.env.BASE_URL}`}
+          href={`${import.meta.env.BASE_URL}en/`}
           class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-          返回文章列表
+          Back to Articles
         </a>
       </nav>
     </footer>

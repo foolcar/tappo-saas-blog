@@ -15,6 +15,10 @@ export interface Props {
   slug?: string;
   wordCount?: number;
   breadcrumbs?: { name: string; url?: string }[];
+  locale?: 'zh-Hant' | 'en';
+  alternateUrl?: string; // URL of alternate language version (for hreflang)
+  enSlug?: string; // English slug for language toggle (for non-blog pages that have EN versions)
+  zhSlug?: string; // Chinese slug for language toggle
 }
 
 const {
@@ -29,17 +33,34 @@ const {
   slug,
   wordCount,
   breadcrumbs,
+  locale = 'zh-Hant',
+  alternateUrl,
+  enSlug,
+  zhSlug,
 } = Astro.props;
 
-const siteTitle = '餐饮SaaS出海指南';
+const siteTitle = locale === 'en' ? 'F&B SaaS Going Global Guide' : '餐饮SaaS出海指南';
 const fullTitle = `${title} | ${siteTitle}`;
 const siteUrl = Astro.site?.origin ?? '';
-const pageUrl = slug ? `${siteUrl}/tappo-saas-blog/blog/${slug}` : `${siteUrl}/tappo-saas-blog`;
-const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog${image}`;
+const basePath = `${siteUrl}/tappo-saas-blog`;
+const langPrefix = locale === 'en' ? 'en' : '';
+const pageUrl = slug
+  ? langPrefix
+    ? `${basePath}/${langPrefix}/blog/${slug}`
+    : `${basePath}/blog/${slug}`
+  : `${basePath}${langPrefix ? `/${langPrefix}` : ''}`;
+const imageUrl = image.startsWith('http') ? image : `${basePath}${image}`;
+
+// Compute language toggle URL
+const langToggleUrl = alternateUrl
+  ? alternateUrl  // explicit override (e.g. about page)
+  : locale === 'en'
+    ? (zhSlug ? `${basePath}/blog/${zhSlug}/` : `${basePath}/`)
+    : (enSlug ? `${basePath}/en/blog/${enSlug}/` : `${basePath}/en/`);
 ---
 
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang={locale === 'en' ? 'en' : 'zh-Hant'}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,6 +71,25 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
   <meta name="author" content="阿公" />
   <link rel="canonical" href={pageUrl} />
 
+  <!-- Hreflang (only if alternate language exists) -->
+  {
+    alternateUrl || (slug && (enSlug || zhSlug)) ? (
+      <>
+        <link rel="alternate" hreflang="zh-Hant" href={locale === 'en' ? (alternateUrl || `${basePath}/blog/${zhSlug}`) : pageUrl} />
+        <link rel="alternate" hreflang="en" href={locale === 'zh-Hant' ? (alternateUrl || `${basePath}/en/blog/${enSlug}`) : pageUrl} />
+        <link rel="alternate" hreflang="x-default" href={locale === 'en' ? (alternateUrl || `${basePath}/blog/${zhSlug}`) : pageUrl} />
+      </>
+    ) : null
+  }
+
+  <!-- Lang toggle button style -->
+  <style>
+    .lang-active {
+      background-color: #3B82F6 !important;
+      color: white !important;
+    }
+  </style>
+
   <!-- Open Graph -->
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
@@ -57,7 +97,7 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
   <meta property="og:url" content={pageUrl} />
   <meta property="og:image" content={imageUrl} />
   <meta property="og:site_name" content={siteTitle} />
-  <meta property="og:locale" content="zh_Hant" />
+  <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'zh_Hant'} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -108,7 +148,7 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
         image: imageUrl,
         datePublished: date?.toISOString(),
         dateModified: (updated || date)?.toISOString(),
-        inLanguage: 'zh-Hant',
+        inLanguage: locale === 'en' ? 'en' : 'zh-Hant',
         author: {
           '@type': 'Person',
           name: '阿公',
@@ -134,7 +174,7 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
         name: siteTitle,
         url: `${siteUrl}/tappo-saas-blog`,
         description: description,
-        inLanguage: 'zh-Hant',
+        inLanguage: locale === 'en' ? 'en' : 'zh-Hant',
         author: {
           '@type': 'Person',
           name: '阿公',
@@ -173,18 +213,28 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
     <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <a href={`${import.meta.env.BASE_URL}`} class="flex items-center gap-2 group" aria-label="首页">
+        <a href={`${import.meta.env.BASE_URL}`} class="flex items-center gap-2 group" aria-label={locale === 'en' ? 'Home' : '首页'}>
           <span class="text-2xl" role="img" aria-hidden="true">🍜</span>
           <span class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-            餐饮SaaS出海指南
+            {locale === 'en' ? 'F&B SaaS Going Global' : '餐饮SaaS出海指南'}
           </span>
         </a>
         <div class="flex items-center gap-6">
           <a href={`${import.meta.env.BASE_URL}`} class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-            文章
+            {locale === 'en' ? 'Articles' : '文章'}
           </a>
           <a href={`${import.meta.env.BASE_URL}about`} class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-            關於
+            {locale === 'en' ? 'About' : '關於'}
+          </a>
+          <!-- Language Toggle -->
+          <a
+            href={langToggleUrl}
+            class="flex items-center gap-1 text-xs font-semibold border border-gray-300 rounded-full px-2.5 py-1 hover:border-blue-500 hover:text-blue-600 transition-colors"
+            aria-label={locale === 'en' ? '切換到中文' : 'Switch to English'}
+          >
+            <span class={locale === 'zh-Hant' ? 'text-blue-600 font-bold' : 'text-gray-400'}>中</span>
+            <span class="text-gray-300">/</span>
+            <span class={locale === 'en' ? 'text-blue-600 font-bold' : 'text-gray-400'}>EN</span>
           </a>
         </div>
       </div>
@@ -202,18 +252,21 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-2 text-gray-500 text-sm">
           <span class="text-lg" role="img" aria-hidden="true">🍜</span>
-          <span>餐饮SaaS出海指南 © {new Date().getFullYear()}</span>
+          <span>{locale === 'en' ? 'F&B SaaS Going Global Guide' : '餐饮SaaS出海指南'} © {new Date().getFullYear()}</span>
         </div>
         <div class="flex items-center gap-6">
-          <a href={`${import.meta.env.BASE_URL}`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">文章</a>
-          <a href={`${import.meta.env.BASE_URL}tags`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">標籤</a>
-          <a href={`${import.meta.env.BASE_URL}about`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">關於</a>
+          <a href={`${import.meta.env.BASE_URL}`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'Articles' : '文章'}</a>
+          <a href={`${import.meta.env.BASE_URL}tags`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'Tags' : '標籤'}</a>
+          <a href={`${import.meta.env.BASE_URL}about`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'About' : '關於'}</a>
           <a href={`${siteUrl}/tappo-saas-blog/sitemap.xml`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">Sitemap</a>
         </div>
       </div>
       <p class="text-center text-xs text-gray-400 mt-6">
-        由 <a href="https://foolcar.github.io" class="text-gray-500 hover:text-blue-600 transition-colors">阿公</a> 撰寫 —
-        分享餐飲SaaS從中國香港走向全球的實戰經驗
+        {locale === 'en' ? (
+          <>By <a href="https://foolcar.github.io" class="text-gray-500 hover:text-blue-600 transition-colors">Ah Gung</a> — Sharing real-world F&B SaaS experience from Hong Kong to the global market</>
+        ) : (
+          <>由 <a href="https://foolcar.github.io" class="text-gray-500 hover:text-blue-600 transition-colors">阿公</a> 撰寫 — 分享餐飲SaaS從中國香港走向全球的實戰經驗</>
+        )}
       </p>
     </div>
   </footer>
@@ -223,8 +276,8 @@ const imageUrl = image.startsWith('http') ? image : `${siteUrl}/tappo-saas-blog$
     class="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-blue-600 text-white shadow-lg
            opacity-0 translate-y-2 pointer-events-none transition-all duration-300
            hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-    aria-label="返回頂部"
-    title="返回頂部">
+    aria-label={locale === 'en' ? 'Back to top' : '返回頂部'}
+    title={locale === 'en' ? 'Back to top' : '返回頂部'}>
     <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
     </svg>
