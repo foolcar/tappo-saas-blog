@@ -11,12 +11,12 @@ export async function GET(context: APIContext) {
   return rss({
     title: '餐饮SaaS出海指南',
     description: '從中國香港出發，分享將餐飲SaaS產品推向全球市場的實戰經驗',
-    site: context.site ?? 'https://foolcar.github.io',
+    site: context.site ?? 'https://blog.foolcar.cc',
     items: sortedPosts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.date,
-      link: `/tappo-saas-blog/blog/${post.slug}`,
+      link: `/blog/${post.slug}`,
       categories: [post.data.category, ...post.data.tags],
     })),
     customData: `<language>zh-Hant</language>`,

@@ -41,8 +41,8 @@ const {
 
 const siteTitle = locale === 'en' ? 'F&B SaaS Going Global Guide' : '餐饮SaaS出海指南';
 const fullTitle = `${title} | ${siteTitle}`;
-const siteUrl = Astro.site?.origin ?? '';
-const basePath = `${siteUrl}/tappo-saas-blog`;
+const siteUrl = Astro.site?.origin ?? 'https://blog.foolcar.cc';
+const basePath = siteUrl;
 const langPrefix = locale === 'en' ? 'en' : '';
 const pageUrl = slug
   ? langPrefix
@@ -152,9 +152,7 @@ const langToggleUrl = alternateUrl
         author: {
           '@type': 'Person',
           name: '阿公',
-          url: 'https://foolcar.github.io',
-        },
-        publisher: {
+          url: 'https://blog.foolcar.cc',
           '@type': 'Organization',
           name: '餐饮SaaS出海指南',
         },
@@ -172,13 +170,13 @@ const langToggleUrl = alternateUrl
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         name: siteTitle,
-        url: `${siteUrl}/tappo-saas-blog`,
+        url: siteUrl,
         description: description,
         inLanguage: locale === 'en' ? 'en' : 'zh-Hant',
         author: {
           '@type': 'Person',
           name: '阿公',
-          url: 'https://foolcar.github.io',
+          url: 'https://blog.foolcar.cc',
         },
       })} />
     )
@@ -258,14 +256,14 @@ const langToggleUrl = alternateUrl
           <a href={`${import.meta.env.BASE_URL}`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'Articles' : '文章'}</a>
           <a href={`${import.meta.env.BASE_URL}tags`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'Tags' : '標籤'}</a>
           <a href={`${import.meta.env.BASE_URL}about`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'About' : '關於'}</a>
-          <a href={`${siteUrl}/tappo-saas-blog/sitemap.xml`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">Sitemap</a>
+          <a href={`${siteUrl}/sitemap.xml`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">Sitemap</a>
         </div>
       </div>
       <p class="text-center text-xs text-gray-400 mt-6">
         {locale === 'en' ? (
-          <>By <a href="https://foolcar.github.io" class="text-gray-500 hover:text-blue-600 transition-colors">Ah Gung</a> — Sharing real-world F&B SaaS experience from Hong Kong to the global market</>
+          <>By <a href="https://blog.foolcar.cc" class="text-gray-500 hover:text-blue-600 transition-colors">Ah Gung</a> — Sharing real-world F&B SaaS experience from Hong Kong to the global market</>
         ) : (
-          <>由 <a href="https://foolcar.github.io" class="text-gray-500 hover:text-blue-600 transition-colors">阿公</a> 撰寫 — 分享餐飲SaaS從中國香港走向全球的實戰經驗</>
+          <>由 <a href="https://blog.foolcar.cc" class="text-gray-500 hover:text-blue-600 transition-colors">阿公</a> 撰寫 — 分享餐飲SaaS從中國香港走向全球的實戰經驗</>
         )}
       </p>
     </div>

@@ -31,8 +31,8 @@ const wordCount = post.body?.match(/[a-zA-Z]+/g)?.length ?? 0;
   locale="en"
   zhSlug={post.data.originalSlug}
   breadcrumbs={[
-    { name: 'Home', url: 'https://foolcar.github.io/tappo-saas-blog/en/' },
-    { name: post.data.category, url: `https://foolcar.github.io/tappo-saas-blog/en/blog/${encodeURIComponent(post.slug)}/` },
+    { name: 'Home', url: 'https://blog.foolcar.cc/en/' },
+    { name: post.data.category, url: `https://blog.foolcar.cc/en/blog/${encodeURIComponent(post.slug)}/` },
     { name: post.data.title },
   ]}
 >

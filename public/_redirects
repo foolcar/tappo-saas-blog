@@ -1,0 +1,6 @@
+# Cloudflare Pages _redirects
+# SPA fallback - keep Astro routing working
+/*    /index.html   404
+
+# Redirect old GitHub Pages paths to new domain
+/tappo-saas-blog/*    /:splat    301

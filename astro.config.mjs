@@ -15,22 +15,22 @@ export default defineConfig({
         const url = item.url.replace(/\/+$/, '');
 
         // --- Homepage --- highest priority, crawlers check most often
-        if (url === 'https://foolcar.github.io/tappo-saas-blog') {
+        if (url === 'https://blog.foolcar.cc') {
           return { ...item, changefreq: 'daily', priority: 1.0, lastmod: item.lastmod || new Date().toISOString() };
         }
 
         // --- About page --- informational, rarely updates
-        if (url === 'https://foolcar.github.io/tappo-saas-blog/about') {
+        if (url === 'https://blog.foolcar.cc/about') {
           return { ...item, changefreq: 'monthly', priority: 0.5, lastmod: item.lastmod || new Date().toISOString() };
         }
 
         // --- Blog posts --- content pages, stable after publish
-        if (url.includes('/tappo-saas-blog/blog/')) {
+        if (url.includes('/blog/')) {
           return { ...item, changefreq: 'monthly', priority: 0.7, lastmod: item.lastmod || new Date().toISOString() };
         }
 
         // --- Tag pages --- supporting content
-        if (url.includes('/tappo-saas-blog/tags/')) {
+        if (url.includes('/tags/')) {
           return { ...item, changefreq: 'monthly', priority: 0.4, lastmod: item.lastmod || new Date().toISOString() };
         }
 
@@ -39,8 +39,7 @@ export default defineConfig({
       },
     }),
   ],
-  site: 'https://foolcar.github.io',
-  base: '/tappo-saas-blog/',
+  site: 'https://blog.foolcar.cc',
   output: 'static',
   markdown: {
     shikiConfig: {
