@@ -1,0 +1,3 @@
+# Cloudflare Pages _headers — custom HTTP headers
+/sitemap.xsl
+  Content-Type: text/xsl
