@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blog.foolcar.cc/sitemap-index.xml
 Sitemap: https://blog.foolcar.cc/sitemap.xml
