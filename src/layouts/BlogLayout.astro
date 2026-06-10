@@ -43,12 +43,7 @@ const siteTitle = locale === 'en' ? 'F&B SaaS Going Global Guide' : '餐饮SaaS�
 const fullTitle = `${title} | ${siteTitle}`;
 const siteUrl = Astro.site?.origin ?? 'https://blog.foolcar.cc';
 const basePath = siteUrl;
-const langPrefix = locale === 'en' ? 'en' : '';
-const pageUrl = slug
-  ? langPrefix
-    ? `${basePath}/${langPrefix}/blog/${slug}`
-    : `${basePath}/blog/${slug}`
-  : `${basePath}${langPrefix ? `/${langPrefix}` : ''}`;
+const pageUrl = Astro.url.toString();
 const imageUrl = image.startsWith('http') ? image : `${basePath}${image}`;
 
 // Compute language toggle URL
@@ -71,15 +66,25 @@ const langToggleUrl = alternateUrl
   <meta name="author" content="阿公" />
   <link rel="canonical" href={pageUrl} />
 
-  <!-- Hreflang (only if alternate language exists) -->
+  <!-- Hreflang — auto-generated from props -->
   {
-    alternateUrl || (slug && (enSlug || zhSlug)) ? (
-      <>
-        <link rel="alternate" hreflang="zh-Hant" href={locale === 'en' ? (alternateUrl || `${basePath}/blog/${zhSlug}`) : pageUrl} />
-        <link rel="alternate" hreflang="en" href={locale === 'zh-Hant' ? (alternateUrl || `${basePath}/en/blog/${enSlug}`) : pageUrl} />
-        <link rel="alternate" hreflang="x-default" href={locale === 'en' ? (alternateUrl || `${basePath}/blog/${zhSlug}`) : pageUrl} />
-      </>
-    ) : null
+    (() => {
+      const zhHref = locale === 'zh-Hant'
+        ? pageUrl
+        : (alternateUrl || (slug && zhSlug ? `${basePath}/blog/${zhSlug}/` : null));
+      const enHref = locale === 'en'
+        ? pageUrl
+        : (alternateUrl || (slug && enSlug ? `${basePath}/en/blog/${enSlug}/` : null));
+
+      if (zhHref && enHref) {
+        return <>
+          <link rel="alternate" hreflang="zh-Hant" href={zhHref} />
+          <link rel="alternate" hreflang="en" href={enHref} />
+          <link rel="alternate" hreflang="x-default" href={zhHref} />
+        </>;
+      }
+      return null;
+    })()
   }
 
   <!-- Lang toggle button style -->
