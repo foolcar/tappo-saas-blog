@@ -19,6 +19,7 @@ export interface Props {
   alternateUrl?: string; // URL of alternate language version (for hreflang)
   enSlug?: string; // English slug for language toggle (for non-blog pages that have EN versions)
   zhSlug?: string; // Chinese slug for language toggle
+  pageType?: 'page' | 'about'; // schema type for non-article pages
 }
 
 const {
@@ -37,6 +38,7 @@ const {
   alternateUrl,
   enSlug,
   zhSlug,
+  pageType = 'page',
 } = Astro.props;
 
 const siteTitle = locale === 'en' ? 'F&B SaaS Going Global Guide' : '餐飲SaaS出海指南';
@@ -78,10 +80,25 @@ const langToggleUrl = alternateUrl
         : (alternateUrl || (slug && enSlug ? `${basePath}/en/blog/${enSlug}/` : null));
 
       if (zhHref && enHref) {
+        // Bilingual: cross-reference both
         return <>
           <link rel="alternate" hreflang="zh-Hant" href={zhHref} />
           <link rel="alternate" hreflang="en" href={enHref} />
           <link rel="alternate" hreflang="x-default" href={zhHref} />
+        </>;
+      }
+      if (zhHref) {
+        // Chinese only: self-reference
+        return <>
+          <link rel="alternate" hreflang="zh-Hant" href={zhHref} />
+          <link rel="alternate" hreflang="x-default" href={zhHref} />
+        </>;
+      }
+      if (enHref) {
+        // English only: self-reference
+        return <>
+          <link rel="alternate" hreflang="en" href={enHref} />
+          <link rel="alternate" hreflang="x-default" href={enHref} />
         </>;
       }
       return null;
@@ -172,6 +189,25 @@ const langToggleUrl = alternateUrl
         ...(category ? { articleSection: category } : {}),
         ...(tags.length > 0 ? { keywords: tags.join(', ') } : {}),
         ...(wordCount ? { wordCount } : {}),
+      })} />
+    ) : pageType === 'about' ? (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        name: title,
+        description: description,
+        url: pageUrl,
+        inLanguage: locale === 'en' ? 'en' : 'zh-Hant',
+        about: {
+          '@type': 'Person',
+          name: locale === 'en' ? 'Ah Gung (阿公)' : '阿公',
+          description: description,
+          url: 'https://blog.foolcar.cc',
+          sameAs: [
+            'https://github.com/foolcar',
+            'https://www.linkedin.com/in/ravicli/',
+          ],
+        },
       })} />
     ) : (
       <script type="application/ld+json" set:html={JSON.stringify({
