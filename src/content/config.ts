@@ -16,6 +16,7 @@ const blogCollection = defineCollection({
       '合規挑戰',
       '產品設計',
       '團隊管理',
+      '數位營銷',
     ]),
     tags: z.array(z.string()).default([]),
     image: z.string().optional(),
