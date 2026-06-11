@@ -4,3 +4,7 @@
 
 # Redirect old GitHub Pages paths to new domain
 /tappo-saas-blog/*    /:splat    301
+
+# Redirect bare /blog/ and /en/blog/ listing pages (404) to actual homepages
+/blog/       /     301
+/en/blog/    /en/  301
