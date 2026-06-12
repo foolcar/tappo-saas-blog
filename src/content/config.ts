@@ -39,6 +39,7 @@ const blogEnCollection = defineCollection({
       'Compliance',
       'Product Design',
       'Team Management',
+      'Digital Marketing',
     ]),
     tags: z.array(z.string()).default([]),
     image: z.string().optional(),
