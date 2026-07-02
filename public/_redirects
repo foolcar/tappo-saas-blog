@@ -4,6 +4,9 @@
 # Redirect old GitHub Pages paths to new domain
 /tappo-saas-blog/*    /:splat    301
 
+# Redirect legacy /sitemap.xml to Astro-generated sitemap-index.xml
+/sitemap.xml    /sitemap-index.xml    301
+
 # Redirect bare /blog/ and /en/blog/ listing pages to homepages
 /blog/       /     301
 /en/blog/    /en/  301
