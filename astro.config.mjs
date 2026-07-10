@@ -19,31 +19,18 @@ export default defineConfig({
         return true;
       },
       serialize(item) {
-        // Remove trailing slash for consistent matching
         const url = item.url.replace(/\/+$/, '');
 
-        // --- Homepage --- highest priority, crawlers check most often
-        if (url === 'https://blog.foolcar.cc') {
-          return { ...item, changefreq: 'daily', priority: 1.0, lastmod: item.lastmod || new Date().toISOString() };
+        // Blog posts: extract actual publish date from URL filename prefix
+        // Matches /blog/2026-03-12-* and /en/blog/2026-03-12-*
+        const blogMatch = url.match(/\/(?:en\/)?blog\/(\d{4}-\d{2}-\d{2})/i);
+        if (blogMatch) {
+          return { url, lastmod: new Date(blogMatch[1] + 'T00:00:00Z').toISOString() };
         }
 
-        // --- About page --- informational, rarely updates
-        if (url === 'https://blog.foolcar.cc/about') {
-          return { ...item, changefreq: 'monthly', priority: 0.5, lastmod: item.lastmod || new Date().toISOString() };
-        }
-
-        // --- Blog posts --- content pages, stable after publish
-        if (url.includes('/blog/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.7, lastmod: item.lastmod || new Date().toISOString() };
-        }
-
-        // --- Tag pages --- supporting content
-        if (url.includes('/tags/')) {
-          return { ...item, changefreq: 'monthly', priority: 0.4, lastmod: item.lastmod || new Date().toISOString() };
-        }
-
-        // --- Fallback for any unexpected pages
-        return { ...item, changefreq: 'weekly', priority: 0.5, lastmod: item.lastmod || new Date().toISOString() };
+        // All other pages (home, about, category, tags, EN index, EN about):
+        // Remove lastmod, changefreq, priority — let Google decide based on crawl
+        return { url };
       },
     }),
   ],
