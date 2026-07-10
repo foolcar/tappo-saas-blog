@@ -19,7 +19,8 @@ export default defineConfig({
         return true;
       },
       serialize(item) {
-        const url = item.url.replace(/\/+$/, '');
+        // Ensure every URL ends with a trailing slash to match canonical and avoid redirect chains
+        const url = item.url.replace(/\/+$/, '') + '/';
 
         // Blog posts: extract actual publish date from URL filename prefix
         // Matches /blog/2026-03-12-* and /en/blog/2026-03-12-*
