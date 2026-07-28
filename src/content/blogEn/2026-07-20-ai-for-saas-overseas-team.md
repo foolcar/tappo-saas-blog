@@ -197,6 +197,8 @@ It cannot replace commercial judgement, interpersonal awareness, or accountabili
 
 > If you manage a restaurant SaaS team going global, start with your next overseas market meeting, your next multilingual customer email, or your next localisation request. Do not begin by building a complicated AI workflow. Find one task that consumes your energy every day but can be clearly described. Let AI complete the first pass, then make the final judgement yourself.
 
+When those localisation requests start piling up, the harder question becomes separating genuine localisation from one-off customer customisation. I go deeper into that problem in [Restaurant SaaS Localisation: Avoid the Customisation Trap](/en/blog/2026-07-27-localisation-vs-customer-customisation/).
+
 ---
 
 *Originally published: 2026-07-20*
