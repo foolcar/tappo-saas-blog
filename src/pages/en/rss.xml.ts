@@ -3,18 +3,19 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const posts = await getCollection('blogEn', ({ data }) => !data.draft);
   const sortedPosts = posts.sort(
     (a, b) =>
       (b.data.updated ?? b.data.date).valueOf() -
       (a.data.updated ?? a.data.date).valueOf()
   );
-  const site = context.site ?? new URL('https://blogdemo.foolcar.cc');
+  const origin = context.site ?? new URL('https://blogdemo.foolcar.cc');
+  const site = new URL('/en/', origin);
   const lastBuildDate = sortedPosts[0]?.data.updated ?? sortedPosts[0]?.data.date;
 
   return rss({
-    title: '餐飲SaaS出海指南',
-    description: '餐飲品牌全球化、餐飲 SaaS 出海與數字營運觀察。',
+    title: 'F&B SaaS Going Global',
+    description: 'Independent notes on restaurant brands, F&B SaaS, international expansion, and digital operations.',
     site,
     xmlns: {
       atom: 'http://www.w3.org/2005/Atom',
@@ -24,14 +25,14 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.date,
-      link: `/blog/${post.slug}`,
+      link: `/en/blog/${post.slug}`,
       categories: [...new Set([post.data.category, ...post.data.tags])],
       customData: `<dcterms:modified>${(post.data.updated ?? post.data.date).toISOString()}</dcterms:modified>`,
     })),
     customData: [
-      '<language>zh-Hant</language>',
+      '<language>en</language>',
       lastBuildDate ? `<lastBuildDate>${lastBuildDate.toUTCString()}</lastBuildDate>` : '',
-      `<atom:link href="${new URL('/rss.xml', site).href}" rel="self" type="application/rss+xml" />`,
+      `<atom:link href="${new URL('/en/rss.xml', origin).href}" rel="self" type="application/rss+xml" />`,
     ].join(''),
   });
 }
