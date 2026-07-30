@@ -37,11 +37,20 @@ const imageUrl = image.startsWith('http') ? image : `${basePath}${image}`;
 // Prod (blog.foolcar.cc) never triggers this.
 const isPreview = Astro.site?.hostname === 'blogdemo.foolcar.cc';
 
-// Compute language toggle URL — relative path so the local preview stays on localhost
-// (hreflang still uses the absolute `alternateUrl` above; this is only the in-page switch)
-const langToggleUrl = locale === 'en'
-  ? (zhSlug ? `/blog/${zhSlug}/` : '/')
-  : (enSlug ? `/en/blog/${enSlug}/` : '/en/');
+// Compute language toggle URL — relative path so the local preview stays on localhost.
+// Prefer the page's `alternateUrl` (strip origin → relative) so non-article pages
+// (home, about) switch to their exact bilingual counterpart; fall back to slug logic
+// for articles, and to home for pages without a counterpart (category/tags/404).
+// hreflang still uses the absolute `alternateUrl` above — this is only the in-page switch.
+const langToggleUrl = (() => {
+  if (alternateUrl) {
+    const rel = alternateUrl.replace(basePath, '');
+    return rel || '/';
+  }
+  return locale === 'en'
+    ? (zhSlug ? `/blog/${zhSlug}/` : '/')
+    : (enSlug ? `/en/blog/${enSlug}/` : '/en/');
+})();
 ---
 
 <!DOCTYPE html>
