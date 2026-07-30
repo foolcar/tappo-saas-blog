@@ -1,6 +1,4 @@
 ---
-// BlogLayout.astro - 博客布局组件，带 SEO meta、导航、页脚
-import type { PropsWithChildren } from 'react';
 import '../styles/global.css';
 
 export interface Props {
@@ -16,29 +14,16 @@ export interface Props {
   wordCount?: number;
   breadcrumbs?: { name: string; url?: string }[];
   locale?: 'zh-Hant' | 'en';
-  alternateUrl?: string; // URL of alternate language version (for hreflang)
-  enSlug?: string; // English slug for language toggle (for non-blog pages that have EN versions)
-  zhSlug?: string; // Chinese slug for language toggle
-  pageType?: 'page' | 'about'; // schema type for non-article pages
+  alternateUrl?: string;
+  enSlug?: string;
+  zhSlug?: string;
+  pageType?: 'page' | 'about';
 }
 
 const {
-  title,
-  description,
-  image = '/og-default.png',
-  type = 'website',
-  date,
-  updated,
-  category,
-  tags = [],
-  slug,
-  wordCount,
-  breadcrumbs,
-  locale = 'zh-Hant',
-  alternateUrl,
-  enSlug,
-  zhSlug,
-  pageType = 'page',
+  title, description, image = '/og-default.png', type = 'website', date, updated,
+  category, tags = [], slug, wordCount, breadcrumbs,
+  locale = 'zh-Hant', alternateUrl, enSlug, zhSlug, pageType = 'page',
 } = Astro.props;
 
 const siteTitle = locale === 'en' ? 'F&B SaaS Going Global Guide' : '餐飲SaaS出海指南';
@@ -48,12 +33,15 @@ const basePath = siteUrl;
 const pageUrl = Astro.url.toString();
 const imageUrl = image.startsWith('http') ? image : `${basePath}${image}`;
 
-// Compute language toggle URL
-const langToggleUrl = alternateUrl
-  ? alternateUrl  // explicit override (e.g. about page)
-  : locale === 'en'
-    ? (zhSlug ? `${basePath}/blog/${zhSlug}/` : `${basePath}/`)
-    : (enSlug ? `${basePath}/en/blog/${enSlug}/` : `${basePath}/en/`);
+// Preview guard: blogdemo.foolcar.cc is the test station and must stay out of search indexes.
+// Prod (blog.foolcar.cc) never triggers this.
+const isPreview = Astro.site?.hostname === 'blogdemo.foolcar.cc';
+
+// Compute language toggle URL — relative path so the local preview stays on localhost
+// (hreflang still uses the absolute `alternateUrl` above; this is only the in-page switch)
+const langToggleUrl = locale === 'en'
+  ? (zhSlug ? `/blog/${zhSlug}/` : '/')
+  : (enSlug ? `/en/blog/${enSlug}/` : '/en/');
 ---
 
 <!DOCTYPE html>
@@ -62,6 +50,9 @@ const langToggleUrl = alternateUrl
   <meta charset="UTF-8" />
   <meta name="google-site-verification" content="D68PPCqBjgUyTa5SWCl5o2OjkMg9jFDP7hTvPfltgRM" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {isPreview && <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />}
+  {isPreview && <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />}
 
   <!-- Primary Meta -->
   <title>{fullTitle}</title>
@@ -80,7 +71,6 @@ const langToggleUrl = alternateUrl
         : (alternateUrl || (slug && enSlug ? `${basePath}/en/blog/${enSlug}/` : null));
 
       if (zhHref && enHref) {
-        // Bilingual: cross-reference both
         return <>
           <link rel="alternate" hreflang="zh-Hant" href={zhHref} />
           <link rel="alternate" hreflang="en" href={enHref} />
@@ -88,14 +78,12 @@ const langToggleUrl = alternateUrl
         </>;
       }
       if (zhHref) {
-        // Chinese only: self-reference
         return <>
           <link rel="alternate" hreflang="zh-Hant" href={zhHref} />
           <link rel="alternate" hreflang="x-default" href={zhHref} />
         </>;
       }
       if (enHref) {
-        // English only: self-reference
         return <>
           <link rel="alternate" hreflang="en" href={enHref} />
           <link rel="alternate" hreflang="x-default" href={enHref} />
@@ -104,14 +92,6 @@ const langToggleUrl = alternateUrl
       return null;
     })()
   }
-
-  <!-- Lang toggle button style -->
-  <style>
-    .lang-active {
-      background-color: #3B82F6 !important;
-      color: white !important;
-    }
-  </style>
 
   <!-- Open Graph -->
   <meta property="og:title" content={fullTitle} />
@@ -245,119 +225,35 @@ const langToggleUrl = alternateUrl
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
-<body class="min-h-screen flex flex-col">
-  <!-- Reading progress bar (article pages only) -->
-  {type === 'article' && (
-    <div id="reading-progress" class="fixed top-0 left-0 z-[60] h-[3px] bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-150" style="width: 0%"></div>
-  )}
-
-  <!-- 导航栏 -->
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-    <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <a href={`${import.meta.env.BASE_URL}`} class="flex items-center gap-2 group" aria-label={locale === 'en' ? 'Home' : '首页'}>
-          <span class="text-2xl" role="img" aria-hidden="true">🍜</span>
-          <span class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-            {locale === 'en' ? 'F&B SaaS Going Global' : '餐飲SaaS出海指南'}
-          </span>
-        </a>
-        <div class="flex items-center gap-6">
-          <a href={`${import.meta.env.BASE_URL}`} class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-            {locale === 'en' ? 'Articles' : '文章'}
-          </a>
-          <a href={`${import.meta.env.BASE_URL}about`} class="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-            {locale === 'en' ? 'About' : '關於'}
-          </a>
-          <!-- Language Toggle -->
-          <a
-            href={langToggleUrl}
-            class="flex items-center gap-1 text-xs font-semibold border border-gray-300 rounded-full px-2.5 py-1 hover:border-blue-500 hover:text-blue-600 transition-colors"
-            aria-label={locale === 'en' ? '切換到中文' : 'Switch to English'}
-          >
-            <span class={locale === 'zh-Hant' ? 'text-blue-600 font-bold' : 'text-gray-400'}>中</span>
-            <span class="text-gray-300">/</span>
-            <span class={locale === 'en' ? 'text-blue-600 font-bold' : 'text-gray-400'}>EN</span>
-          </a>
-        </div>
-      </div>
+<body>
+  {type === 'article' && <div id="reading-progress" aria-hidden="true"></div>}
+  <header class="site-header">
+    <a class="brand" href={locale === 'en' ? '/en/' : '/'} aria-label={locale === 'en' ? 'Home' : '首頁'}>
+      {locale === 'en' ? 'F&B SaaS Going Global' : <Fragment>餐飲<span>SaaS</span>出海指南</Fragment>}
+    </a>
+    <nav aria-label={locale === 'en' ? 'Main navigation' : '主要導覽'}>
+      <a href={locale === 'en' ? '/en/' : '/'}>{locale === 'en' ? 'Articles' : '文章'}</a>
+      <a href={locale === 'en' ? '/en/#thinking' : '/#thinking'}>{locale === 'en' ? 'Watching' : '正在關注'}</a>
+      <a href={locale === 'en' ? '/en/about/' : '/about/'}>{locale === 'en' ? 'About' : '關於'}</a>
     </nav>
+    <a class="language" href={langToggleUrl}><b>{locale === 'en' ? 'EN' : '中'}</b> / {locale === 'en' ? '中' : 'EN'}</a>
   </header>
-
-  <!-- 主内容区 -->
-  <main class="flex-1">
-    <slot />
-  </main>
-
-  <!-- 页脚 -->
-  <footer class="bg-gray-50 border-t border-gray-200 mt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-2 text-gray-500 text-sm">
-          <span class="text-lg" role="img" aria-hidden="true">🍜</span>
-          <span>{siteTitle} © {new Date().getFullYear()}</span>
-        </div>
-        <div class="flex items-center gap-6">
-          <a href={`${import.meta.env.BASE_URL}`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'Articles' : '文章'}</a>
-          <a href={`${import.meta.env.BASE_URL}tags`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'Tags' : '標籤'}</a>
-          <a href={`${import.meta.env.BASE_URL}about`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">{locale === 'en' ? 'About' : '關於'}</a>
-          <a href={`${siteUrl}/sitemap-index.xml`} class="text-sm text-gray-500 hover:text-gray-700 transition-colors">Sitemap</a>
-        </div>
-      </div>
-      <p class="text-center text-xs text-gray-400 mt-6">
-        {locale === 'en' ? (
-          <>By <a href="https://blog.foolcar.cc" class="text-gray-500 hover:text-blue-600 transition-colors">Ah Gung</a> — Sharing real-world F&B SaaS experience from Hong Kong to the global market</>
-        ) : (
-          <>由 <a href="https://blog.foolcar.cc" class="text-gray-500 hover:text-blue-600 transition-colors">阿公</a> 撰寫 — 分享餐飲SaaS從中國香港走向全球的實戰經驗</>
-        )}
-      </p>
-    </div>
+  <main><slot /></main>
+  <footer class="site-footer">
+    <a class="brand" href={locale === 'en' ? '/en/' : '/'}>{siteTitle}</a>
+    <p>{locale === 'en' ? 'Global F&B brands and digital operations' : '餐飲品牌全球化與數字營運觀察'}</p>
+    <nav>
+      <a href={locale === 'en' ? '/en/' : '/'}>{locale === 'en' ? 'Articles' : '文章'}</a>
+      <a href={locale === 'en' ? '/en/about/' : '/about/'}>{locale === 'en' ? 'About' : '關於'}</a>
+      <a href="/sitemap-index.xml">Sitemap</a>
+    </nav>
   </footer>
-
-  <!-- Back to top button -->
-  <button id="back-to-top"
-    class="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-full bg-blue-600 text-white shadow-lg
-           opacity-0 translate-y-2 pointer-events-none transition-all duration-300
-           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-    aria-label={locale === 'en' ? 'Back to top' : '返回頂部'}
-    title={locale === 'en' ? 'Back to top' : '返回頂部'}>
-    <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-    </svg>
-  </button>
-
-  <!-- Reading progress & back-to-top JS -->
-  <script>
-    // Reading progress bar
-    const progressBar = document.getElementById('reading-progress');
-    if (progressBar) {
-      window.addEventListener('scroll', () => {
-        const winScroll = document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-        progressBar.style.width = scrolled + '%';
-      }, { passive: true });
-    }
-
-    // Back to top button
-    const backToTop = document.getElementById('back-to-top');
-    if (backToTop) {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-          backToTop.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
-        } else {
-          backToTop.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
-        }
-      }, { passive: true });
-
-      backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
+  <script is:inline>
+    const bar = document.getElementById('reading-progress');
+    if (bar) addEventListener('scroll', () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.width = `${max > 0 ? scrollY / max * 100 : 0}%`;
+    }, { passive: true });
   </script>
-
-  <!-- Google Fonts -->
-  <style is:global>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-  </style>
 </body>
 </html>

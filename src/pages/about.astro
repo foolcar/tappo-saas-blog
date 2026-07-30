@@ -4,112 +4,68 @@ import BlogLayout from '../layouts/BlogLayout.astro';
 
 <BlogLayout
   title="關於"
-  description="阿公有20多年中港兩地工作經驗及30多年互聯網產品探索經驗，專注港澳餐飲數字化轉型。這個博客記錄餐飲SaaS從中國香港走向全球的實戰經驗。"
+  description="關於餐飲 SaaS 出海指南：一個記錄餐飲品牌全球化、軟件產品與數字營運問題的個人 Blog。"
   type="website"
   locale="zh-Hant"
   alternateUrl="https://blog.foolcar.cc/en/about/"
   pageType="about"
 >
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">關於</h1>
+  <article class="about-page">
+    <header class="about-hero">
+      <div class="about-intro">
+        <p class="eyebrow">About this journal</p>
+        <h1>把第一線遇到的問題，<br />整理成可以繼續討論的文字。</h1>
+        <p class="about-lede">我長期參與餐飲軟件、門店營運與產品設計。這個 Blog 記錄餐飲品牌和 SaaS 產品進入不同市場時，那些很難在功能清單裡看見的問題。</p>
+      </div>
+      <figure>
+        <img src="/restaurant-counter.jpg" alt="餐廳開放式廚房與櫃台的日常工作空間" />
+        <figcaption>產品決策最後都要回到一個具體現場：誰在使用、何時使用，以及出錯後誰來處理。</figcaption>
+      </figure>
+    </header>
 
-    <!-- 作者信息 -->
-    <div class="bg-white rounded-xl border border-gray-200 p-8 mb-10">
-      <div class="flex flex-col sm:flex-row items-start gap-6">
-        <div class="w-20 h-20 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold shrink-0">
-          公
-        </div>
-        <div>
-          <h2 class="text-xl font-bold text-gray-900 mb-2">阿公</h2>
-          <p class="text-gray-600 leading-relaxed mb-3">
-            20 多年中港兩地工作，30 多年互聯網產品探索經驗。<br/>
-            專注港澳餐飲業的數字化轉型。
-          </p>
-          <p class="text-gray-600 leading-relaxed mb-4">
-            常駐廣州，週末回中國香港。日常工作涵蓋產品管理、技術架構、市場策略，
-            以及帶領團隊將餐飲SaaS產品從中國香港推向全球市場。
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://www.gotappo.com" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-800 underline transition-colors">
-              Tappo
-            </a>
-            <span class="text-gray-300">|</span>
-            <a href="https://github.com/foolcar" target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:text-blue-800 underline transition-colors">
-              GitHub
-            </a>
-          </div>
+    <section class="about-section about-note">
+      <p class="section-number">01</p>
+      <div>
+        <h2>我為甚麼寫</h2>
+        <p>餐飲科技的討論很容易落入兩個極端：一邊只談宏觀市場，另一邊只比較產品功能。但真正影響落地的，往往是總部和地區團隊的權限、支付和稅務差異、門店工作方式，以及不同系統之間誰對結果負責。</p>
+        <p>寫作對我來說不是建立一個完整答案庫，而是把經驗、公開資料和仍未想明白的部分分開，讓判斷可以被檢查，也可以在日後修正。</p>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <p class="section-number">02</p>
+      <div>
+        <h2>這裡會寫甚麼</h2>
+        <div class="topic-list">
+          <div><strong>市場與進入策略</strong><p>一個市場是否值得進入，以及第一批客戶真正能驗證甚麼。</p></div>
+          <div><strong>產品與本地化</strong><p>哪些差異應該進入產品，哪些需求不應變成永久定制。</p></div>
+          <div><strong>數字營運</strong><p>POS、支付、外賣、會員和報表如何回到門店的日常工作。</p></div>
+          <div><strong>團隊與協作</strong><p>跨市場團隊如何分享資訊、保留自主權，也維持共同標準。</p></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 為什麼寫這個博客 -->
-    <div class="prose prose-lg max-w-none">
-      <h2>為什麼寫這個博客？</h2>
-      <p>
-        在中國香港做餐飲SaaS十年，有一件事一直讓我耿耿於懷——
-        <strong>網上關於餐飲科技的中文內容實在太少了。</strong>
-      </p>
-      <p>
-        大部分餐飲科技文章都是英文的，寫的是美國市場的邏輯：
-        Toast、Square、DoorDash 整合、小費文化、第三方程式外送補貼戰。
-        這些跟我們的現實——茶餐廳的複雜點餐流程、中國香港四大外賣平台的生態割裂、
-        QR點餐從小眾到大眾的轉變——幾乎毫不相關。
-      </p>
-      <p>
-        所以我從 2026 年開始寫這個博客，想做的其實只有三件事：
-      </p>
-      <ul>
-        <li>
-          <strong>記錄真實的出海歷程。</strong>
-          不是理論推演，不是二手翻譯，是我們團隊真正在做的事情：
-          從中國香港市場驗證產品、進入東南亞、做多語言改造、處理跨境支付和合規。
-        </li>
-        <li>
-          <strong>填補中文餐飲科技內容的空白。</strong>
-          我相信未來會有更多中國香港和亞洲的餐飲SaaS團隊走向國際。
-          如果這個博客能讓後來者少踩一些坑，那就值得了。
-        </li>
-        <li>
-          <strong>結識同行。</strong>
-          寫作是最好的社交方式。通過這些文章，
-          我希望能認識更多在做餐飲數字化的朋友——無論你在中國香港、深圳、新加坡還是東京。
-        </li>
-      </ul>
+    <section class="about-section about-principles">
+      <p class="section-number">03</p>
+      <div>
+        <h2>幾個寫作原則</h2>
+        <ol>
+          <li><span>先說清楚問題，再談工具或產品。</span></li>
+          <li><span>區分親身經驗、公開資料與個人推測。</span></li>
+          <li><span>保留不確定性，不把個別案例包裝成普遍規律。</span></li>
+          <li><span>文章可以有立場，但不寫成產品宣傳。</span></li>
+        </ol>
+      </div>
+    </section>
 
-      <h2>這個博客在寫什麼？</h2>
-      <p>
-        目前圍繞七個核心主題，全是我們團隊在實際工作中遇到的真問題：
-      </p>
-      <ul>
-        <li><strong>POS系統選購</strong> — 月費 vs 按單收費，中國香港市場真實比較</li>
-        <li><strong>全球市場策略</strong> — 為什麼第一站選東南亞？中東和歐美市場分析</li>
-        <li><strong>國際化改造</strong> — i18n架構設計、多語言UI、RTL佈局實戰</li>
-        <li><strong>支付整合</strong> — 多支付網關、多幣種結算、離線支付方案</li>
-        <li><strong>合規挑戰</strong> — GDPR、PDPA、各地餐飲監管差異</li>
-        <li><strong>產品設計</strong> — 全球化POS架構、QR點餐系統設計</li>
-        <li><strong>團隊管理</strong> — 跨境遠程團隊的協作與文化建設</li>
-      </ul>
+    <aside class="about-disclosure">
+      <strong>關於立場</strong>
+      <p>文章由我個人撰寫，只代表當下的觀察與判斷，不代表任何公司的正式立場。若文章涉及合作方、產品或商業利益，我會在相關內容中作適當說明。</p>
+    </aside>
 
-      <h2>關於這個網站</h2>
-      <p>
-        這個博客使用 <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a> 構建為純靜態網站，
-        部署在 <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a>。
-        所有文章以 Markdown 撰寫，通過 Astro Content Collections 管理，
-        程式碼開源在 <a href="https://github.com/foolcar/tappo-saas-blog" target="_blank" rel="noopener noreferrer">GitHub</a>。
-      </p>
-      <p>
-        選擇靜態網站而不是 Medium / 知乎 / Substack，是因為我希望
-        <strong>完全擁有自己的內容</strong>——不受平台演算法和政策的束縛。
-      </p>
-
-      <h2>聯絡方式</h2>
-      <p>
-        如果你對餐飲SaaS出海有想法，或者想交流經驗——
-      </p>
-      <ul>
-        <li>在 <a href="https://github.com/foolcar" target="_blank" rel="noopener noreferrer">GitHub</a> 上找我</li>
-        <li>直接在這篇文章的 GitHub Issue 區討論</li>
-      </ul>
-    </div>
-  </div>
+    <nav class="about-actions" aria-label="關於頁延伸連結">
+      <a class="text-link" href="/">返回文章</a>
+      <a class="text-link" href="/rss.xml">RSS 訂閱</a>
+    </nav>
+  </article>
 </BlogLayout>
