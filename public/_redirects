@@ -7,6 +7,9 @@
 # Redirect legacy /sitemap.xml to Astro-generated sitemap-index.xml
 /sitemap.xml    /sitemap-index.xml    301
 
+# Redirect misspelled EN article slug (multiplaform -> multi-platform), 2026-08-04
+/en/blog/2026-08-04-multiplaform-delivery-how-en/    /en/blog/2026-08-04-multi-platform-delivery-how-en/    301
+
 # Redirect bare /blog/ and /en/blog/ listing pages to homepages
 /blog/       /     301
 /en/blog/    /en/  301
