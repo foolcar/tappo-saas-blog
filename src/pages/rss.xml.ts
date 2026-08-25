@@ -13,7 +13,7 @@ export async function GET(context: APIContext) {
   const lastBuildDate = sortedPosts[0]?.data.updated ?? sortedPosts[0]?.data.date;
 
   return rss({
-    title: '餐飲SaaS出海指南',
+    title: '餐飲 SaaS 出海觀察',
     description: '餐飲品牌全球化、餐飲 SaaS 出海與數字營運觀察。',
     site,
     xmlns: {

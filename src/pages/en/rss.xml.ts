@@ -14,7 +14,7 @@ export async function GET(context: APIContext) {
   const lastBuildDate = sortedPosts[0]?.data.updated ?? sortedPosts[0]?.data.date;
 
   return rss({
-    title: 'F&B SaaS Going Global',
+    title: 'Restaurant SaaS Global Expansion Insight',
     description: 'Independent notes on restaurant brands, F&B SaaS, international expansion, and digital operations.',
     site,
     xmlns: {

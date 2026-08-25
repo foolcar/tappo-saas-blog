@@ -16,10 +16,10 @@
   
   <!-- Main title -->
   <text x="80" y="280" font-family="'Noto Sans TC', sans-serif" font-size="72" font-weight="700" fill="white">
-    餐饮SaaS
+    餐饮 SaaS
   </text>
   <text x="80" y="370" font-family="'Noto Sans TC', sans-serif" font-size="72" font-weight="700" fill="#60A5FA">
-    出海指南
+    出海观察
   </text>
   
   <!-- Subtitle -->

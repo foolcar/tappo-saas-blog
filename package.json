@@ -2,7 +2,7 @@
   "name": "tappo-saas-blog-astro",
   "type": "module",
   "version": "1.0.0",
-  "description": "餐饮SaaS出海指南 - 从香港走向全球的餐饮科技博客",
+  "description": "餐饮 SaaS 出海观察 - 从香港走向全球的餐饮科技博客",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

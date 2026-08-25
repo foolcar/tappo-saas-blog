@@ -26,7 +26,7 @@ const {
   locale = 'zh-Hant', alternateUrl, enSlug, zhSlug, pageType = 'page',
 } = Astro.props;
 
-const siteTitle = locale === 'en' ? 'F&B SaaS Going Global Guide' : '餐飲SaaS出海指南';
+const siteTitle = locale === 'en' ? 'Restaurant SaaS Global Expansion Insight' : '餐飲 SaaS 出海觀察';
 const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
 const siteUrl = Astro.site?.origin ?? 'https://blog.foolcar.cc';
 const basePath = siteUrl;
@@ -238,7 +238,7 @@ const langToggleUrl = (() => {
   {type === 'article' && <div id="reading-progress" aria-hidden="true"></div>}
   <header class="site-header">
     <a class="brand" href={locale === 'en' ? '/en/' : '/'} aria-label={locale === 'en' ? 'Home' : '首頁'}>
-      {locale === 'en' ? 'F&B SaaS Going Global' : <Fragment>餐飲<span>SaaS</span>出海指南</Fragment>}
+      {locale === 'en' ? 'Restaurant SaaS Global Expansion Insight' : <Fragment>餐飲 <span>SaaS</span> 出海觀察</Fragment>}
     </a>
     <nav aria-label={locale === 'en' ? 'Main navigation' : '主要導覽'}>
       <a href={locale === 'en' ? '/en/' : '/'}>{locale === 'en' ? 'Articles' : '文章'}</a>
