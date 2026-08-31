@@ -2,6 +2,8 @@ name: Deploy to Cloudflare Pages
 
 on:
   push:
+    branches: ["**"]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -28,9 +30,33 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
+      - name: Resolve deploy target
+        id: target
+        run: |
+          REF="${{ github.ref }}"
+          if [[ "$REF" == "refs/heads/main" ]]; then
+            echo "branch_flag=" >> "$GITHUB_OUTPUT"
+            echo "is_prod=true" >> "$GITHUB_OUTPUT"
+          else
+            if [[ "$REF" == refs/pull/* ]]; then
+              BRANCH="${{ github.head_ref }}"
+            else
+              BRANCH="${{ github.ref_name }}"
+            fi
+            BRANCH="${BRANCH////-}"   # 把 / 轉成 -，避免分支名含 / 出錯
+            echo "branch_flag=--branch=$BRANCH" >> "$GITHUB_OUTPUT"
+            echo "is_prod=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=tappo-saas-blog
+          command: pages deploy dist --functions-dir=functions --project-name=tappo-saas-blog ${{ steps.target.outputs.branch_flag }}
+
+      - name: Report preview URL
+        if: steps.target.outputs.is_prod == 'false'
+        run: |
+          echo "::notice title=Preview Deployment::分支 ${{ github.ref_name }} 已部署為 preview。"
+          echo "請到 Cloudflare Pages 後台 → tappo-saas-blog → Deployments 查看該次部署的 preview URL（格式如 https://<branch>-tappo-saas-blog.pages.dev，需後台開啟 Preview Deployments）。"

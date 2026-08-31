@@ -1,5 +1,6 @@
 ---
 import BlogLayout from '../../../layouts/BlogLayout.astro';
+import Comments from '../../../components/Comments.tsx';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -82,6 +83,8 @@ const wordCount = post.body?.match(/[a-zA-Z]+/g)?.length ?? 0;
     <div class="prose prose-lg max-w-none">
       <Content />
     </div>
+
+    <Comments client:load threadKey={post.data.originalSlug} locale="en" />
 
     <footer class="article-footer">
       <aside class="article-author-note" aria-label="About the author">
