@@ -489,50 +489,70 @@ interface FormProps {
 function CommentForm({ locale, name, email, setName, setEmail, parentId, autoFocus, submitting, onCancel, onSubmit }: FormProps) {
   const t = COPY[locale];
   const [content, setContent] = useState('');
+  const formRef = useRef<HTMLDivElement>(null);
 
-  async function submit() {
+  async function submit(e?: React.FormEvent) {
+    e?.preventDefault();
     if (!name.trim() || !content.trim()) return;
     await onSubmit({ parent_id: parentId, name: name.trim(), email: email.trim(), content: content.trim() });
     setContent('');
   }
 
+  // 回覆表單展開時自動滾入視野
+  useEffect(() => {
+    if (parentId && formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    // eslint-disable-next-line
+  }, [parentId]);
+
   return (
-    <div className={parentId ? 'mt-3 pl-4 border-l border-gray-200' : 'bg-gray-50 rounded-xl p-4'}>
-      <div className="flex flex-col sm:flex-row gap-2 mb-2">
-        <input
-          className="flex-1 sm:w-40 px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
-          placeholder={t.name}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+    <div ref={formRef} className={parentId ? 'mt-3 pl-4 border-l border-gray-200' : 'bg-gray-50 rounded-xl p-4'}>
+      <form onSubmit={submit} autoComplete="on">
+        <div className="flex flex-col sm:flex-row gap-2 mb-2">
+          <input
+            id="comment-name"
+            name="name"
+            className="flex-1 sm:w-40 px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+            placeholder={t.name}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            id="comment-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            className="flex-1 sm:w-56 px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+            placeholder={t.email}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <textarea
+          id="comment-body"
+          name="body"
+          className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 resize-y min-h-[72px]"
+          placeholder={t.body}
+          value={content}
+          autoFocus={autoFocus}
+          onChange={(e) => setContent(e.target.value)}
         />
-        <input
-          className="flex-1 sm:w-56 px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
-          placeholder={t.email}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <textarea
-        className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 resize-y min-h-[72px]"
-        placeholder={t.body}
-        value={content}
-        autoFocus={autoFocus}
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <div className="mt-2 flex items-center gap-2">
-        <button
-          className="px-4 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
-          disabled={submitting}
-          onClick={submit}
-        >
-          {submitting ? t.submitting : parentId ? t.reply : t.submit}
-        </button>
-        {onCancel && (
-          <button className="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700" onClick={onCancel}>
-            {t.cancel}
+        <div className="mt-2 flex items-center gap-2">
+          <button
+            type="submit"
+            className="px-4 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            disabled={submitting}
+          >
+            {submitting ? t.submitting : parentId ? t.reply : t.submit}
           </button>
-        )}
-      </div>
+          {onCancel && (
+            <button type="button" className="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700" onClick={onCancel}>
+              {t.cancel}
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   );
 }
