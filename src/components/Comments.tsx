@@ -339,9 +339,6 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
   }
 
   function renderNode(node: CommentNode) {
-    // 第 4 層以下由 depth-3 祖先的展開開關控制；祖先未展開則隱藏
-    if (node.depth > 3 && !expanded.has(ancestorDepth3(node))) return null;
-
     const displayBody = showTr.has(node.id) && translations[node.id] ? translations[node.id] : node.body;
     const showTranslateBtn = node.lang !== pageLang;
     const liked = likedIds.has(node.id);
@@ -402,13 +399,17 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
           </div>
         </div>
 
-        {/* 子回覆：depth<3 直接展開；depth===3 由開關控制；depth>3 繼承祖先開關 */}
+        {/* 統一子節點渲染：depth < 3 全展開；depth >= 3 由展開狀態控制 */}
         {(() => {
+          // depth 1-2：永遠展開
           if (node.depth < 3) {
             return node.children.map((c) => renderNode(c));
           }
+          // depth 3：由自身 expanded 開關控制
           if (node.depth === 3) {
-            if (expanded.has(node.id)) return node.children.map((c) => renderNode(c));
+            if (expanded.has(node.id)) {
+              return node.children.map((c) => renderNode(c));
+            }
             const n = countDesc(node);
             if (n > 0)
               return (
@@ -418,26 +419,38 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
               );
             return null;
           }
-          // depth > 3：此分支在上方已過濾（祖先未展開則 return null），到這裡必為展開狀態
-          return node.children.map((c) => renderNode(c));
+          // depth > 3：繼承最近 depth-3 祖先的展開狀態（不再額外過濾，統一由此處控制）
+          const d3ancestor = findDepth3Ancestor(node);
+          if (d3ancestor && expanded.has(d3ancestor)) {
+            return node.children.map((c) => renderNode(c));
+          }
+          return null;
         })()}
       </div>
     );
   }
 
-  // 找該節點的 depth-3 祖先 id（用於判斷是否應隱藏第 4 層以下）
-  function ancestorDepth3(node: CommentNode): string {
-    // flat 建樹時深度已知，但這裡簡化：往上追溯 parent_id
-    let cur = node;
-    while (cur && cur.depth > 3 && cur.parent_id) {
-      const p = flat.find((c) => c.id === cur.parent_id);
-      if (!p) break;
-      cur = p as any;
-    }
-    return cur.id;
+  // 找該節點的 depth-3 祖先 id（走樹結構 roots，不依賴 flat 陣列，避免 stale closure）
+  function findDepth3Ancestor(node: CommentNode): string | null {
+    const search = (nodes: CommentNode[], targetId: string, path: CommentNode[]): string | null => {
+      for (const n of nodes) {
+        if (n.id === targetId) {
+          for (const p of path) {
+            if (p.depth === 3) return p.id;
+          }
+          return null;
+        }
+        if (n.children.length > 0) {
+          const found = search(n.children, targetId, [...path, n]);
+          if (found) return found;
+        }
+      }
+      return null;
+    };
+    return search(roots, node.id, []);
   }
 
-  // 往上追溯所有祖先 id（含 depth-3 祖先），用於點 Reply 時自動展開整條鏈
+  // 往上追溯所有祖先 id（用於點 Reply 時自動展開整條鏈）
   function getAncestorIds(id: string): string[] {
     const ids: string[] = [];
     let cur = flat.find((c) => c.id === id);
