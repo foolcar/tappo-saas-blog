@@ -346,7 +346,7 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
               >
                 👍 {node.likes > 0 ? node.likes : ''} {liked ? '· ' + t.like : ''}
               </button>
-              <button className="hover:text-blue-600" onClick={() => setReplyingTo(replyingTo === node.id ? null : node.id)}>
+              <button className="hover:text-blue-600" onClick={() => startReply(node.id)}>
                 {replyingTo === node.id ? t.cancel : t.reply}
               </button>
               {showTranslateBtn && (
@@ -413,6 +413,30 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
       cur = p as any;
     }
     return cur.id;
+  }
+
+  // 往上追溯所有祖先 id（含 depth-3 祖先），用於點 Reply 時自動展開整條鏈
+  function getAncestorIds(id: string): string[] {
+    const ids: string[] = [];
+    let cur = flat.find((c) => c.id === id);
+    while (cur && cur.parent_id) {
+      const p = flat.find((c) => c.id === cur!.parent_id);
+      if (!p) break;
+      ids.push(p.id);
+      cur = p;
+    }
+    return ids;
+  }
+
+  // 點 Reply：展開所有祖先，確保回覆表單 + 新回覆可見（消除深層折疊導致「按了沒反應」）
+  function startReply(id: string) {
+    const anc = getAncestorIds(id);
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      anc.forEach((a) => next.add(a));
+      return next;
+    });
+    setReplyingTo(replyingTo === id ? null : id);
   }
 
   const total = flat.length;
