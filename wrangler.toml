@@ -1,0 +1,19 @@
+name = "tappo-saas-blog"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-09-23"
+
+# 本專案綁定由 wrangler.toml 管理
+# （Cloudflare Dashboard 顯示 "Bindings are being managed through wrangler.toml"，
+#  所以 D1/AI Binding 無法在後台 +Add，必須寫在這裡）。改動後需重新部署才會生效。
+# 注意：OWNER_EMAIL 已在 Dashboard Preview 環境的 Variables 設定，
+#        若此處再宣告會報 "already in use"，故不在 toml 寫。
+
+# D1 評論資料庫
+[[d1_databases]]
+binding = "DB"
+database_name = "blog-comments"
+database_id = "98a1dc92-43cb-4a55-b73c-c643bda261e0"
+
+# Workers AI（翻譯用，模型在 code 指定 @cf/meta/m2m100-1.2b）
+[ai]
+binding = "AI"
