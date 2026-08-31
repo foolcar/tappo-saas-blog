@@ -1,21 +1,12 @@
-# blog.foolcar.cc 評論區 — 本地開發 / 綁定說明
-#
-# 生產環境（Cloudflare Pages Git 整合）的綁定是在 CF 後台設定的，
-# 本檔主要用於 `wrangler pages dev` 本地開發，並作為綁定清單的書面記錄。
-#
-# 生產綁定請在 CF 後台操作：
-#   Pages 專案 tappo-saas-blog → Settings → Functions → D1 綁定 (變數名 DB)
-#   Pages 專案 tappo-saas-blog → Settings → Functions → AI 綁定 (變數名 AI)
-#   以及變數 COMMENTS_ENABLED（設 false 可一鍵關閉評論區，見設計文檔 §12 L2）
-
 name = "tappo-saas-blog"
 pages_build_output_dir = "dist"
-compatibility_date = "2024-09-23"
 
-[[d1_databases]]
-binding = "DB"
-database_name = "blog-comments"
-database_id = "REPLACE_WITH_YOUR_D1_ID"   # wrangler d1 create blog-comments 後取得的 id
-
-[ai]
-binding = "AI"                              # Workers AI（m2m100 翻譯模型）
+# 注意：D1 / Workers AI / 環境變數綁定「不在」 wrangler.toml 裡設定。
+# Pages Functions 的綁定請在 Cloudflare Dashboard 設定：
+#   Workers & Pages → tappo-saas-blog → Settings → Functions
+#   變數名必須為：
+#     DB           → D1 資料庫（blog-comments）
+#     AI           → Workers AI 綁定
+#     OWNER_EMAIL  → 選用，站長信箱（留言帶「作者」徽章）
+#     COMMENTS_ENABLED → 選用，預設開；設 "false" 可暫時關閉評論區
+# 這些是專案層級設定，preview 與正式部署共用。
