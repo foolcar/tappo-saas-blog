@@ -53,7 +53,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --functions-dir=functions --project-name=tappo-saas-blog ${{ steps.target.outputs.branch_flag }}
+          command: pages deploy dist --project-name=tappo-saas-blog ${{ steps.target.outputs.branch_flag }}
 
       - name: Report preview URL
         if: steps.target.outputs.is_prod == 'false'
