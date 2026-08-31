@@ -52,6 +52,11 @@ const COPY: Record<Locale, any> = {
     delete: '刪除',
     deleteConfirm: '確定刪除這條評論及其所有回覆？',
     unauthorized: '只有站長可以刪除評論',
+    adminTokenPlaceholder: '管理員密碼',
+    adminSignedIn: '管理員已登入',
+    adminSignOut: '登出',
+    adminInvalid: '密碼錯誤',
+    adminVerify: '驗證',
   },
   en: {
     title: 'Comments',
@@ -83,6 +88,11 @@ const COPY: Record<Locale, any> = {
     delete: 'Delete',
     deleteConfirm: 'Delete this comment and all its replies?',
     unauthorized: 'Only the site owner can delete comments',
+    adminTokenPlaceholder: 'Admin password',
+    adminSignedIn: 'Admin signed in',
+    adminSignOut: 'Sign out',
+    adminInvalid: 'Invalid password',
+    adminVerify: 'Verify',
   },
 };
 
@@ -155,7 +165,11 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [msg, setMsg] = useState('');
-  const [isOwner, setIsOwner] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminToken, setAdminToken] = useState('');
+  const [adminInput, setAdminInput] = useState('');
+  const [adminChecking, setAdminChecking] = useState(false);
+  const [adminMsg, setAdminMsg] = useState('');
 
   const refName = useRef<HTMLInputElement>(null);
 
@@ -171,30 +185,29 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
     // eslint-disable-next-line
   }, []);
 
-  // 站長識別：郵箱變動時詢問後端是否為站長，決定是否顯示「刪除」鈕（不暴露雜湊白名單）
+  // 管理員識別：掛載時若本地已存 token，自動向後端驗證（不暴露雜湊白名單）
   useEffect(() => {
+    const saved = getCookie('comments_admin_token');
+    if (!saved) return;
     let cancelled = false;
-    const e = email.trim();
-    if (!e) {
-      setIsOwner(false);
-      return;
-    }
-    fetch('/api/comments/owner-check', {
+    fetch('/api/comments/admin-verify', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ email: e }),
+      body: JSON.stringify({ token: saved }),
     })
       .then((r) => r.json())
       .then((d: any) => {
-        if (!cancelled) setIsOwner(!!d.is_owner);
+        if (!cancelled && d.ok) {
+          setAdminToken(saved);
+          setIsAdmin(true);
+        }
       })
-      .catch(() => {
-        if (!cancelled) setIsOwner(false);
-      });
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
-  }, [email]);
+    // eslint-disable-next-line
+  }, []);
 
   async function load() {
     setLoading(true);
@@ -370,13 +383,51 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
     });
   }
 
+  // 管理員登入：以專屬 admin token 驗證（與站長郵箱分離），通過後本地留存以便續用
+  async function verifyAdmin() {
+    const tk = adminInput.trim();
+    if (!tk) return;
+    setAdminChecking(true);
+    setAdminMsg('');
+    try {
+      const res = await fetch('/api/comments/admin-verify', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ token: tk }),
+      });
+      const d = await res.json();
+      if (d.ok) {
+        setAdminToken(tk);
+        setIsAdmin(true);
+        setCookie('comments_admin_token', tk);
+        setAdminInput('');
+      } else {
+        setAdminMsg(t.adminInvalid);
+        setIsAdmin(false);
+      }
+    } catch {
+      setAdminMsg(t.error);
+    } finally {
+      setAdminChecking(false);
+    }
+  }
+
+  function logoutAdmin() {
+    setAdminToken('');
+    setIsAdmin(false);
+    setAdminInput('');
+    try {
+      document.cookie = 'comments_admin_token=; path=/; max-age=0; samesite=lax';
+    } catch {}
+  }
+
   async function deleteComment(id: string) {
     if (typeof window !== 'undefined' && !window.confirm(t.deleteConfirm)) return;
     try {
       const res = await fetch('/api/comments/delete', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ id, email: email.trim() }),
+        body: JSON.stringify({ id, token: adminToken }),
       });
       if (!res.ok) {
         const d = await res.json().catch(() => ({}));
@@ -436,7 +487,7 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
                   <button className="hover:text-blue-600" onClick={() => translate(node.id)}>{t.translate}</button>
                 )
               )}
-              {isOwner && (
+              {isAdmin && (
                 <button className="hover:text-red-600" onClick={() => deleteComment(node.id)}>
                   {t.delete}
                 </button>
@@ -576,6 +627,47 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
             ))}
           </div>
         </div>
+      </div>
+
+      {/* 管理員登入（token 閘門，與站長郵箱分離） */}
+      <div className="mb-4 text-sm">
+        {isAdmin ? (
+          <span className="text-green-600">
+            {t.adminSignedIn} ·{' '}
+            <button type="button" className="underline hover:text-green-700" onClick={logoutAdmin}>
+              {t.adminSignOut}
+            </button>
+          </span>
+        ) : (
+          <details>
+            <summary className="cursor-pointer text-gray-500 hover:text-blue-600 select-none">
+              🔧 {locale === 'en' ? 'Admin' : '管理員'}
+            </summary>
+            <div className="mt-2 flex items-center gap-2">
+              <input
+                type="password"
+                name="admin_token"
+                autoComplete="off"
+                className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                placeholder={t.adminTokenPlaceholder}
+                value={adminInput}
+                onChange={(e) => setAdminInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') verifyAdmin();
+                }}
+              />
+              <button
+                type="button"
+                className="px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                disabled={adminChecking}
+                onClick={verifyAdmin}
+              >
+                {adminChecking ? t.submitting : t.adminVerify}
+              </button>
+            </div>
+            {adminMsg && <p className="mt-1 text-red-600">{adminMsg}</p>}
+          </details>
+        )}
       </div>
 
       {/* 頂層發表框 */}

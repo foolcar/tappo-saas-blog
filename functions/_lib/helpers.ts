@@ -40,6 +40,12 @@ const OWNER_EMAIL_HASHES = [
   '44e3a4eb32400ba46b1f641fc347e3228326691fe7e21e9b0ae320a71beee1bc',
 ];
 
+// 管理 token 的 SHA-256 雜湊白名單（與站長郵箱分離，作為後台閘門憑證；明文只存本機，不進 repo）
+// 產生方式：printf 'your-secret-token' | shasum -a 256
+const ADMIN_TOKEN_HASHES = [
+  'f00964744336d7bc92300f7891ddaa3c4acafe0a267103cd0007204e59d0f712',
+];
+
 async function sha256Hex(text: string): Promise<string> {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
@@ -54,6 +60,17 @@ export async function isOwnerEmail(email: unknown, env: any): Promise<0 | 1> {
   if (envOwner && e === envOwner) return 1;
   const h = await sha256Hex(e);
   return OWNER_EMAIL_HASHES.includes(h) ? 1 : 0;
+}
+
+// 管理員憑證驗證：優先比對內置雜湊白名單；env.ADMIN_TOKEN 若有設定亦作備援
+// 與 isOwnerEmail 分離——站長郵箱只用於「作者」徽章顯示，後台閘門只用 token（避免以公開郵箱當憑證）
+export async function isAdminToken(token: unknown, env: any): Promise<0 | 1> {
+  const tk = (token ?? '').toString().trim();
+  if (!tk) return 0;
+  const envToken = (env?.ADMIN_TOKEN ?? '').toString().trim();
+  if (envToken && tk === envToken) return 1;
+  const h = await sha256Hex(tk);
+  return ADMIN_TOKEN_HASHES.includes(h) ? 1 : 0;
 }
 
 // 必填 / 長度校驗，回傳錯誤訊息或 null

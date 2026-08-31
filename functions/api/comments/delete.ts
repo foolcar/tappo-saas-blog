@@ -1,5 +1,5 @@
-// POST /api/comments/delete  → 站長軟刪除某條評論 + 整串子回覆（cascade）
-import { json, isOwnerEmail } from '../../_lib/helpers';
+// POST /api/comments/delete  → 管理員軟刪除某條評論 + 整串子回覆（cascade）
+import { json, isAdminToken } from '../../_lib/helpers';
 
 export const onRequestPost = async (ctx: any) => {
   const { request, env } = ctx;
@@ -15,9 +15,9 @@ export const onRequestPost = async (ctx: any) => {
   const id = (body.id || '').toString().trim();
   if (!id) return json({ error: 'missing id' }, 400);
 
-  // 站長驗證：複用 SHA-256 雜湊白名單（與「作者」徽章同一套機制）
-  const isOwner = await isOwnerEmail(body.email, env);
-  if (!isOwner) return json({ error: 'unauthorized' }, 403);
+  // 管理員驗證：使用專屬 admin token（與站長郵箱分離），避免以公開郵箱當憑證
+  const isAdmin = await isAdminToken(body.token, env);
+  if (!isAdmin) return json({ error: 'unauthorized' }, 403);
 
   // 確認目標存在（含已刪除的也視為 not found，避免重複操作）
   const root = await env.DB.prepare(`SELECT id FROM comments WHERE id = ?`).bind(id).first();
