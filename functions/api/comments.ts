@@ -1,7 +1,7 @@
 // GET  /api/comments?thread=<key>  → 該線程評論（flat，按時間正序）
 // POST /api/comments                → 發表 / 回覆評論
 
-import { hashIp, detectLang, json, isEnabled, validateInput } from '../_lib/helpers';
+import { hashIp, detectLang, json, isEnabled, validateInput, isOwnerEmail } from '../_lib/helpers';
 
 export const onRequestGet = async (ctx: any) => {
   const { request, env } = ctx;
@@ -70,9 +70,8 @@ export const onRequestPost = async (ctx: any) => {
   const id = crypto.randomUUID();
   const lang = detectLang(body.content);
   const locale = body.locale === 'en' ? 'en' : 'zh';
-  // 站長識別：郵箱與 OWNER_EMAIL 一致 → 帶「作者」徽章
-  const isAuthor =
-    body.email && env.OWNER_EMAIL && body.email.toLowerCase() === env.OWNER_EMAIL.toLowerCase() ? 1 : 0;
+  // 站長識別：郵箱雜湊命中白名單（或等於 env.OWNER_EMAIL）→ 帶「作者」徽章
+  const isAuthor = await isOwnerEmail(body.email, env);
 
   await env.DB.prepare(
     `INSERT INTO comments (id, thread_key, parent_id, author_name, author_email, body, locale, lang, likes, is_author, status, created_at, ip_hash)

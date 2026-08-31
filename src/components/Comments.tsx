@@ -48,6 +48,7 @@ const COPY: Record<Locale, any> = {
     submitting: '送出中…',
     required: '請填寫暱稱與內容',
     replyTo: (n: string) => `回覆 ${n}`,
+    authorBadge: '作者',
   },
   en: {
     title: 'Comments',
@@ -75,6 +76,7 @@ const COPY: Record<Locale, any> = {
     submitting: 'Posting…',
     required: 'Name and comment are required',
     replyTo: (n: string) => `Reply to ${n}`,
+    authorBadge: 'Author',
   },
 };
 
@@ -329,7 +331,9 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-medium text-gray-900">{node.author_name}</span>
               {node.is_author === 1 && (
-                <span className="text-xs font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">作者</span>
+                <span className="text-xs font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
+                  {t.authorBadge}
+                </span>
               )}
               <span className="text-xs text-gray-400">{fmtDate(node.created_at, locale)}</span>
             </div>
