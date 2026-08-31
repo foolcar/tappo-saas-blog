@@ -49,6 +49,9 @@ const COPY: Record<Locale, any> = {
     required: '請填寫暱稱與內容',
     replyTo: (n: string) => `回覆 ${n}`,
     authorBadge: '作者',
+    delete: '刪除',
+    deleteConfirm: '確定刪除這條評論及其所有回覆？',
+    unauthorized: '只有站長可以刪除評論',
   },
   en: {
     title: 'Comments',
@@ -77,6 +80,9 @@ const COPY: Record<Locale, any> = {
     required: 'Name and comment are required',
     replyTo: (n: string) => `Reply to ${n}`,
     authorBadge: 'Author',
+    delete: 'Delete',
+    deleteConfirm: 'Delete this comment and all its replies?',
+    unauthorized: 'Only the site owner can delete comments',
   },
 };
 
@@ -149,6 +155,7 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [msg, setMsg] = useState('');
+  const [isOwner, setIsOwner] = useState(false);
 
   const refName = useRef<HTMLInputElement>(null);
 
@@ -163,6 +170,31 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
     if (e) setEmail(e);
     // eslint-disable-next-line
   }, []);
+
+  // 站長識別：郵箱變動時詢問後端是否為站長，決定是否顯示「刪除」鈕（不暴露雜湊白名單）
+  useEffect(() => {
+    let cancelled = false;
+    const e = email.trim();
+    if (!e) {
+      setIsOwner(false);
+      return;
+    }
+    fetch('/api/comments/owner-check', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email: e }),
+    })
+      .then((r) => r.json())
+      .then((d: any) => {
+        if (!cancelled) setIsOwner(!!d.is_owner);
+      })
+      .catch(() => {
+        if (!cancelled) setIsOwner(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [email]);
 
   async function load() {
     setLoading(true);
@@ -338,6 +370,33 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
     });
   }
 
+  async function deleteComment(id: string) {
+    if (typeof window !== 'undefined' && !window.confirm(t.deleteConfirm)) return;
+    try {
+      const res = await fetch('/api/comments/delete', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ id, email: email.trim() }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        setMsg(d.error === 'unauthorized' ? t.unauthorized : t.error);
+        return;
+      }
+      // 樂觀移除：從本地 flat 移除該評論及其子孫，重建樹
+      const toRemove = new Set<string>();
+      const collect = (pid: string) => {
+        toRemove.add(pid);
+        flat.filter((c) => c.parent_id === pid).forEach((c) => collect(c.id));
+      };
+      collect(id);
+      setFlat((prev) => prev.filter((c) => !toRemove.has(c.id)));
+      setRoots(buildTree(flat.filter((c) => !toRemove.has(c.id))));
+    } catch {
+      setMsg(t.error);
+    }
+  }
+
   function renderNode(node: CommentNode) {
     const displayBody = showTr.has(node.id) && translations[node.id] ? translations[node.id] : node.body;
     const showTranslateBtn = node.lang !== pageLang;
@@ -376,6 +435,11 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
                 ) : (
                   <button className="hover:text-blue-600" onClick={() => translate(node.id)}>{t.translate}</button>
                 )
+              )}
+              {isOwner && (
+                <button className="hover:text-red-600" onClick={() => deleteComment(node.id)}>
+                  {t.delete}
+                </button>
               )}
             </div>
 
