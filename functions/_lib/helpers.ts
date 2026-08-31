@@ -43,7 +43,7 @@ const OWNER_EMAIL_HASHES = [
 // 管理 token 的 SHA-256 雜湊白名單（與站長郵箱分離，作為後台閘門憑證；明文只存本機，不進 repo）
 // 產生方式：printf 'your-secret-token' | shasum -a 256
 const ADMIN_TOKEN_HASHES = [
-  'f00964744336d7bc92300f7891ddaa3c4acafe0a267103cd0007204e59d0f712',
+  '24230bf35780935d43ad6c9fdcdaf00d925f72ac2b7abb6da9ef3e25db7382da',
 ];
 
 async function sha256Hex(text: string): Promise<string> {
