@@ -222,9 +222,31 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
         setMsg(d.error === 'rate limited' ? (locale === 'en' ? 'Too many comments, slow down.' : '發表太頻繁，請稍後再試。') : t.required);
         return false;
       }
+      const postData = await res.json();
       setCookie('comments_name', payload.name);
       setCookie('comments_email', payload.email);
-      await load();
+
+      // 樂觀更新：立即把新評論插入本地狀態（不等 load()），解決 D1 複製延遲導致「表單消失但評論不出現」
+      const now = Date.now();
+      const newComment: RawComment = {
+        id: postData.id || crypto.randomUUID(),
+        parent_id: payload.parent_id ?? null,
+        author_name: payload.name,
+        body: payload.content,
+        locale: pageLang,
+        lang: postData.lang || pageLang,
+        likes: 0,
+        is_author: postData.is_author || 0,
+        created_at: now,
+      };
+      setFlat((prev) => {
+        const next = [...prev, newComment];
+        setRoots(buildTree(next));
+        return next;
+      });
+
+      // 背景同步：用 load() 從伺服器拉取最新狀態（不阻塞 UI）
+      load().catch(() => {});
       return true;
     } catch {
       setMsg(t.error);
