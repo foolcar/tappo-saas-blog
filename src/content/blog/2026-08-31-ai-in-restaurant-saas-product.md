@@ -6,7 +6,6 @@ updated: 2026-08-31
 category: "產品設計"
 tags: ["餐飲SaaS", "AI產品設計", "AI點餐", "餐飲AIAgent", "門店營運", "數據中台", "數據治理"]
 image: "/og-default.png"
-draft: true
 ---
 
 > **寫在前面**：之前寫過[餐飲 SaaS 出海團隊怎樣使用 AI](/blog/2026-07-20-ai-for-saas-overseas-team/)，談的是管理者怎樣用 AI 整理資訊、協助判斷和改善溝通。
