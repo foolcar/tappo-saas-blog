@@ -1,5 +1,5 @@
 // POST /api/comments/delete  → 站長軟刪除某條評論 + 整串子回覆（cascade）
-import { json, isOwnerEmail } from '../_lib/helpers';
+import { json, isOwnerEmail } from '../../_lib/helpers';
 
 export const onRequestPost = async (ctx: any) => {
   const { request, env } = ctx;
