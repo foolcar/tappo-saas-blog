@@ -408,7 +408,18 @@ export default function Comments({ threadKey, locale = 'zh-Hant' }: { threadKey:
           // depth 3：由自身 expanded 開關控制
           if (node.depth === 3) {
             if (expanded.has(node.id)) {
-              return node.children.map((c) => renderNode(c));
+              return (
+                <>
+                  {node.children.map((c) => renderNode(c))}
+                  <button
+                    key={'col-' + node.id}
+                    className="mt-2 text-sm text-blue-600 hover:underline"
+                    onClick={() => toggleExpand(node.id)}
+                  >
+                    {t.hideReplies}
+                  </button>
+                </>
+              );
             }
             const n = countDesc(node);
             if (n > 0)
