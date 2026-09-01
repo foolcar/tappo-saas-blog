@@ -1,0 +1,32 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import CommentsAggregator from '../../components/CommentsAggregator.tsx';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blogEn', ({ data }) => !data.draft);
+const threadMeta: Record<string, { title: string; url: string }> = {};
+for (const p of posts) {
+  const key = p.data.originalSlug || p.slug;
+  threadMeta[key] = {
+    title: p.data.title,
+    url: `${import.meta.env.BASE_URL}en/blog/${p.slug}/`,
+  };
+}
+---
+
+<BlogLayout
+  title="Comment moderation"
+  description="Owner only: all comments across blog.foolcar.cc, grouped by article and sorted by latest activity."
+  type="website"
+  locale="en"
+  alternateUrl="https://blog.foolcar.cc/comments/"
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Comment moderation</h1>
+      <p class="mt-2 text-gray-600">Owner only · All comments grouped by article, sorted by latest activity. Reply inline as usual.</p>
+    </header>
+
+    <CommentsAggregator client:load locale="en" threadMeta={threadMeta} />
+  </article>
+</BlogLayout>

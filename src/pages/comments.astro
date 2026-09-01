@@ -1,0 +1,30 @@
+---
+import BlogLayout from '../layouts/BlogLayout.astro';
+import CommentsAggregator from '../components/CommentsAggregator.tsx';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const threadMeta: Record<string, { title: string; url: string }> = {};
+for (const p of posts) {
+  threadMeta[p.slug] = {
+    title: p.data.title,
+    url: `${import.meta.env.BASE_URL}blog/${p.slug}/`,
+  };
+}
+---
+
+<BlogLayout
+  title="評論管理"
+  description="站長專用：彙整 blog.foolcar.cc 所有文章的評論，按文章分組、依最新活動排序。"
+  type="website"
+  locale="zh-Hant"
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">評論管理</h1>
+      <p class="mt-2 text-gray-600">站長專用 · 所有文章的評論彙整，按文章分組、依最新活動排序。可用現有方式直接回覆。</p>
+    </header>
+
+    <CommentsAggregator client:load locale="zh-Hant" threadMeta={threadMeta} />
+  </article>
+</BlogLayout>
