@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1280" viewBox="0 0 800 1280" role="img" aria-labelledby="title desc">
+  <title id="title">餐飲企業全渠道數位化經營架構</title>
+  <desc id="desc">消費入口先進入全渠道交易中樞，再交給輕 POS 與門店履約；開放整合平台連接服務商，企業數據底座統一數據治理。</desc>
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#365FD8"/>
+    </marker>
+    <filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#19345C" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="1280" rx="32" fill="#F7F9FD"/>
+  <rect x="0" y="0" width="14" height="1280" rx="7" fill="#365FD8"/>
+
+  <text x="54" y="72" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="42" font-weight="700" fill="#17345D">全渠道數位化經營架構</text>
+  <text x="54" y="116" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" fill="#62708A">渠道統一、門店履約、數據解耦</text>
+
+  <text x="54" y="184" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">01  消費來源</text>
+  <rect x="54" y="206" width="692" height="118" rx="22" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="3"/>
+  <text x="400" y="256" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="30" font-weight="700" fill="#18324F">堂食　外賣　自取　團購</text>
+  <text x="400" y="299" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="27" fill="#344866">評價口碑　排隊　訂座</text>
+
+  <line x1="400" y1="326" x2="400" y2="360" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,360 414,360 400,378" fill="#365FD8"/>
+
+  <text x="54" y="398" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">02  統一交易規則</text>
+  <rect x="54" y="420" width="692" height="160" rx="26" fill="#EAF0FF" stroke="#365FD8" stroke-width="4" filter="url(#shadow2)"/>
+  <text x="400" y="484" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="40" font-weight="800" fill="#17345D">全渠道交易中樞</text>
+  <text x="400" y="532" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="27" font-weight="600" fill="#3B4E70">訂單　商品　會員　支付　履約</text>
+
+  <line x1="400" y1="582" x2="400" y2="616" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,616 414,616 400,634" fill="#365FD8"/>
+
+  <text x="54" y="654" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">03  門店交易與履約</text>
+  <rect x="54" y="676" width="692" height="128" rx="24" fill="#FFF7E9" stroke="#F2A31A" stroke-width="4"/>
+  <text x="400" y="729" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="36" font-weight="800" fill="#4B3510">輕 POS／門店履約</text>
+  <text x="400" y="773" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="26" fill="#5E4A26">點餐　收銀　支付　打印　出餐</text>
+
+  <line x1="400" y1="806" x2="400" y2="840" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,840 414,840 400,858" fill="#365FD8"/>
+
+  <text x="54" y="878" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">04  開放整合與企業管理</text>
+  <rect x="54" y="900" width="692" height="136" rx="24" fill="#F2EDFF" stroke="#7148E8" stroke-width="3"/>
+  <text x="400" y="950" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="28" font-weight="700" fill="#442A91">API　事件　MCP　身份權限　審計</text>
+  <text x="400" y="998" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="26" fill="#4B4168">供應鏈　財務　人力　會員／CRM　總部管控</text>
+
+  <line x1="400" y1="1038" x2="400" y2="1072" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,1072 414,1072 400,1090" fill="#365FD8"/>
+
+  <text x="54" y="1110" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">05  企業數據底座</text>
+  <rect x="54" y="1132" width="692" height="110" rx="22" fill="#243B5A"/>
+  <text x="400" y="1180" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">主數據　數據治理　統一指標</text>
+  <text x="400" y="1218" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" fill="#DCE6F7">BI 分析　AI 數據服務　統一口徑與授權</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1080" viewBox="0 0 800 1080" role="img" aria-labelledby="title desc">
+  <title id="title">傳統 POS 中心架構</title>
+  <desc id="desc">消費渠道進入 POS，POS 同時承擔交易、履約、渠道接口和會員，再連接企業管理系統及數據底座。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#365FD8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#19345C" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="1080" rx="32" fill="#F7F9FD"/>
+  <rect x="0" y="0" width="14" height="1080" rx="7" fill="#365FD8"/>
+
+  <text x="54" y="78" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="46" font-weight="700" fill="#17345D">傳統 POS 中心架構</text>
+  <text x="54" y="122" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" fill="#62708A">POS 同時承擔交易、履約與渠道邏輯</text>
+
+  <text x="54" y="196" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">01  消費渠道</text>
+  <rect x="54" y="218" width="692" height="122" rx="22" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="3"/>
+  <text x="400" y="270" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="31" font-weight="700" fill="#18324F">堂食　外賣　自取</text>
+  <text x="400" y="312" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="27" fill="#344866">團購／代金券　訂座／排隊</text>
+
+  <line x1="400" y1="342" x2="400" y2="378" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,378 414,378 400,396" fill="#365FD8"/>
+
+  <text x="54" y="416" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">02  交易與履約中心</text>
+  <rect x="54" y="438" width="692" height="214" rx="26" fill="#FFF8EC" stroke="#F2A31A" stroke-width="4" filter="url(#shadow)"/>
+  <text x="400" y="512" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="48" font-weight="800" fill="#17283E">POS 系統</text>
+  <text x="400" y="562" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="29" font-weight="600" fill="#3A4658">收銀支付　點餐　外賣接單</text>
+  <text x="400" y="608" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="29" font-weight="600" fill="#3A4658">會員識別　門店履約</text>
+
+  <line x1="400" y1="654" x2="400" y2="690" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,690 414,690 400,708" fill="#365FD8"/>
+
+  <text x="54" y="728" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">03  企業管理</text>
+  <rect x="54" y="750" width="692" height="112" rx="22" fill="#F0F3F8" stroke="#8B98AD" stroke-width="3"/>
+  <text x="400" y="817" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="29" font-weight="700" fill="#243752">供應鏈　財務　人力　總部管控</text>
+
+  <line x1="400" y1="864" x2="400" y2="900" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,900 414,900 400,918" fill="#365FD8"/>
+
+  <text x="54" y="938" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#365FD8">04  數據底座</text>
+  <rect x="54" y="960" width="692" height="82" rx="20" fill="#243B5A"/>
+  <text x="400" y="1012" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">POS 數據＋企業管理數據</text>
+</svg>
