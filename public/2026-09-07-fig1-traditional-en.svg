@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1080" viewBox="0 0 800 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Traditional POS-Centred Architecture</title>
+  <desc id="desc">Customer channels feed into the POS, which handles transactions, fulfilment, channel logic, and membership before connecting to enterprise systems and the data foundation.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#19345C" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="1080" rx="32" fill="#F7F9FD"/>
+  <rect x="0" y="0" width="14" height="1080" rx="7" fill="#365FD8"/>
+
+  <text x="54" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="38" font-weight="700" fill="#17345D">Traditional POS-Centred</text>
+  <text x="54" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="38" font-weight="700" fill="#17345D">Architecture</text>
+  <text x="54" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="22" fill="#62708A">POS carries transaction, fulfilment, and channel logic</text>
+
+  <text x="54" y="222" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="23" font-weight="700" fill="#365FD8">01  CUSTOMER CHANNELS</text>
+  <rect x="54" y="244" width="692" height="112" rx="22" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="3"/>
+  <text x="400" y="290" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="27" font-weight="700" fill="#18324F">Dine-in   Delivery   Pickup</text>
+  <text x="400" y="330" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="25" fill="#344866">Group buying / Vouchers   Reservations / Queue</text>
+
+  <line x1="400" y1="358" x2="400" y2="390" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,390 414,390 400,408" fill="#365FD8"/>
+
+  <text x="54" y="430" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="23" font-weight="700" fill="#365FD8">02  TRANSACTION &amp; FULFILMENT HUB</text>
+  <rect x="54" y="452" width="692" height="206" rx="26" fill="#FFF8EC" stroke="#F2A31A" stroke-width="4" filter="url(#shadow)"/>
+  <text x="400" y="524" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="36" font-weight="800" fill="#17283E">POS System</text>
+  <text x="400" y="574" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="25" font-weight="600" fill="#3A4658">Checkout &amp; payment   Ordering</text>
+  <text x="400" y="616" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="25" font-weight="600" fill="#3A4658">Delivery intake   Member ID   Fulfilment</text>
+
+  <line x1="400" y1="660" x2="400" y2="692" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,692 414,692 400,710" fill="#365FD8"/>
+
+  <text x="54" y="734" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="23" font-weight="700" fill="#365FD8">03  ENTERPRISE MANAGEMENT</text>
+  <rect x="54" y="756" width="692" height="112" rx="22" fill="#F0F3F8" stroke="#8B98AD" stroke-width="3"/>
+  <text x="400" y="806" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="25" font-weight="700" fill="#243752">Supply Chain   Finance   HR</text>
+  <text x="400" y="842" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="23" fill="#344866">Head-office Control</text>
+
+  <line x1="400" y1="870" x2="400" y2="902" stroke="#365FD8" stroke-width="6"/>
+  <polygon points="386,902 414,902 400,920" fill="#365FD8"/>
+
+  <text x="54" y="944" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="23" font-weight="700" fill="#365FD8">04  DATA FOUNDATION</text>
+  <rect x="54" y="966" width="692" height="82" rx="20" fill="#243B5A"/>
+  <text x="400" y="1017" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">POS Data + Enterprise Management Data</text>
+</svg>
