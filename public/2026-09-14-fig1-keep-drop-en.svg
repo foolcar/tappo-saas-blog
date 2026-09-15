@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1120" viewBox="0 0 800 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Lightweight POS: What the Restaurant Terminal Should Keep and Let Go</title>
+  <desc id="desc">Left: frontline capabilities kept at the restaurant terminal that cannot stop on site. Right: responsibilities handed to the omnichannel transaction hub and data foundation, where centralised handling works better. Light means clear responsibility boundaries, not fewer features.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#19345C" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="1120" rx="32" fill="#F7F9FD"/>
+  <rect x="0" y="0" width="14" height="1120" rx="7" fill="#365FD8"/>
+
+  <text x="54" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#17345D">Lightweight POS: What the Terminal Should Keep and Let Go</text>
+  <text x="54" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="15" fill="#62708A">Light means clear responsibility boundaries, not fewer features</text>
+
+  <!-- left column header -->
+  <rect x="40" y="150" width="340" height="52" rx="16" fill="#1BA7A1"/>
+  <text x="210" y="183" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">Keep at the Terminal</text>
+  <text x="40" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="15" fill="#62708A">Happens on site; must not depend on a remote service</text>
+
+  <!-- right column header -->
+  <rect x="420" y="150" width="340" height="52" rx="16" fill="#365FD8"/>
+  <text x="590" y="183" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="21" font-weight="700" fill="#FFFFFF">Hand to Hub &amp; Data Base</text>
+  <text x="420" y="226" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="15" fill="#62708A">Cross-location, cross-channel; needs unified rules</text>
+
+  <!-- left cards -->
+  <rect x="40" y="258" width="340" height="100" rx="18" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="2"/>
+  <circle cx="74" cy="308" r="7" fill="#1BA7A1"/>
+  <text x="98" y="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="19" font-weight="700" fill="#18324F">Checkout &amp; Payment</text>
+  <text x="98" y="330" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Must still close orders offline</text>
+
+  <rect x="40" y="382" width="340" height="100" rx="18" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="2"/>
+  <circle cx="74" cy="432" r="7" fill="#1BA7A1"/>
+  <text x="98" y="424" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="19" font-weight="700" fill="#18324F">Ordering &amp; Tickets</text>
+  <text x="98" y="454" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">On-site ordering, edits, add-ons</text>
+
+  <rect x="40" y="506" width="340" height="100" rx="18" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="2"/>
+  <circle cx="74" cy="556" r="7" fill="#1BA7A1"/>
+  <text x="98" y="548" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="19" font-weight="700" fill="#18324F">Kitchen &amp; Printing</text>
+  <text x="98" y="578" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">KDS and printer run independently</text>
+
+  <rect x="40" y="630" width="340" height="100" rx="18" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="2"/>
+  <circle cx="74" cy="680" r="7" fill="#1BA7A1"/>
+  <text x="98" y="672" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="19" font-weight="700" fill="#18324F">Fulfilment Return</text>
+  <text x="98" y="702" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Completion status back to the hub</text>
+
+  <rect x="40" y="754" width="340" height="100" rx="18" fill="#EAF7F6" stroke="#1BA7A1" stroke-width="2"/>
+  <circle cx="74" cy="804" r="7" fill="#1BA7A1"/>
+  <text x="98" y="796" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="19" font-weight="700" fill="#18324F">Offline Tolerance</text>
+  <text x="98" y="826" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Finish locally when network drops</text>
+
+  <!-- right cards -->
+  <rect x="420" y="258" width="340" height="100" rx="18" fill="#E8EEFB" stroke="#365FD8" stroke-width="2"/>
+  <circle cx="454" cy="308" r="7" fill="#365FD8"/>
+  <text x="478" y="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="18" font-weight="700" fill="#18324F">Cross-channel Rules</text>
+  <text x="478" y="330" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Dine-in, delivery, pickup share one rule</text>
+
+  <rect x="420" y="382" width="340" height="100" rx="18" fill="#E8EEFB" stroke="#365FD8" stroke-width="2"/>
+  <circle cx="454" cy="432" r="7" fill="#365FD8"/>
+  <text x="478" y="424" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="18" font-weight="700" fill="#18324F">Membership &amp; Identity</text>
+  <text x="478" y="454" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Points, consent shared across channels</text>
+
+  <rect x="420" y="506" width="340" height="100" rx="18" fill="#E8EEFB" stroke="#365FD8" stroke-width="2"/>
+  <circle cx="454" cy="556" r="7" fill="#365FD8"/>
+  <text x="478" y="548" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="18" font-weight="700" fill="#18324F">Promotion Engine</text>
+  <text x="478" y="578" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Discounts issued by the hub</text>
+
+  <rect x="420" y="630" width="340" height="100" rx="18" fill="#E8EEFB" stroke="#365FD8" stroke-width="2"/>
+  <circle cx="454" cy="680" r="7" fill="#365FD8"/>
+  <text x="478" y="672" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="18" font-weight="700" fill="#18324F">Menu, Price &amp; Stock</text>
+  <text x="478" y="702" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Hub manages; terminal uses confirmed</text>
+
+  <rect x="420" y="754" width="340" height="100" rx="18" fill="#E8EEFB" stroke="#365FD8" stroke-width="2"/>
+  <circle cx="454" cy="804" r="7" fill="#365FD8"/>
+  <text x="478" y="796" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="18" font-weight="700" fill="#18324F">Reconciliation</text>
+  <text x="478" y="826" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13.5" fill="#5A6B82">Unified revenue and refund terms</text>
+
+  <!-- bottom conclusion -->
+  <rect x="40" y="906" width="720" height="116" rx="20" fill="#243B5A" filter="url(#shadow)"/>
+  <text x="400" y="952" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">Light means less responsibility, not less capability</text>
+  <text x="400" y="990" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="13" fill="#C7D2E8">The terminal does only what cannot stop on site; the rest goes to the hub and data foundation</text>
+
+  <text x="400" y="1058" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="15" fill="#8B98AD">Restaurant SaaS Global Expansion Insight · Product Design Series</text>
+</svg>
