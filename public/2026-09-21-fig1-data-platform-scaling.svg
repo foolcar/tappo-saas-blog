@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="980" viewBox="0 0 800 980" role="img" aria-labelledby="title desc">
+  <title id="title">餐飲 SaaS 數據中台觸發曲線</title>
+  <desc id="desc">由單店到跨市場，數據從容易管理逐步變成需要治理的共同能力。門店數量只是參考，真正觸發點是數據是否開始管不住。</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#19345C" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#365FD8"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="980" rx="30" fill="#F7F9FD"/>
+  <rect x="0" y="0" width="14" height="980" rx="7" fill="#365FD8"/>
+
+  <text x="54" y="70" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="34" font-weight="700" fill="#17345D">數據中台的觸發曲線</text>
+  <text x="54" y="112" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="23" fill="#62708A">從一間店到跨市場，數據逐步管不住</text>
+
+  <line x1="104" y1="792" x2="704" y2="792" stroke="#365FD8" stroke-width="5" marker-end="url(#arrow)"/>
+  <line x1="104" y1="792" x2="104" y2="178" stroke="#365FD8" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="105" y="842" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" fill="#62708A">規模與渠道複雜度增加</text>
+  <text x="52" y="170" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" fill="#62708A" transform="rotate(-90 52 170)">治理需要上升</text>
+
+  <path d="M 144 700 C 260 680, 280 598, 362 552 S 500 384, 650 290" fill="none" stroke="#1BA7A1" stroke-width="7"/>
+
+  <circle cx="144" cy="700" r="15" fill="#1BA7A1" stroke="#FFFFFF" stroke-width="5"/>
+  <rect x="118" y="540" width="220" height="126" rx="20" fill="#FFFFFF" stroke="#1BA7A1" stroke-width="3" filter="url(#shadow)"/>
+  <text x="138" y="577" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#365FD8">階段一｜1–3 間店</text>
+  <text x="138" y="615" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#18324F">單一市場</text>
+  <text x="138" y="649" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="20" fill="#344866">先守好主數據紀律</text>
+
+  <circle cx="326" cy="608" r="15" fill="#F2A31A" stroke="#FFFFFF" stroke-width="5"/>
+  <rect x="264" y="430" width="254" height="132" rx="20" fill="#FFFFFF" stroke="#F2A31A" stroke-width="3" filter="url(#shadow)"/>
+  <text x="286" y="468" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#365FD8">階段二｜5–15 間店</text>
+  <text x="286" y="506" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#18324F">外賣與會員增加</text>
+  <text x="286" y="542" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="20" fill="#344866">共享模型＋定期同步</text>
+
+  <circle cx="468" cy="470" r="15" fill="#7148E8" stroke="#FFFFFF" stroke-width="5"/>
+  <rect x="390" y="272" width="284" height="142" rx="20" fill="#FFFFFF" stroke="#7148E8" stroke-width="3" filter="url(#shadow)"/>
+  <text x="414" y="310" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#365FD8">階段三｜20–50 間店</text>
+  <text x="414" y="349" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#18324F">多渠道與多區域</text>
+  <text x="414" y="384" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="20" fill="#344866">中台開始值得正式投入</text>
+
+  <circle cx="650" cy="290" r="15" fill="#365FD8" stroke="#FFFFFF" stroke-width="5"/>
+  <rect x="482" y="124" width="264" height="138" rx="20" fill="#243B5A" stroke="#365FD8" stroke-width="3" filter="url(#shadow)"/>
+  <text x="506" y="162" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#AFC4FF">階段四｜跨市場</text>
+  <text x="506" y="201" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">不同服務商與規則</text>
+  <text x="506" y="237" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="20" fill="#DCE6F7">中台成為共同治理層</text>
+
+  <rect x="116" y="884" width="628" height="56" rx="18" fill="#EAF0FF" stroke="#365FD8" stroke-width="2"/>
+  <text x="430" y="920" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang TC', 'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#17345D">門店數量只是參考，數據痛點才是觸發點</text>
+</svg>
