@@ -1,11 +1,11 @@
 ---
 title: "A Lightweight POS Is Not a Small POS: What Should a Restaurant Terminal Keep and Let Go?"
-description: "A lightweight POS is not a half-sized feature set. It redraws the boundaries between the restaurant terminal, transaction hub, service-provider ecosystem, and data foundation. This article uses an outage scenario to identify what must stay at the restaurant and what should move upstream."
+description: "What is a lightweight POS? Not a cheaper cash register—a redistribution of responsibility between the restaurant terminal, transaction hub, service-provider ecosystem and data foundation. An outage scenario shows what a POS must keep on site and what should move upstream."
 date: 2026-09-14
-updated: 2026-09-14
+updated: 2026-10-20
 category: "Product Design"
 tags: ["Restaurant SaaS", "Lightweight POS", "Restaurant Terminal", "Omnichannel Operations", "System Architecture", "Service Provider Ecosystem", "Product Design"]
-image: "/og-default.png"
+image: "/og-lightweight-pos.jpg"
 originalSlug: "2026-09-14-lightweight-pos-responsibility-boundaries"
 ---
 
@@ -247,4 +247,18 @@ The restaurant terminal should retain transaction and fulfilment capabilities th
 The transaction hub standardises channels and workflows. The data foundation preserves shared definitions, permissions, and history. Service providers contribute specialist capabilities. The POS returns to the restaurant floor and makes sure each transaction can be completed.
 
 **A lightweight POS carries less responsibility, not less capability. When the restaurant gives away the complexity it should not carry, it can make the frontline work more stable.**
+
+## FAQ
+
+**What is a lightweight POS?**
+A restaurant terminal that keeps the capabilities which cannot stop on site—ordering, checkout, kitchen dispatch and shift controls—while rules that span channels, locations and markets move to a transaction hub and data foundation.
+
+**How is a lightweight POS different from a small or cheap POS?**
+A small POS is product tiering: fewer features at a lower price for small shops. A lightweight POS is an architecture decision: the terminal carries less responsibility, not less reliability, and it can serve a large restaurant group.
+
+**Can a lightweight POS work when the network is down?**
+It has to. Taking orders, reaching the kitchen and completing payments must continue during an outage, with clear rules for handling conflicts when the connection returns. If one network failure stops the whole restaurant, the system is not lightweight.
+
+**What should move out of the POS first?**
+Start with rules that are easier to standardise and carry lower frontline risk—cross-channel menus, membership and promotions—then delivery rules and reconciliation data, and change checkout and payment flows last.
 

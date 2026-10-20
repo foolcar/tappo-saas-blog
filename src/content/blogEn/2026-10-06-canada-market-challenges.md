@@ -1,12 +1,12 @@
 ---
-title: "Why Is Canada Difficult for Restaurant SaaS Expansion?"
-description: "Market notes from a business trip to Vancouver: Canada is not simply another English-speaking market. Three misalignments matter—the software layer is already occupied, channels split into different worlds, and compliance is priced by province. Southeast Asia often has a clearer platform entry point; Canada does not."
+title: "Why Is Canada Difficult for Restaurant SaaS Expansion? Notes from Vancouver"
+description: "Canada looks like an easy English-speaking market. But the POS layer belongs to Lightspeed, Square and Toast, payments run on Interac rather than a wallet, compliance is priced by province, and delivery splits between Uber Eats, DoorDash, SkipTheDishes and Fantuan. Notes from Vancouver."
 date: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-20
 category: "Global Markets"
 originalSlug: "2026-10-06-canada-market-challenges"
 tags: ["Canada", "Vancouver", "Restaurant SaaS", "International Expansion", "Market Observations", "Payments", "Compliance", "Delivery Platforms", "Fantuan", "POS"]
-image: "/og-default.png"
+image: "/og-canada-market-challenges.jpg"
 ---
 
 I have just returned from a business trip to Vancouver. Alongside the meetings, I deliberately set aside time to do one thing: observe the market. I walked around, ate at restaurants, and stood quietly near counters to watch how things worked.
@@ -55,7 +55,7 @@ Interac is difficult to ignore in Canadian day-to-day payments. It is not tied t
 
 For restaurant SaaS, the implication is concrete: the product cannot assume a credit-card-only flow. Interac Debit, account transfers, and the settlement and reconciliation methods of different acquirers all need to be validated with the target customer segment. As I wrote in [Payment Integration](/en/blog/2026-03-28-overseas-payment-integration/), payments are a zero-tolerance module in international expansion. In Canada, the checklist needs one more item: a domestic banking rail, not just a wallet.
 
-## Misalignment 3: The tablets behind the counter are the answer
+## Misalignment 3: The delivery tablets behind the counter are the answer
 
 The third signal is visible behind the counter of many Vancouver restaurants: alongside the restaurant’s own POS, there are two or three delivery-platform tablets—Uber Eats, DoorDash and sometimes SkipTheDishes.
 
@@ -92,3 +92,17 @@ All four layers point to the same conclusion: Canada is not simply another Engli
 In [Choosing Southeast Asia as the First Overseas Market](/en/blog/2026-04-15-first-stop-southeast-asia/), I wrote that Southeast Asia teaches us to choose the first market carefully. Vancouver taught me another lesson: **markets that speak the same language can still have completely different underlying assumptions about payments, regulation and platform structure.**
 
 The most expensive international-expansion mistake is not making the wrong decision. It is **using the experience of one market to make assumptions about another.**
+
+## FAQ
+
+**Is Canada a good market for restaurant SaaS?**
+It is a large, high-spending market, but the basic software question is already solved: Lightspeed, Square, Toast, Clover, SpotOn and TouchBistro are established choices. Differentiation has to come from what those systems do not solve well, not from a longer feature list.
+
+**Do Canadian restaurants need Interac support?**
+Yes. Interac is a domestic bank-based debit rail used in everyday Canadian payments—not a wallet super-app. A card-only flow misses how customers actually pay, so Interac Debit, account transfers and reconciliation workflows belong on the validation list.
+
+**Which delivery platforms matter in Canada?**
+Uber Eats, DoorDash and SkipTheDishes cover the broader consumer market, while Fantuan is prominent around Asian restaurants and Chinese-speaking communities. There is no single entry point; the integration plan should cover both tracks, especially in cities with dense Asian restaurant coverage.
+
+**Does French matter outside Quebec?**
+British Columbia feels fully English, which is exactly the trap. Quebec's language requirements, including Bill 96 obligations, can change product design for interfaces, receipts, support and AI responses. Design French as a first-class locale before entering Quebec, and confirm detailed requirements per province.

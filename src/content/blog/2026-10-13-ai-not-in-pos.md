@@ -5,7 +5,7 @@ date: 2026-10-13
 updated: 2026-10-13
 category: "產品設計"
 tags: ["餐飲SaaS", "AI產品設計", "輕POS", "數據中台", "門店營運", "服務商生態", "系統架構"]
-image: "/og-default.png"
+image: "/og-ai-not-in-pos.jpg"
 ---
 
 上一篇談[加拿大市場難在哪裏](/blog/2026-10-06-canada-market-challenges/)，我寫到溫哥華餐廳櫃檯後的幾台外賣平板：不同平台接單，POS 又是另一套系統。門店看似只有一個收銀台，背後卻有不同的交易和結算流程。

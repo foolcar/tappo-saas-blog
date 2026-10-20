@@ -5,7 +5,7 @@ date: 2026-09-14
 updated: 2026-09-14
 category: "產品設計"
 tags: ["餐飲SaaS", "輕POS", "門店終端", "全渠道經營", "系統架構", "服務商生態", "產品設計"]
-image: "/og-default.png"
+image: "/og-lightweight-pos.jpg"
 ---
 
 > **寫在前面**：上一篇談[數據解耦](/blog/2026-09-07-data-decoupling-restaurant-group/)，最後點出「輕 POS＋全渠道交易中樞」是比「換一套更重的 POS」更合理的方向。

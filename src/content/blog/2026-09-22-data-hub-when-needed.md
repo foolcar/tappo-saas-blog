@@ -5,7 +5,7 @@ date: 2026-09-22
 updated: 2026-09-22
 category: "產品設計"
 tags: ["餐飲SaaS", "數據中台", "數據治理", "餐飲企業架構", "多門店管理", "規模化營運", "全渠道經營"]
-image: "/og-default.png"
+image: "/og-data-hub-when-needed.jpg"
 ---
 
 > **寫在前面**：上一篇談[餐飲集團為甚麼要把數據解耦](/blog/2026-09-07-data-decoupling-restaurant-group/)，畫出了「輕 POS＋全渠道交易中樞＋數據底座」的目標架構。

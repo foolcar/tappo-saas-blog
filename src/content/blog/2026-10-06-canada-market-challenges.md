@@ -5,7 +5,7 @@ date: 2026-10-06
 updated: 2026-10-06
 category: "全球市場"
 tags: ["加拿大", "溫哥華", "餐飲SaaS", "出海", "市場現象", "支付", "合規", "外送平台", "Fantuan", "POS"]
-image: "/og-default.png"
+image: "/og-canada-market-challenges.jpg"
 ---
 
 我剛從溫哥華出差回來。這趟除了開會，我特意留了時間做一件事——看市場：逛街、吃飯、站在餐廳櫃檯旁邊不動聲色地觀察。
