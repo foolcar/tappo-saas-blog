@@ -7,6 +7,15 @@ category: "Product Design"
 originalSlug: "2026-09-22-data-hub-when-needed"
 tags: ["Restaurant SaaS", "Data Hub", "Data Governance", "Restaurant Architecture", "Multi-Store Management", "Scaling Operations", "Omnichannel Operations"]
 image: "/og-data-hub-when-needed.jpg"
+faq:
+  - q: "What is a data hub in a restaurant group?"
+    a: "A governed data layer that standardises identities, metrics, permissions and history across POS, delivery, membership and finance systems, so different stores and departments work from the same definitions. It is not a bigger BI tool and does not replace the operating systems."
+  - q: "At how many stores does a restaurant group need a data hub?"
+    a: "There is no fixed threshold. Twenty to fifty stores with multiple channels and regions is often where the investment starts to pay for itself, but many channels or an overseas expansion plan can trigger the need earlier than store count does."
+  - q: "What are the signs a restaurant group has outgrown POS reports?"
+    a: "Different teams quote different revenue for the same month, the same dish has different codes in different systems, changing a provider means rebuilding reports and history, and delivery and dine-in orders do not reconcile without manual spreadsheet work."
+  - q: "Is a data hub the same as a data warehouse or BI tool?"
+    a: "No. BI consumes data and visualises it; a hub governs the definitions first and keeps operating history under the business's control, so the group's data assets survive a provider change."
 ---
 
 > **A note before we start:** My previous article, [Why Restaurant Groups Need to Decouple Their Data](/en/blog/2026-09-07-data-decoupling-restaurant-group/), described the target architecture: a lightweight POS, an omnichannel transaction hub, and a data foundation.

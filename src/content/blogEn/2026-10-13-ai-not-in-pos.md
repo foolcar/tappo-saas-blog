@@ -7,6 +7,15 @@ category: "Product Design"
 originalSlug: "2026-10-13-ai-not-in-pos"
 tags: ["Restaurant SaaS", "AI Product Design", "Lightweight POS", "Data Platform", "Restaurant Operations", "Service Provider Ecosystem", "System Architecture"]
 image: "/og-ai-not-in-pos.jpg"
+faq:
+  - q: "Does AI need to run inside the POS terminal?"
+    a: "No. AI can appear on the POS screen while the model runs in the cloud or at an external provider. What matters is which data the AI trusts, who approves its actions, and whether the recommendation has a path back to the shift."
+  - q: "What happens to AI features when the restaurant loses its connection?"
+    a: "Checkout and kitchen routing must continue regardless. Some local models can keep running, but the prices, stock figures and rules they use also need update and expiry mechanisms. Offline reliability depends on data and process availability, not just model location."
+  - q: "Which AI recommendations should require human approval?"
+    a: "High-risk actions—price changes, refunds, compensation, loyalty benefits and brand commitments—should execute only after explicit approval. Lower-risk work such as classifying reviews or summarising reports can be automated; medium-risk recommendations should ask for confirmation."
+  - q: "Where does cross-store AI analysis get its data?"
+    a: "From a governed data foundation with consistent definitions across locations—not from putting a model into every POS. Analysis can run centrally, with results sent back to stores."
 ---
 
 In my previous article on [the challenges of entering Canada's restaurant SaaS market](/en/blog/2026-10-06-canada-market-challenges/), I wrote about the delivery tablets behind restaurant counters in Vancouver. Different platforms handle incoming orders, while the POS runs separately. There may be just one checkout counter, but behind it sit several transaction and settlement processes.

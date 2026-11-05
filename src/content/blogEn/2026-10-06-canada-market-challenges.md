@@ -7,6 +7,15 @@ category: "Global Markets"
 originalSlug: "2026-10-06-canada-market-challenges"
 tags: ["Canada", "Vancouver", "Restaurant SaaS", "International Expansion", "Market Observations", "Payments", "Compliance", "Delivery Platforms", "Fantuan", "POS"]
 image: "/og-canada-market-challenges.jpg"
+faq:
+  - q: "Is Canada a good market for restaurant SaaS?"
+    a: "It is a large, high-spending market, but the basic software question is already solved: Lightspeed, Square, Toast, Clover, SpotOn and TouchBistro are established choices. Differentiation has to come from what those systems do not solve well, not from a longer feature list."
+  - q: "Do Canadian restaurants need Interac support?"
+    a: "Yes. Interac is a domestic bank-based debit rail used in everyday Canadian payments—not a wallet super-app. A card-only flow misses how customers actually pay, so Interac Debit, account transfers and reconciliation workflows belong on the validation list."
+  - q: "Which delivery platforms matter in Canada?"
+    a: "Uber Eats, DoorDash and SkipTheDishes cover the broader consumer market, while Fantuan is prominent around Asian restaurants and Chinese-speaking communities. There is no single entry point; the integration plan should cover both tracks, especially in cities with dense Asian restaurant coverage."
+  - q: "Does French matter outside Quebec?"
+    a: "British Columbia feels fully English, which is exactly the trap. Quebec's language requirements, including Bill 96 obligations, can change product design for interfaces, receipts, support and AI responses. Design French as a first-class locale before entering Quebec, and confirm detailed requirements per province."
 ---
 
 I have just returned from a business trip to Vancouver. Alongside the meetings, I deliberately set aside time to do one thing: observe the market. I walked around, ate at restaurants, and stood quietly near counters to watch how things worked.

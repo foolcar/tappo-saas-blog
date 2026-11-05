@@ -45,6 +45,7 @@ const blogEnCollection = defineCollection({
     image: z.string().optional(),
     draft: z.boolean().default(false),
     originalSlug: z.string(), // links back to Chinese version
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
   }),
 });
 

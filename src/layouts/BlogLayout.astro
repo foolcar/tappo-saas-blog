@@ -18,12 +18,13 @@ export interface Props {
   enSlug?: string;
   zhSlug?: string;
   pageType?: 'page' | 'about';
+  faq?: { q: string; a: string }[];
 }
 
 const {
   title, description, image = '/og-default.png', type = 'website', date, updated,
   category, tags = [], slug, wordCount, breadcrumbs,
-  locale = 'zh-Hant', alternateUrl, enSlug, zhSlug, pageType = 'page',
+  locale = 'zh-Hant', alternateUrl, enSlug, zhSlug, pageType = 'page', faq = [],
 } = Astro.props;
 
 const siteTitle = locale === 'en' ? 'Restaurant SaaS Global Expansion Insight' : '餐飲 SaaS 出海觀察';
@@ -213,6 +214,24 @@ const langToggleUrl = (() => {
         },
       })} />
     )
+  }
+
+  <!-- FAQPage Structured Data (only when the article has an FAQ) -->
+  {
+    type === 'article' && faq && faq.length > 0 ? (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.a,
+          },
+        })),
+      })} />
+    ) : null
   }
 
   <!-- Preconnect to Google Fonts -->

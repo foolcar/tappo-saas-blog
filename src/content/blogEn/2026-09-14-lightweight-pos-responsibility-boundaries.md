@@ -7,6 +7,15 @@ category: "Product Design"
 tags: ["Restaurant SaaS", "Lightweight POS", "Restaurant Terminal", "Omnichannel Operations", "System Architecture", "Service Provider Ecosystem", "Product Design"]
 image: "/og-lightweight-pos.jpg"
 originalSlug: "2026-09-14-lightweight-pos-responsibility-boundaries"
+faq:
+  - q: "What is a lightweight POS?"
+    a: "A restaurant terminal that keeps the capabilities which cannot stop on site—ordering, checkout, kitchen dispatch and shift controls—while rules that span channels, locations and markets move to a transaction hub and data foundation."
+  - q: "How is a lightweight POS different from a small or cheap POS?"
+    a: "A small POS is product tiering: fewer features at a lower price for small shops. A lightweight POS is an architecture decision: the terminal carries less responsibility, not less reliability, and it can serve a large restaurant group."
+  - q: "Can a lightweight POS work when the network is down?"
+    a: "It has to. Taking orders, reaching the kitchen and completing payments must continue during an outage, with clear rules for handling conflicts when the connection returns. If one network failure stops the whole restaurant, the system is not lightweight."
+  - q: "What should move out of the POS first?"
+    a: "Start with rules that are easier to standardise and carry lower frontline risk—cross-channel menus, membership and promotions—then delivery rules and reconciliation data, and change checkout and payment flows last."
 ---
 
 > **A note before we begin:** My previous article discussed [data decoupling](/en/blog/2026-09-07-data-decoupling-restaurant-group/), and argued that a lightweight POS plus an omnichannel transaction hub is a more sensible direction than replacing the existing system with an even heavier POS.

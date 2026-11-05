@@ -28,6 +28,7 @@ const wordCount = post.body?.match(/[a-zA-Z]+/g)?.length ?? 0;
   tags={post.data.tags}
   slug={post.slug}
   image={post.data.image || '/og-default.png'}
+  faq={post.data.faq}
   wordCount={wordCount}
   locale="en"
   zhSlug={post.data.originalSlug}
