@@ -19,12 +19,13 @@ export interface Props {
   zhSlug?: string;
   pageType?: 'page' | 'about';
   faq?: { q: string; a: string }[];
+  noindex?: boolean;
 }
 
 const {
   title, description, image = '/og-default.png', type = 'website', date, updated,
   category, tags = [], slug, wordCount, breadcrumbs,
-  locale = 'zh-Hant', alternateUrl, enSlug, zhSlug, pageType = 'page', faq = [],
+  locale = 'zh-Hant', alternateUrl, enSlug, zhSlug, pageType = 'page', faq = [], noindex = false,
 } = Astro.props;
 
 const siteTitle = locale === 'en' ? 'Restaurant SaaS Global Expansion Insight' : '餐飲 SaaS 出海觀察';
@@ -61,8 +62,8 @@ const langToggleUrl = (() => {
   <meta name="google-site-verification" content="D68PPCqBjgUyTa5SWCl5o2OjkMg9jFDP7hTvPfltgRM" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  {isPreview && <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />}
-  {isPreview && <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />}
+  {(isPreview || noindex) && <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />}
+  {(isPreview || noindex) && <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />}
 
   <!-- Primary Meta -->
   <title>{fullTitle}</title>

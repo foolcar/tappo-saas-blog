@@ -10,14 +10,6 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     sitemap({
-      filter(page) {
-        // Exclude bare /blog/ and /en/blog/ listing pages — they 404
-        // Actual blog listings are at / (homepage) and /en/ (EN homepage)
-        if (page === 'https://blog.foolcar.cc/blog/' || page === 'https://blog.foolcar.cc/en/blog/') {
-          return false;
-        }
-        return true;
-      },
       serialize(item) {
         // Ensure every URL ends with a trailing slash to match canonical and avoid redirect chains
         const url = item.url.replace(/\/+$/, '') + '/';
