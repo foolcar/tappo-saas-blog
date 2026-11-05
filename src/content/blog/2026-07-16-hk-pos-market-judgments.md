@@ -4,7 +4,7 @@ description: "花兩週拆完香港 8 個主流 POS 系統，身為在餐飲科�
 date: 2026-07-16
 updated: 2026-07-16
 category: "POS選購"
-tags: ["POS系統", "香港市場", "餐飲科技", "行業觀點", "中國香港"]
+tags: ["POS系統", "中國香港", "餐飲科技", "行業觀點"]
 image: "/og-default.png"
 ---
 

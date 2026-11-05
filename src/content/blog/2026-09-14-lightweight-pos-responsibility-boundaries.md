@@ -4,7 +4,7 @@ description: "很多餐飲老闆聽到「輕 POS」，直覺把它理解成功�
 date: 2026-09-14
 updated: 2026-09-14
 category: "產品設計"
-tags: ["餐飲SaaS", "輕POS", "門店終端", "全渠道經營", "系統架構", "服務商生態", "產品設計"]
+tags: ["餐飲SaaS", "輕POS", "全渠道經營", "餐飲企業架構", "服務商生態", "產品設計"]
 image: "/og-lightweight-pos.jpg"
 ---
 

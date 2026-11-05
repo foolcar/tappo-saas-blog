@@ -4,7 +4,7 @@ description: "資料匯入成功，不代表門店已經接得上。從改單、
 date: 2026-11-03
 updated: 2026-11-03
 category: "產品設計"
-tags: ["餐飲SaaS", "系統遷移", "門店營運", "換系統", "產品設計", "輕POS"]
+tags: ["餐飲SaaS", "系統遷移", "門店營運", "產品設計", "輕POS"]
 image: "/og-switch-system.jpg"
 ---
 

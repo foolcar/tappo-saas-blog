@@ -4,7 +4,7 @@ description: "一家餐廳同時經營 GrabFood、foodpanda 和 ShopeeFood，真
 date: 2026-08-03
 updated: 2026-08-03
 category: "產品設計"
-tags: ["餐飲SaaS", "外賣平台整合", "GrabFood", "foodpanda", "ShopeeFood", "訂單管理", "POS系統", "出海"]
+tags: ["餐飲SaaS", "外賣平台整合", "GrabFood", "foodpanda", "ShopeeFood", "訂單管理", "POS系統", "出海策略"]
 image: "/og-default.png"
 ---
 

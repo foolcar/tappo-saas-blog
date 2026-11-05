@@ -1,11 +1,15 @@
-// Post-build step: remove owner-only comment-moderation URLs from the generated sitemap.
+// Post-build step: remove owner-only comment-moderation URLs and low-value
+// (single/double-article) tag-page URLs from the generated sitemap XML.
 //
-// @astrojs/sitemap's `filter` option and custom `astro:build:done` integration hooks do not
-// fire reliably in this Astro pipeline, so we strip the comment-moderation URLs directly
-// from the written sitemap XML after `astro build` completes.
+// - Comment-moderation URLs are removed by matching `/comments/` in the <loc>.
+// - Tag pages whose built HTML carries a `noindex` meta are removed. The
+//   `noindex` decision lives in `src/pages/tags/[tag].astro`
+//   (`noindex={posts.length < 3}`), so this script needs no hardcoded list and
+//   stays correct as the article set grows or shrinks.
 //
-// Run automatically via the `build` npm script: `astro build && node ./scripts/strip-sitemap-comments.mjs`
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+// Run automatically via the `build` npm script:
+//   astro build && node ./scripts/strip-sitemap-comments.mjs
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const distDir = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -16,21 +20,45 @@ if (files.length === 0) {
   process.exit(0);
 }
 
-// Negative lookahead `(?:(?!<\/url>)[\s\S])*?` keeps the match inside a single <url> block,
-// so it never swallows neighbouring URLs between the first <url> and the comment page.
-const re = /<url>(?:(?!<\/url>)[\s\S])*?<loc>[^<]*comments[^<]*<\/loc>(?:(?!<\/url>)[\s\S])*?<\/url>/g;
-let totalRemoved = 0;
+// Map a sitemap <loc> (e.g. https://blog.foolcar.cc/tags/外賣平台/) to the
+// built HTML file and report whether that page is marked noindex.
+function tagPageIsNoindex(loc) {
+  try {
+    const u = new URL(loc);
+    let p = decodeURIComponent(u.pathname);
+    if (p.endsWith('/')) p += 'index.html';
+    else if (!/\.[a-z0-9]+$/i.test(p)) p += '/index.html';
+    const fp = distDir + p.replace(/^\//, '');
+    if (!existsSync(fp)) return false;
+    return readFileSync(fp, 'utf-8').includes('noindex');
+  } catch {
+    return false;
+  }
+}
+
+let removedComments = 0;
+let removedTags = 0;
 
 for (const f of files) {
   const p = distDir + f;
   const xml = readFileSync(p, 'utf-8');
-  const cleaned = xml.replace(re, '');
-  const removed = (xml.length - cleaned.length) > 0;
-  if (removed) {
-    writeFileSync(p, cleaned);
-    totalRemoved += (xml.match(/comments/g) || []).length;
-    console.log(`[strip-sitemap] ${f}: removed comment-moderation URLs`);
-  }
+  const cleaned = xml.replace(/<url>(?:(?!<\/url>)[\s\S])*?<\/url>/g, (block) => {
+    // Negative lookahead above keeps the match inside a single <url> block.
+    if (/<loc>[^<]*comments[^<]*<\/loc>/.test(block)) {
+      removedComments++;
+      return '';
+    }
+    const locM = block.match(/<loc>([^<]*)<\/loc>/);
+    if (locM && /\/tags\//.test(locM[1]) && tagPageIsNoindex(locM[1])) {
+      removedTags++;
+      return '';
+    }
+    return block;
+  });
+  if (cleaned !== xml) writeFileSync(p, cleaned);
 }
 
-console.log(`[strip-sitemap] done — scanned ${files.length} sitemap file(s), removed ${totalRemoved} comment URL(s).`);
+console.log(
+  `[strip-sitemap] done — scanned ${files.length} sitemap file(s): ` +
+    `removed ${removedComments} comment URL(s), ${removedTags} low-count tag URL(s).`
+);

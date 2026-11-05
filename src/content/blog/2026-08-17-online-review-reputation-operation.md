@@ -4,7 +4,7 @@ description: "餐廳評價分散在 Google、OpenRice 和外賣平台。本文�
 date: 2026-08-17
 updated: 2026-08-17
 category: "數位營銷"
-tags: ["餐飲SaaS", "線上評價", "聲譽管理", "Google Reviews", "顧客體驗", "多店管理", "AI評價分析"]
+tags: ["餐飲SaaS", "線上評價", "聲譽管理", "Google Reviews", "顧客體驗", "多門店管理", "AI評價分析"]
 image: "/og-default.png"
 ---
 

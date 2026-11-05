@@ -4,7 +4,7 @@ description: "餐飲 SaaS 出海，簽錯一張單可能拖走產品路線、交
 date: 2026-08-10
 updated: 2026-08-10
 category: "產品設計"
-tags: ["餐飲SaaS", "客戶選擇", "出海策略", "ICP", "產品策略", "客戶成功", "全球市場"]
+tags: ["餐飲SaaS", "客戶選擇", "出海策略", "ICP", "產品策略", "客戶成功", "國際化"]
 image: "/og-default.png"
 ---
 

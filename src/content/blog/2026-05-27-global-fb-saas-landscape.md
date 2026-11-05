@@ -4,7 +4,7 @@ description: "從市場規模、競爭格局、文化差異三個維度，全景
 date: 2026-05-27
 updated: 2026-06-03
 category: "全球市場"
-tags: ["出海策略", "全球市場", "SaaS", "市場分析", "餐飲科技"]
+tags: ["出海策略", "國際化", "SaaS", "市場分析", "餐飲科技"]
 image: "/og-default.png"
 ---
 

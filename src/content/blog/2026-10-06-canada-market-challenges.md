@@ -4,7 +4,7 @@ description: "一趟溫哥華出差之後的市場筆記：加拿大不是另一
 date: 2026-10-06
 updated: 2026-10-06
 category: "全球市場"
-tags: ["加拿大", "溫哥華", "餐飲SaaS", "出海", "市場現象", "支付", "合規", "外送平台", "Fantuan", "POS"]
+tags: ["加拿大", "溫哥華", "餐飲SaaS", "出海策略", "市場現象", "支付", "合規", "外賣平台", "Fantuan", "POS系統"]
 image: "/og-canada-market-challenges.jpg"
 ---
 

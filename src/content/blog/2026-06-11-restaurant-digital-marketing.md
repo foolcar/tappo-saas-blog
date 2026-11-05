@@ -4,7 +4,7 @@ description: "餐廳老闆不用成為營銷專家。從 Google Business Profile
 date: 2026-06-11
 updated: 2026-06-11
 category: "數位營銷"
-tags: ["數位引流", "Google Maps", "Google Business Profile", "OpenRice", "小紅書", "外送平台", "SEO", "餐廳營銷"]
+tags: ["數位引流", "Google Maps", "Google Business Profile", "OpenRice", "小紅書", "外賣平台", "SEO", "餐廳營銷"]
 image: "/og-default.png"
 ---
 

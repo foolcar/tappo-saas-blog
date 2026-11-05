@@ -4,7 +4,7 @@ description: "模型在哪裏運行、相信哪份數據、由誰確認執行，
 date: 2026-10-13
 updated: 2026-10-13
 category: "產品設計"
-tags: ["餐飲SaaS", "AI產品設計", "輕POS", "數據中台", "門店營運", "服務商生態", "系統架構"]
+tags: ["餐飲SaaS", "AI產品設計", "輕POS", "數據中台", "門店營運", "服務商生態", "餐飲企業架構"]
 image: "/og-ai-not-in-pos.jpg"
 ---
 
