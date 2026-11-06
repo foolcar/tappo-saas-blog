@@ -1,0 +1,77 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+import { topics, getTopic } from '../../data/topics';
+
+export async function getStaticPaths() {
+  return topics.map((t) => ({ params: { topic: t.slug } }));
+}
+
+const { topic } = Astro.params;
+const t = getTopic(topic!)!;
+const data = t.zh;
+
+const posts = await getCollection('blog', ({ data: d }) => !d.draft);
+const bySlug = Object.fromEntries(posts.map((p) => [p.slug, p]));
+const reading = data.readingOrder
+  .map((r) => ({ ...r, post: bySlug[r.slug] }))
+  .filter((x) => x.post);
+
+const siteUrl = Astro.site?.origin ?? 'https://blog.foolcar.cc';
+const enUrl = `${siteUrl}/en/topics/${t.slug}/`;
+const breadcrumbs = [
+  { name: '首頁', url: '/' },
+  { name: '主題', url: '/tags/' },
+  { name: data.title },
+];
+---
+
+<BlogLayout
+  title={data.title}
+  description={data.description}
+  type="website"
+  pageType="page"
+  breadcrumbs={breadcrumbs}
+  alternateUrl={enUrl}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10">
+      <p class="text-sm font-medium text-blue-600 bg-blue-50 inline-block px-3 py-1 rounded-full mb-4">核心主題</p>
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">{data.title}</h1>
+      <p class="text-lg text-gray-600 leading-relaxed">{data.lede}</p>
+    </header>
+
+    <div class="prose prose-lg max-w-none" set:html={data.body} />
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">核心名詞解釋</h2>
+      <dl class="space-y-5">
+        {data.glossary.map((g) => (
+          <div>
+            <dt class="font-semibold text-gray-900 text-lg">{g.term}</dt>
+            <dd class="text-gray-600 leading-relaxed mt-1">{g.def}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">建議閱讀順序</h2>
+      <ol class="space-y-5 list-decimal list-inside">
+        {reading.map((r) => (
+          <li class="text-gray-800 leading-relaxed">
+            <a class="text-blue-600 font-medium hover:underline" href={`/blog/${r.slug}/`}>{r.post.data.title}</a>
+            <span class="text-gray-600"> — {r.note}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="mt-14 p-5 bg-gray-50 border-l-4 border-blue-600 rounded">
+      <h2 class="text-lg font-semibold text-gray-900 mb-2">相關案例、公開資料與限制</h2>
+      <p class="text-gray-600 leading-relaxed text-sm">
+        本頁文章來自第一線經驗、公開資料與個人判斷。市場數據與法規（如 PIPEDA、PDPA、GDPR）會隨時間與地區變動，正式決策請以當地最新規範與專業意見為準。文章不代表任何公司的官方立場。
+      </p>
+    </section>
+  </article>
+</BlogLayout>

@@ -1,0 +1,79 @@
+---
+import BlogLayout from '../../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+import { topics, getTopic } from '../../../data/topics';
+
+export async function getStaticPaths() {
+  return topics.map((t) => ({ params: { topic: t.slug } }));
+}
+
+const { topic } = Astro.params;
+const t = getTopic(topic!)!;
+const data = t.en;
+
+const posts = await getCollection('blogEn', ({ data: d }) => !d.draft);
+const bySlug = Object.fromEntries(posts.map((p) => [p.slug, p]));
+const reading = data.readingOrder
+  .map((r) => ({ ...r, post: bySlug[r.slug] }))
+  .filter((x) => x.post);
+
+const cleanDashes = (text: string) => text.replace(/\s*[—–]\s*/g, ' - ');
+
+const siteUrl = Astro.site?.origin ?? 'https://blog.foolcar.cc';
+const zhUrl = `${siteUrl}/topics/${t.slug}/`;
+const breadcrumbs = [
+  { name: 'Home', url: '/en/' },
+  { name: data.title },
+];
+---
+
+<BlogLayout
+  title={data.title}
+  description={data.description}
+  type="website"
+  pageType="page"
+  locale="en"
+  breadcrumbs={breadcrumbs}
+  alternateUrl={zhUrl}
+>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10">
+      <p class="text-sm font-medium text-blue-600 bg-blue-50 inline-block px-3 py-1 rounded-full mb-4">Core topic</p>
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">{data.title}</h1>
+      <p class="text-lg text-gray-600 leading-relaxed">{data.lede}</p>
+    </header>
+
+    <div class="prose prose-lg max-w-none" set:html={data.body} />
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">Glossary</h2>
+      <dl class="space-y-5">
+        {data.glossary.map((g) => (
+          <div>
+            <dt class="font-semibold text-gray-900 text-lg">{g.term}</dt>
+            <dd class="text-gray-600 leading-relaxed mt-1">{g.def}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">Suggested reading order</h2>
+      <ol class="space-y-5 list-decimal list-inside">
+        {reading.map((r) => (
+          <li class="text-gray-800 leading-relaxed">
+            <a class="text-blue-600 font-medium hover:underline" href={`/en/blog/${r.slug}/`}>{cleanDashes(r.post.data.title)}</a>
+            <span class="text-gray-600"> — {r.note}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="mt-14 p-5 bg-gray-50 border-l-4 border-blue-600 rounded">
+      <h2 class="text-lg font-semibold text-gray-900 mb-2">Cases, public sources, and limits</h2>
+      <p class="text-gray-600 leading-relaxed text-sm">
+        The articles on this page draw on first-hand experience, public sources, and personal judgement. Market data and regulations (PIPEDA, PDPA, GDPR) change by time and region; for any formal decision, defer to the latest local rules and professional advice. They do not represent any company's official position.
+      </p>
+    </section>
+  </article>
+</BlogLayout>

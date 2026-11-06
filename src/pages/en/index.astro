@@ -7,6 +7,49 @@ const posts = (await getCollection('blogEn', ({ data }) => !data.draft))
 const featured = posts[0];
 const recent = posts.slice(1, 7);
 const cleanDashes = (text: string) => text.replace(/\s*[—–]\s*/g, ' - ');
+
+// Curated homepage topic pillars (P1 SEO). Article picks are editor's choices,
+// "Read more" links to a pillar page (not a bare tag index).
+const bySlug = Object.fromEntries(posts.map((p) => [p.slug, p]));
+const pick = (slugs: string[]) => slugs.map((s) => bySlug[s]).filter(Boolean);
+const topics = [
+  {
+    title: 'Restaurant Data Platform & System Architecture',
+    intro: 'From POS data decoupling and the boundary of a light POS to when a data hub pays off — how groups should layer systems so the store stays light and HQ stays clear.',
+    moreUrl: '/en/topics/restaurant-data-platform/',
+    moreText: 'More on data platform',
+    posts: pick([
+      '2026-09-22-data-hub-when-needed',
+      '2026-09-07-data-decoupling-restaurant-group',
+      '2026-09-14-lightweight-pos-responsibility-boundaries',
+      '2026-10-13-ai-not-in-pos',
+    ]),
+  },
+  {
+    title: 'Restaurant SaaS Overseas Markets & Localization',
+    intro: 'From a Hong Kong tea restaurant to overseas tables: product design, payments, compliance, and localization when a restaurant SaaS crosses markets.',
+    moreUrl: '/en/topics/overseas-restaurant-saas/',
+    moreText: 'More on overseas markets',
+    posts: pick([
+      '2026-10-06-canada-market-challenges',
+      '2026-04-15-first-stop-southeast-asia',
+      '2026-05-27-global-fb-saas-landscape',
+      '2026-03-12-overseas-pos-product-design',
+    ]),
+  },
+  {
+    title: 'AI in Restaurant Operations & SaaS',
+    intro: 'AI does not belong in the POS, and should not be only a chatbot. Where AI should sit, how it amplifies managers, and how reviews become operational data.',
+    moreUrl: '/en/topics/restaurant-ai/',
+    moreText: 'More on AI in restaurants',
+    posts: pick([
+      '2026-08-31-ai-in-restaurant-saas-product',
+      '2026-10-13-ai-not-in-pos',
+      '2026-07-20-ai-for-saas-overseas-team',
+      '2026-08-17-online-review-reputation-operation',
+    ]),
+  },
+];
 ---
 
 <BlogLayout
@@ -69,6 +112,33 @@ const cleanDashes = (text: string) => text.replace(/\s*[—–]\s*/g, ' - ');
         </article>
       ))}
     </div>
+  </section>
+
+  <section class="home-section pillars" id="topics">
+    <p class="section-kicker">Core topics</p>
+    <h2>Three directions we keep returning to</h2>
+    {topics.map((t) => (
+      <div class="pillar">
+        <div class="pillar-head">
+          <h3>{t.title}</h3>
+          <p>{t.intro}</p>
+        </div>
+        <div class="pillar-list">
+          {t.posts.map((post) => (
+            <article>
+              <div>
+                <h3><a href={`/en/blog/${post.slug}/`}>{cleanDashes(post.data.title)}</a></h3>
+                <p>{cleanDashes(post.data.description)}</p>
+              </div>
+              <time datetime={post.data.date.toISOString().split('T')[0]}>
+                {post.data.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+              </time>
+            </article>
+          ))}
+        </div>
+        <a class="text-link" href={t.moreUrl}>{t.moreText}</a>
+      </div>
+    ))}
   </section>
 
   <section class="home-section thinking" id="thinking">
