@@ -24,7 +24,11 @@ const cleanDashes = (text: string) => text.replace(/\s*[—–]\s*/g, ' - ');
       <a class="text-link" href="#articles">Read the latest</a>
     </div>
     <figure class="hero-photo">
-      <img src="/restaurant-interior.jpg" alt="A quiet modern restaurant before service begins" />
+      <picture>
+        <source type="image/avif" srcset="/img/restaurant-interior-640.avif 640w, /img/restaurant-interior-960.avif 960w, /img/restaurant-interior-1280.avif 1280w" sizes="(max-width: 768px) 100vw, 50vw" />
+        <source type="image/webp" srcset="/img/restaurant-interior-640.webp 640w, /img/restaurant-interior-960.webp 960w, /img/restaurant-interior-1280.webp 1280w" sizes="(max-width: 768px) 100vw, 50vw" />
+        <img src="/img/restaurant-interior-1280.jpg" width="1280" height="853" fetchpriority="high" decoding="async" alt="A quiet modern restaurant before service begins" />
+      </picture>
       <figcaption>Technology matters when it helps an ordinary restaurant shift run better.</figcaption>
     </figure>
   </section>
@@ -44,7 +48,7 @@ const cleanDashes = (text: string) => text.replace(/\s*[—–]\s*/g, ' - ');
         <a class="text-link" href={`/en/blog/${featured.slug}/`}>Read article</a>
       </div>
       <a href={`/en/blog/${featured.slug}/`} aria-label={cleanDashes(featured.data.title)}>
-        <img src="/restaurant-counter.jpg" alt="A restaurant counter and open kitchen being prepared for service" />
+        <img src="/restaurant-counter.jpg" alt="A restaurant counter and open kitchen being prepared for service" width="1400" height="933" loading="lazy" />
       </a>
     </article>
   </section>
@@ -68,7 +72,7 @@ const cleanDashes = (text: string) => text.replace(/\s*[—–]\s*/g, ' - ');
   </section>
 
   <section class="home-section thinking" id="thinking">
-    <img src="/restaurant-service.jpg" alt="A restaurant team serving dishes during an ordinary shift" />
+    <img src="/restaurant-service.jpg" alt="A restaurant team serving dishes during an ordinary shift" width="1400" height="933" loading="lazy" />
     <div>
       <h2>Questions I am following</h2>
       <p>There are no standard answers yet. These are the questions I will keep returning to.</p>
@@ -82,7 +86,7 @@ const cleanDashes = (text: string) => text.replace(/\s*[—–]\s*/g, ' - ');
 
   <section class="home-section about-preview" id="about">
     <figure class="about-preview-photo">
-      <img src="/about-author-illustration.jpg" alt="Editorial illustration of the author taking notes in a Chinese restaurant" />
+      <img src="/about-author-illustration.jpg" alt="Editorial illustration of the author taking notes in a Chinese restaurant" width="1706" height="1279" loading="lazy" />
       <figcaption>The useful questions usually appear after service begins.</figcaption>
     </figure>
     <div>
