@@ -42,7 +42,9 @@ const topicLinks = topics
   zhSlug={post.data.originalSlug}
   breadcrumbs={[
     { name: 'Home', url: 'https://blog.foolcar.cc/en/' },
-    { name: post.data.category, url: `https://blog.foolcar.cc/en/blog/${encodeURIComponent(post.slug)}/` },
+    ...(topicLinks.length > 0
+      ? [{ name: topicLinks[0].title, url: `https://blog.foolcar.cc${topicLinks[0].url}` }]
+      : []),
     { name: post.data.title },
   ]}
 >
