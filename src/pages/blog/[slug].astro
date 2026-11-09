@@ -2,6 +2,7 @@
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import Comments from '../../components/Comments.tsx';
 import { getCollection } from 'astro:content';
+import { topics } from '../../data/topics';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -21,6 +22,11 @@ const enSlug = enMatch?.slug;
 
 // Compute word count for Schema
 const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
+
+// Backlinks to the pillar pages this article belongs to (single source: topics.ts)
+const topicLinks = topics
+  .filter((t) => t.zh.articles.includes(post.slug))
+  .map((t) => ({ title: t.zh.title, url: `/topics/${t.slug}/` }));
 ---
 
 <BlogLayout
@@ -88,6 +94,17 @@ const wordCount = post.body?.match(/[\u4e00-\u9fff]|[a-zA-Z]+/g)?.length ?? 0;
     <div class="prose prose-lg max-w-none">
       <Content />
     </div>
+
+    {topicLinks.length > 0 && (
+      <aside class="article-topics" aria-label="本文收錄主題">
+        <p class="article-topics-label">本文收錄於</p>
+        <div class="article-topics-links">
+          {topicLinks.map((t) => (
+            <a href={t.url}>{t.title}</a>
+          ))}
+        </div>
+      </aside>
+    )}
 
     <Comments client:load threadKey={post.slug} locale="zh-Hant" />
 

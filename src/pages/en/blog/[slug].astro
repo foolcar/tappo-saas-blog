@@ -2,6 +2,7 @@
 import BlogLayout from '../../../layouts/BlogLayout.astro';
 import Comments from '../../../components/Comments.tsx';
 import { getCollection } from 'astro:content';
+import { topics } from '../../../data/topics';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blogEn', ({ data }) => !data.draft);
@@ -16,6 +17,13 @@ const { Content } = await post.render();
 
 // Compute word count
 const wordCount = post.body?.match(/[a-zA-Z]+/g)?.length ?? 0;
+
+// Backlinks to the pillar pages this article belongs to.
+// EN filenames can differ from CN (e.g. multi-platform-delivery-how-en),
+// so match against originalSlug, NOT post.slug.
+const topicLinks = topics
+  .filter((t) => t.en.articles.includes(post.data.originalSlug ?? ''))
+  .map((t) => ({ title: t.en.title, url: `/en/topics/${t.slug}/` }));
 ---
 
 <BlogLayout
@@ -84,6 +92,17 @@ const wordCount = post.body?.match(/[a-zA-Z]+/g)?.length ?? 0;
     <div class="prose prose-lg max-w-none">
       <Content />
     </div>
+
+    {topicLinks.length > 0 && (
+      <aside class="article-topics" aria-label="Article topics">
+        <p class="article-topics-label">Part of</p>
+        <div class="article-topics-links">
+          {topicLinks.map((t) => (
+            <a href={t.url}>{t.title}</a>
+          ))}
+        </div>
+      </aside>
+    )}
 
     <Comments client:load threadKey={post.data.originalSlug} locale="en" />
 
