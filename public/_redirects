@@ -1,8 +1,72 @@
 # Cloudflare Pages _redirects
 # NOTE: Order matters — first match wins. Specific rules must come before catch-all.
+# Static (exact) redirects are listed longest-path-first so no rule can shadow another.
 
-# Redirect old GitHub Pages paths to new domain
-/tappo-saas-blog/*    /:splat    301
+# Legacy GitHub Pages paths.
+# A blanket "/tappo-saas-blog/* -> /:splat 301" used to redirect EVERY old path,
+# including ones whose destination no longer exists (301 -> 404). Search Console
+# classifies a redirect chain ending in a non-2xx as "Redirect error".
+# Enumerate only real destinations instead; unknown old paths now return a clean 404.
+# This list is a conservative superset generated from sitemap-0.xml (content pages
+# only; thin /category/ and /tags/ pages are intentionally not preserved).
+# New articles need no entry here: their old-prefix URL never existed.
+/tappo-saas-blog/en/blog/2026-09-14-lightweight-pos-responsibility-boundaries/    /en/blog/2026-09-14-lightweight-pos-responsibility-boundaries/    301
+/tappo-saas-blog/blog/2026-09-14-lightweight-pos-responsibility-boundaries/    /blog/2026-09-14-lightweight-pos-responsibility-boundaries/    301
+/tappo-saas-blog/en/blog/2026-07-27-localisation-vs-customer-customisation/    /en/blog/2026-07-27-localisation-vs-customer-customisation/    301
+/tappo-saas-blog/blog/2026-07-27-localisation-vs-customer-customisation/    /blog/2026-07-27-localisation-vs-customer-customisation/    301
+/tappo-saas-blog/en/blog/2026-08-17-online-review-reputation-operation/    /en/blog/2026-08-17-online-review-reputation-operation/    301
+/tappo-saas-blog/en/blog/2026-09-07-data-decoupling-restaurant-group/    /en/blog/2026-09-07-data-decoupling-restaurant-group/    301
+/tappo-saas-blog/blog/2026-08-17-online-review-reputation-operation/    /blog/2026-08-17-online-review-reputation-operation/    301
+/tappo-saas-blog/en/blog/2026-08-04-multi-platform-delivery-how-en/    /en/blog/2026-08-04-multi-platform-delivery-how-en/    301
+/tappo-saas-blog/en/blog/2026-08-24-who-owns-customer-relationship/    /en/blog/2026-08-24-who-owns-customer-relationship/    301
+/tappo-saas-blog/blog/2026-09-07-data-decoupling-restaurant-group/    /blog/2026-09-07-data-decoupling-restaurant-group/    301
+/tappo-saas-blog/en/blog/2026-08-31-ai-in-restaurant-saas-product/    /en/blog/2026-08-31-ai-in-restaurant-saas-product/    301
+/tappo-saas-blog/en/blog/2026-03-28-overseas-payment-integration/    /en/blog/2026-03-28-overseas-payment-integration/    301
+/tappo-saas-blog/en/blog/2026-06-11-restaurant-digital-marketing/    /en/blog/2026-06-11-restaurant-digital-marketing/    301
+/tappo-saas-blog/en/blog/2026-08-10-choosing-the-right-customers/    /en/blog/2026-08-10-choosing-the-right-customers/    301
+/tappo-saas-blog/blog/2026-08-24-who-owns-customer-relationship/    /blog/2026-08-24-who-owns-customer-relationship/    301
+/tappo-saas-blog/en/blog/2026-03-12-overseas-pos-product-design/    /en/blog/2026-03-12-overseas-pos-product-design/    301
+/tappo-saas-blog/blog/2026-08-31-ai-in-restaurant-saas-product/    /blog/2026-08-31-ai-in-restaurant-saas-product/    301
+/tappo-saas-blog/blog/2026-03-28-overseas-payment-integration/    /blog/2026-03-28-overseas-payment-integration/    301
+/tappo-saas-blog/blog/2026-06-11-restaurant-digital-marketing/    /blog/2026-06-11-restaurant-digital-marketing/    301
+/tappo-saas-blog/blog/2026-08-10-choosing-the-right-customers/    /blog/2026-08-10-choosing-the-right-customers/    301
+/tappo-saas-blog/en/blog/2026-04-08-i18n-internationalization/    /en/blog/2026-04-08-i18n-internationalization/    301
+/tappo-saas-blog/en/blog/2026-04-15-first-stop-southeast-asia/    /en/blog/2026-04-15-first-stop-southeast-asia/    301
+/tappo-saas-blog/en/blog/2026-07-20-ai-for-saas-overseas-team/    /en/blog/2026-07-20-ai-for-saas-overseas-team/    301
+/tappo-saas-blog/blog/2026-03-12-overseas-pos-product-design/    /blog/2026-03-12-overseas-pos-product-design/    301
+/tappo-saas-blog/en/blog/2026-05-27-global-fb-saas-landscape/    /en/blog/2026-05-27-global-fb-saas-landscape/    301
+/tappo-saas-blog/en/blog/2026-10-06-canada-market-challenges/    /en/blog/2026-10-06-canada-market-challenges/    301
+/tappo-saas-blog/en/blog/2026-07-16-hk-pos-market-judgments/    /en/blog/2026-07-16-hk-pos-market-judgments/    301
+/tappo-saas-blog/blog/2026-04-08-i18n-internationalization/    /blog/2026-04-08-i18n-internationalization/    301
+/tappo-saas-blog/blog/2026-04-15-first-stop-southeast-asia/    /blog/2026-04-15-first-stop-southeast-asia/    301
+/tappo-saas-blog/blog/2026-07-20-ai-for-saas-overseas-team/    /blog/2026-07-20-ai-for-saas-overseas-team/    301
+/tappo-saas-blog/blog/2026-05-27-global-fb-saas-landscape/    /blog/2026-05-27-global-fb-saas-landscape/    301
+/tappo-saas-blog/blog/2026-10-06-canada-market-challenges/    /blog/2026-10-06-canada-market-challenges/    301
+/tappo-saas-blog/blog/2026-07-16-hk-pos-market-judgments/    /blog/2026-07-16-hk-pos-market-judgments/    301
+/tappo-saas-blog/blog/2026-08-03-multi-platform-delivery/    /blog/2026-08-03-multi-platform-delivery/    301
+/tappo-saas-blog/en/blog/2026-09-22-data-hub-when-needed/    /en/blog/2026-09-22-data-hub-when-needed/    301
+/tappo-saas-blog/en/blog/2026-11-10-local-systems-differ/    /en/blog/2026-11-10-local-systems-differ/    301
+/tappo-saas-blog/blog/2026-03-05-remote-team-management/    /blog/2026-03-05-remote-team-management/    301
+/tappo-saas-blog/blog/2026-06-03-hk-pos-selection-guide/    /blog/2026-06-03-hk-pos-selection-guide/    301
+/tappo-saas-blog/blog/2026-03-20-compliance-challenges/    /blog/2026-03-20-compliance-challenges/    301
+/tappo-saas-blog/en/blog/2026-07-02-hk-pos-battle-2026/    /en/blog/2026-07-02-hk-pos-battle-2026/    301
+/tappo-saas-blog/blog/2026-09-22-data-hub-when-needed/    /blog/2026-09-22-data-hub-when-needed/    301
+/tappo-saas-blog/blog/2026-11-10-local-systems-differ/    /blog/2026-11-10-local-systems-differ/    301
+/tappo-saas-blog/blog/2026-07-02-hk-pos-battle-2026/    /blog/2026-07-02-hk-pos-battle-2026/    301
+/tappo-saas-blog/en/topics/overseas-restaurant-saas/    /en/topics/overseas-restaurant-saas/    301
+/tappo-saas-blog/en/topics/restaurant-data-platform/    /en/topics/restaurant-data-platform/    301
+/tappo-saas-blog/en/blog/2026-10-13-ai-not-in-pos/    /en/blog/2026-10-13-ai-not-in-pos/    301
+/tappo-saas-blog/en/blog/2026-11-03-switch-system/    /en/blog/2026-11-03-switch-system/    301
+/tappo-saas-blog/topics/overseas-restaurant-saas/    /topics/overseas-restaurant-saas/    301
+/tappo-saas-blog/topics/restaurant-data-platform/    /topics/restaurant-data-platform/    301
+/tappo-saas-blog/blog/2026-10-13-ai-not-in-pos/    /blog/2026-10-13-ai-not-in-pos/    301
+/tappo-saas-blog/blog/2026-11-03-switch-system/    /blog/2026-11-03-switch-system/    301
+/tappo-saas-blog/en/topics/restaurant-ai/    /en/topics/restaurant-ai/    301
+/tappo-saas-blog/topics/restaurant-ai/    /topics/restaurant-ai/    301
+/tappo-saas-blog/en/about/    /en/about/    301
+/tappo-saas-blog/about/    /about/    301
+/tappo-saas-blog/en/    /en/    301
+/tappo-saas-blog/    /    301
 
 # Redirect legacy /sitemap.xml to Astro-generated sitemap-index.xml
 /sitemap.xml    /sitemap-index.xml    301
@@ -14,5 +78,7 @@
 /blog/       /     301
 /en/blog/    /en/  301
 
-# SPA fallback (last resort) — keep Astro routing working
-/*    /index.html   404
+# No SPA fallback: this is a fully static Astro build, and Cloudflare Pages does
+# not support a "404" rewrite status (only 200 proxying and 301/302/303/307/308).
+# Serving /index.html for unknown paths would create soft-404 duplicate content.
+# Unknown paths return Cloudflare's own clean 404 instead.
