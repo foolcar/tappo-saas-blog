@@ -3,6 +3,10 @@ import BlogLayout from '../../../layouts/BlogLayout.astro';
 import Comments from '../../../components/Comments.tsx';
 import { getCollection } from 'astro:content';
 import { topics } from '../../../data/topics';
+import ShareBar from '../../../components/ShareBar.astro';
+
+// Share URL must match the canonical URL byte-for-byte.
+const pageUrl = Astro.url.toString();
 
 export async function getStaticPaths() {
   const posts = await getCollection('blogEn', ({ data }) => !data.draft);
@@ -105,6 +109,13 @@ const topicLinks = topics
         </div>
       </aside>
     )}
+
+    <ShareBar
+      title={post.data.title}
+      url={pageUrl}
+      description={post.data.description}
+      locale="en"
+    />
 
     <Comments client:load threadKey={post.data.originalSlug} locale="en" />
 

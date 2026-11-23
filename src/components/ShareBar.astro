@@ -1,0 +1,125 @@
+---
+export interface Props {
+  title: string;
+  url: string;
+  description?: string;
+  locale?: 'zh-Hant' | 'en';
+}
+
+const { title, url, description = '', locale = 'zh-Hant' } = Astro.props;
+const enc = encodeURIComponent;
+const isEn = locale === 'en';
+
+// All four platforms accept plain intent URLs. Building them at compile time
+// keeps the share bar static — no client-side URL assembly, no third-party script.
+const links = {
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`,
+  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`,
+  x: `https://x.com/intent/post?text=${enc(title)}&url=${enc(url)}`,
+  email: `mailto:?subject=${enc(title)}&body=${enc(`${title}\n\n${description}\n\n${url}`)}`,
+};
+
+// WeChat has no public web share endpoint: its JS-SDK requires a verified
+// Service Account, an ICP-registered domain and a server-side signature.
+// We provide copy-link + guidance instead of pretending a redirect works.
+const t = isEn
+  ? {
+      label: 'Share this article',
+      wechat: 'WeChat',
+      copy: 'Copy link',
+      native: 'Share…',
+      copied: 'Link copied to clipboard.',
+      wechatHint: 'Link copied — paste it into WeChat. Inside WeChat, tap ⋯ to share.',
+      manual: 'Copy this link manually: ',
+    }
+  : {
+      label: '分享這篇文章',
+      wechat: '微信',
+      copy: '複製連結',
+      native: '系統分享',
+      copied: '連結已複製。',
+      wechatHint: '連結已複製，貼到微信即可；在微信內開啟時，請點右上角「⋯」分享。',
+      manual: '請手動複製此連結：',
+    };
+---
+
+<aside
+  class="share-bar"
+  aria-label={t.label}
+  data-share-url={url}
+  data-share-title={title}
+  data-copied={t.copied}
+  data-wechat-hint={t.wechatHint}
+  data-manual={t.manual}
+>
+  <p class="share-bar-label">{t.label}</p>
+  <div class="share-bar-links">
+    <a href={links.facebook} target="_blank" rel="noopener noreferrer nofollow">Facebook</a>
+    <a href={links.linkedin} target="_blank" rel="noopener noreferrer nofollow">LinkedIn</a>
+    <a href={links.x} target="_blank" rel="noopener noreferrer nofollow">X</a>
+    <a href={links.email} rel="nofollow">Email</a>
+    <button type="button" data-share-wechat>{t.wechat}</button>
+    <button type="button" data-share-copy>{t.copy}</button>
+    <button type="button" data-share-native hidden>{t.native}</button>
+  </div>
+  <p class="share-bar-hint" data-share-hint role="status" aria-live="polite"></p>
+</aside>
+
+<script>
+  document.querySelectorAll('[data-share-url]').forEach((bar) => {
+    const url = bar.dataset.shareUrl || '';
+    const title = bar.dataset.shareTitle || '';
+    const hint = bar.querySelector('[data-share-hint]');
+    let timer;
+
+    const say = (msg) => {
+      if (!hint) return;
+      hint.textContent = msg;
+      clearTimeout(timer);
+      timer = setTimeout(() => { hint.textContent = ''; }, 5000);
+    };
+
+    const copyLink = async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        return true;
+      } catch {
+        const input = document.createElement('textarea');
+        input.value = url;
+        input.setAttribute('readonly', '');
+        input.style.position = 'absolute';
+        input.style.left = '-9999px';
+        document.body.appendChild(input);
+        input.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch { ok = false; }
+        input.remove();
+        return ok;
+      }
+    };
+
+    bar.querySelector('[data-share-copy]')?.addEventListener('click', async () => {
+      const ok = await copyLink();
+      say(ok ? bar.dataset.copied : (bar.dataset.manual || '') + url);
+    });
+
+    bar.querySelector('[data-share-wechat]')?.addEventListener('click', async () => {
+      const ok = await copyLink();
+      say(ok ? bar.dataset.wechatHint : (bar.dataset.manual || '') + url);
+    });
+
+    const nativeBtn = bar.querySelector('[data-share-native]');
+    if (nativeBtn && typeof navigator.share === 'function') {
+      nativeBtn.hidden = false;
+      nativeBtn.addEventListener('click', async () => {
+        try {
+          await navigator.share({ title, text: title, url });
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+          const ok = await copyLink();
+          say(ok ? bar.dataset.copied : (bar.dataset.manual || '') + url);
+        }
+      });
+    }
+  });
+</script>
