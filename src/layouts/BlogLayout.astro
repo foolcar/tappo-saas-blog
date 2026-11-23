@@ -30,6 +30,16 @@ const {
 
 const siteTitle = locale === 'en' ? 'Restaurant SaaS Global Expansion Insight' : '餐飲 SaaS 出海觀察';
 const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+// 社交卡標題（og:title / twitter:title）與 SEO <title> 分開：LinkedIn/X 約 70 字元就截斷，
+// EN 的 42 字元站名後綴會把每篇文章的鉤子擠掉。<title> 維持 fullTitle 給 Google，
+// 這裡只在真的過長時取標題前半段（冒號/破折號前的鉤子），不夠就截在詞 boundary。
+const socialTitle = (() => {
+  if (fullTitle.length <= 60) return fullTitle;
+  const hook = title.split(/:\s| — /, 1)[0].trim();
+  if (hook.length >= 20 && hook.length <= 60) return hook;
+  if (title.length <= 60) return title;
+  return `${title.slice(0, 59).replace(/\s+\S*$/, '')}…`;
+})();
 const siteUrl = Astro.site?.origin ?? 'https://blog.foolcar.cc';
 const basePath = siteUrl;
 const pageUrl = Astro.url.toString();
@@ -105,7 +115,7 @@ const langToggleUrl = (() => {
   }
 
   <!-- Open Graph -->
-  <meta property="og:title" content={fullTitle} />
+  <meta property="og:title" content={socialTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={type} />
   <meta property="og:url" content={pageUrl} />
@@ -131,7 +141,7 @@ const langToggleUrl = (() => {
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:title" content={socialTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={imageUrl} />
 
