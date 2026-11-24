@@ -9,7 +9,7 @@ tags: ["Restaurant SaaS", "SaaS Expansion", "China Market", "Product Localisatio
 image: "/og-china-experience-what-travels-en.jpg"
 ---
 
-I recently came across a line: “In the United States, the POS is used for lending; in Japan, for ordering; in China, for orders and payments.”
+I recently came across a line: "In the US, the POS is used to extend credit; in Japan, to order supplies; in China, to take orders and accept payments."
 
 The same POS can play very different roles in different markets.
 
